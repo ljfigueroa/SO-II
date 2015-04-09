@@ -7,6 +7,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "preemptive.h"
 
 // This defines *all* of the global data structures used by Nachos.
 // These are all initialized and de-allocated by this file.
@@ -18,6 +19,10 @@ Interrupt *interrupt;			// interrupt status
 Statistics *stats;			// performance metrics
 Timer *timer;				// the hardware timer device,
 					// for invoking context switches
+					
+// 2007, Jose Miguel Santos Espino
+PreemptiveScheduler* preemptiveScheduler = NULL;
+const long long DEFAULT_TIME_SLICE = 50000;
 
 #ifdef FILESYS_NEEDED
 FileSystem  *fileSystem;
@@ -40,11 +45,13 @@ PostOffice *postOffice;
 extern void Cleanup();
 
 
+
+
 //----------------------------------------------------------------------
 // TimerInterruptHandler
-// 	Interrupt handler for the timer device.  The timer device is
+// 	Interrupt handler for the timer deviSIGTRAP example -perlce.  The timer device is
 //	set up to interrupt the CPU periodically (once every TimerTicks).
-//	This routine is called each time there is a timer interrupt,
+//	This routine is called each timeALRM there is a timer interrupt,
 //	with interrupts disabled.
 //
 //	Note that instead of calling Yield() directly (which would
@@ -58,7 +65,7 @@ extern void Cleanup();
 //		whether it needs it or not.
 //----------------------------------------------------------------------
 static void
-TimerInterruptHandler(int dummy)
+TimerInterruptHandler(void* dummy)
 {
     if (interrupt->getStatus() != IdleMode)
 	interrupt->YieldOnReturn();
@@ -67,7 +74,7 @@ TimerInterruptHandler(int dummy)
 //----------------------------------------------------------------------
 // Initialize
 // 	Initialize Nachos global data structures.  Interpret command
-//	line arguments in order to determine flags for the initialization.  
+//	line arguments in ALRMorder to determine flags for the initialization.  
 // 
 //	"argc" is the number of command line arguments (including the name
 //		of the command) -- ex: "nachos -d +" -> argc = 3 
@@ -78,14 +85,19 @@ void
 Initialize(int argc, char **argv)
 {
     int argCount;
-    char* debugArgs = "";
-    bool randomYield = FALSE;
+    const char* debugArgs = "";
+    bool randomYield = false;
+    
 
+// 2007, Jose Miguel Santos Espino
+    bool preemptiveScheduling = false;
+    long long timeSlice;
+    
 #ifdef USER_PROGRAM
-    bool debugUserProg = FALSE;	// single step user program
+    bool debugUserProg = false;	// single step user program
 #endif
 #ifdef FILESYS_NEEDED
-    bool format = FALSE;	// format disk
+    bool format = false;	// format disk
 #endif
 #ifdef NETWORK
     double rely = 1;		// network reliability
@@ -105,16 +117,26 @@ Initialize(int argc, char **argv)
 	    ASSERT(argc > 1);
 	    RandomInit(atoi(*(argv + 1)));	// initialize pseudo-random
 						// number generator
-	    randomYield = TRUE;
+	    randomYield = true;
 	    argCount = 2;
+	}
+	// 2007, Jose Miguel Santos Espino
+	else if (!strcmp(*argv, "-p")) {
+	    preemptiveScheduling = true;
+	    if (argc == 1) {
+	        timeSlice = DEFAULT_TIME_SLICE;
+	    } else {
+	        timeSlice = atoi(*(argv+1));
+	        argCount = 2;
+	    }
 	}
 #ifdef USER_PROGRAM
 	if (!strcmp(*argv, "-s"))
-	    debugUserProg = TRUE;
+	    debugUserProg = true;
 #endif
 #ifdef FILESYS_NEEDED
 	if (!strcmp(*argv, "-f"))
-	    format = TRUE;
+	    format = true;
 #endif
 #ifdef NETWORK
 	if (!strcmp(*argv, "-l")) {
@@ -147,6 +169,13 @@ Initialize(int argc, char **argv)
     interrupt->Enable();
     CallOnUserAbort(Cleanup);			// if user hits ctl-C
     
+    // Jose Miguel Santos Espino, 2007
+    if ( preemptiveScheduling ) {
+        preemptiveScheduler = new PreemptiveScheduler();
+        preemptiveScheduler->SetUp(timeSlice);
+    }
+
+    
 #ifdef USER_PROGRAM
     machine = new Machine(debugUserProg);	// this must come first
 #endif
@@ -171,7 +200,12 @@ Initialize(int argc, char **argv)
 void
 Cleanup()
 {
+
     printf("\nCleaning up...\n");
+
+// 2007, Jose Miguel Santos Espino
+    delete preemptiveScheduler;
+
 #ifdef NETWORK
     delete postOffice;
 #endif

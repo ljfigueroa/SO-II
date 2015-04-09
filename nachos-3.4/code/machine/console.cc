@@ -18,9 +18,9 @@
 #include "system.h"
 
 // Dummy functions because C++ is weird about pointers to member functions
-static void ConsoleReadPoll(int c) 
+static void ConsoleReadPoll(void* c) 
 { Console *console = (Console *)c; console->CheckCharAvail(); }
-static void ConsoleWriteDone(int c)
+static void ConsoleWriteDone(void* c)
 { Console *console = (Console *)c; console->WriteDone(); }
 
 //----------------------------------------------------------------------
@@ -36,13 +36,14 @@ static void ConsoleWriteDone(int c)
 //		output
 //----------------------------------------------------------------------
 
-Console::Console(char *readFile, char *writeFile, VoidFunctionPtr readAvail, 
-		VoidFunctionPtr writeDone, int callArg)
+Console::Console(const char *readFile, const char *writeFile,
+		VoidFunctionPtr readAvail, 
+		VoidFunctionPtr writeDone, void* callArg)
 {
     if (readFile == NULL)
 	readFileNo = 0;					// keyboard = stdin
     else
-    	readFileNo = OpenForReadWrite(readFile, TRUE);	// should be read-only
+    	readFileNo = OpenForReadWrite(readFile, true);	// should be read-only
     if (writeFile == NULL)
 	writeFileNo = 1;				// display = stdout
     else
@@ -52,11 +53,11 @@ Console::Console(char *readFile, char *writeFile, VoidFunctionPtr readAvail,
     writeHandler = writeDone;
     readHandler = readAvail;
     handlerArg = callArg;
-    putBusy = FALSE;
+    putBusy = false;
     incoming = EOF;
 
     // start polling for incoming packets
-    interrupt->Schedule(ConsoleReadPoll, (int)this, ConsoleTime, ConsoleReadInt);
+    interrupt->Schedule(ConsoleReadPoll, this, ConsoleTime, ConsoleReadInt);
 }
 
 //----------------------------------------------------------------------
@@ -89,7 +90,7 @@ Console::CheckCharAvail()
     char c;
 
     // schedule the next time to poll for a packet
-    interrupt->Schedule(ConsoleReadPoll, (int)this, ConsoleTime, 
+    interrupt->Schedule(ConsoleReadPoll, this, ConsoleTime, 
 			ConsoleReadInt);
 
     // do nothing if character is already buffered, or none to be read
@@ -113,7 +114,7 @@ Console::CheckCharAvail()
 void
 Console::WriteDone()
 {
-    putBusy = FALSE;
+    putBusy = false;
     stats->numConsoleCharsWritten++;
     (*writeHandler)(handlerArg);
 }
@@ -142,9 +143,9 @@ Console::GetChar()
 void
 Console::PutChar(char ch)
 {
-    ASSERT(putBusy == FALSE);
+    ASSERT(putBusy == false);
     WriteFile(writeFileNo, &ch, sizeof(char));
-    putBusy = TRUE;
-    interrupt->Schedule(ConsoleWriteDone, (int)this, ConsoleTime,
+    putBusy = true;
+    interrupt->Schedule(ConsoleWriteDone, this, ConsoleTime,
 					ConsoleWriteInt);
 }

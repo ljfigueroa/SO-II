@@ -61,7 +61,7 @@ class MailHeader {
 
 class Mail {
   public:
-     Mail(PacketHeader pktH, MailHeader mailH, char *msgData);
+     Mail(PacketHeader pktH, MailHeader mailH, const char *msgData);
 				// Initialize a mail message by
 				// concatenating the headers to the data
 
@@ -80,14 +80,14 @@ class MailBox {
     MailBox();			// Allocate and initialize mail box
     ~MailBox();			// De-allocate mail box
 
-    void Put(PacketHeader pktHdr, MailHeader mailHdr, char *data);
+    void Put(PacketHeader pktHdr, MailHeader mailHdr, const char *data);
    				// Atomically put a message into the mailbox
     void Get(PacketHeader *pktHdr, MailHeader *mailHdr, char *data); 
    				// Atomically get a message out of the 
 				// mailbox (and wait if there is no message 
 				// to get!)
   private:
-    SynchList *messages;	// A mailbox is just a list of arrived messages
+    SynchList<Mail*> *messages;	// A mailbox is just a list of arrived messages
 };
 
 // The following class defines a "Post Office", or a collection of 
@@ -107,7 +107,7 @@ class PostOffice {
 				//   get dropped by the underlying network
     ~PostOffice();		// De-allocate Post Office data
     
-    void Send(PacketHeader pktHdr, MailHeader mailHdr, char *data);
+    void Send(PacketHeader pktHdr, MailHeader mailHdr, const char *data);
     				// Send a message to a mailbox on a remote 
 				// machine.  The fromBox in the MailHeader is 
 				// the return box for ack's.

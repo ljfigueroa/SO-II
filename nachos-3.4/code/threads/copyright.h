@@ -1,5 +1,7 @@
 /*
 Copyright (c) 1992-1993 The Regents of the University of California.
+Copyright (c) 1998-2010 Universidad de Las Palmas de Gran Canaria.
+
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its
@@ -17,8 +19,9 @@ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
 ON AN "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATION TO
 PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
 */
 
 #ifdef MAIN	/* include the copyright message in every executable */
-static char *copyright = "Copyright (c) 1992-1993 The Regents of the University of California.  All rights reserved.";
+static const char *copyright = "Copyright (c) 1992-1993 The Regents of the University of California.  All rights reserved.";
 #endif // MAIN

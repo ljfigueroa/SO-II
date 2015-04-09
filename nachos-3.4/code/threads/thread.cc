@@ -20,9 +20,9 @@
 #include "synch.h"
 #include "system.h"
 
-#define STACK_FENCEPOST 0xdeadbeef	// this is put at the top of the
-					// execution stack, for detecting 
-					// stack overflows
+// this is put at the top of the execution stack,
+// for detecting stack overflows
+const unsigned STACK_FENCEPOST = 0xdeadbeef;	
 
 //----------------------------------------------------------------------
 // Thread::Thread
@@ -32,7 +32,7 @@
 //	"threadName" is an arbitrary string, useful for debugging.
 //----------------------------------------------------------------------
 
-Thread::Thread(char* threadName)
+Thread::Thread(const char* threadName)
 {
     name = threadName;
     stackTop = NULL;
@@ -61,7 +61,7 @@ Thread::~Thread()
 
     ASSERT(this != currentThread);
     if (stack != NULL)
-	DeallocBoundedArray((char *) stack, StackSize * sizeof(int));
+	DeallocBoundedArray((char *) stack, StackSize * sizeof(HostMemoryAddress));
 }
 
 //----------------------------------------------------------------------
@@ -85,17 +85,23 @@ Thread::~Thread()
 //----------------------------------------------------------------------
 
 void 
-Thread::Fork(VoidFunctionPtr func, int arg)
+Thread::Fork(VoidFunctionPtr func, void* arg)
 {
+#ifdef HOST_x86_64
+    DEBUG('t', "Forking thread \"%s\" with func = 0x%lx, arg = %ld\n",
+	  name, (HostMemoryAddress) func, arg);
+#else
+    // code for 32-bit architectures
     DEBUG('t', "Forking thread \"%s\" with func = 0x%x, arg = %d\n",
-	  name, (int) func, arg);
-    
+	  name, (HostMemoryAddress) func, arg);
+#endif
+
     StackAllocate(func, arg);
 
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
     scheduler->ReadyToRun(this);	// ReadyToRun assumes that interrupts 
 					// are disabled!
-    (void) interrupt->SetLevel(oldLevel);
+    interrupt->SetLevel(oldLevel);
 }    
 
 //----------------------------------------------------------------------
@@ -116,12 +122,9 @@ Thread::Fork(VoidFunctionPtr func, int arg)
 void
 Thread::CheckOverflow()
 {
-    if (stack != NULL)
-#ifdef HOST_SNAKE			// Stacks grow upward on the Snakes
-	ASSERT(stack[StackSize - 1] == STACK_FENCEPOST);
-#else
+    if (stack != NULL) {
 	ASSERT(*stack == STACK_FENCEPOST);
-#endif
+    }
 }
 
 //----------------------------------------------------------------------
@@ -143,7 +146,7 @@ Thread::CheckOverflow()
 void
 Thread::Finish ()
 {
-    (void) interrupt->SetLevel(IntOff);		
+    interrupt->SetLevel(IntOff);		
     ASSERT(this == currentThread);
     
     DEBUG('t', "Finishing thread \"%s\"\n", getName());
@@ -186,7 +189,7 @@ Thread::Yield ()
 	scheduler->ReadyToRun(this);
 	scheduler->Run(nextThread);
     }
-    (void) interrupt->SetLevel(oldLevel);
+    interrupt->SetLevel(oldLevel);
 }
 
 //----------------------------------------------------------------------
@@ -219,14 +222,15 @@ Thread::Sleep ()
     DEBUG('t', "Sleeping thread \"%s\"\n", getName());
 
     status = BLOCKED;
-    while ((nextThread = scheduler->FindNextToRun()) == NULL)
+    while ((nextThread = scheduler->FindNextToRun()) == NULL) {
 	interrupt->Idle();	// no one to run, wait for an interrupt
+    }
         
     scheduler->Run(nextThread); // returns when we've been signalled
 }
 
 //----------------------------------------------------------------------
-// ThreadFinish, InterruptEnable, ThreadPrint
+// ThreadFinish, InterruptEnable
 //	Dummy functions because C++ does not allow a pointer to a member
 //	function.  So in order to do this, we create a dummy C function
 //	(which we can pass a pointer to), that then simply calls the 
@@ -235,7 +239,6 @@ Thread::Sleep ()
 
 static void ThreadFinish()    { currentThread->Finish(); }
 static void InterruptEnable() { interrupt->Enable(); }
-void ThreadPrint(int arg){ Thread *t = (Thread *)arg; t->Print(); }
 
 //----------------------------------------------------------------------
 // Thread::StackAllocate
@@ -250,37 +253,26 @@ void ThreadPrint(int arg){ Thread *t = (Thread *)arg; t->Print(); }
 //----------------------------------------------------------------------
 
 void
-Thread::StackAllocate (VoidFunctionPtr func, int arg)
+Thread::StackAllocate (VoidFunctionPtr func, void* arg)
 {
-    stack = (int *) AllocBoundedArray(StackSize * sizeof(int));
+    stack = (HostMemoryAddress *) AllocBoundedArray(StackSize * sizeof(HostMemoryAddress));
 
-#ifdef HOST_SNAKE
-    // HP stack works from low addresses to high addresses
-    stackTop = stack + 16;	// HP requires 64-byte frame marker
-    stack[StackSize - 1] = STACK_FENCEPOST;
-#else
     // i386 & MIPS & SPARC stack works from high addresses to low addresses
-#ifdef HOST_SPARC
-    // SPARC stack must contains at least 1 activation record to start with.
-    stackTop = stack + StackSize - 96;
-#else  // HOST_MIPS  || HOST_i386
     stackTop = stack + StackSize - 4;	// -4 to be on the safe side!
-#ifdef HOST_i386
+
     // the 80386 passes the return address on the stack.  In order for
     // SWITCH() to go to ThreadRoot when we switch to this thread, the
     // return addres used in SWITCH() must be the starting address of
     // ThreadRoot.
-    *(--stackTop) = (int)ThreadRoot;
-#endif
-#endif  // HOST_SPARC
+    *(--stackTop) = (HostMemoryAddress)ThreadRoot;
+
     *stack = STACK_FENCEPOST;
-#endif  // HOST_SNAKE
     
-    machineState[PCState] = (int) ThreadRoot;
-    machineState[StartupPCState] = (int) InterruptEnable;
-    machineState[InitialPCState] = (int) func;
-    machineState[InitialArgState] = arg;
-    machineState[WhenDonePCState] = (int) ThreadFinish;
+    machineState[PCState] = (HostMemoryAddress) ThreadRoot;
+    machineState[StartupPCState] = (HostMemoryAddress) InterruptEnable;
+    machineState[InitialPCState] = (HostMemoryAddress) func;
+    machineState[InitialArgState] = (HostMemoryAddress) arg;
+    machineState[WhenDonePCState] = (HostMemoryAddress) ThreadFinish;
 }
 
 #ifdef USER_PROGRAM

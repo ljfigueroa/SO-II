@@ -31,7 +31,7 @@
 // FileHeader::Allocate
 // 	Initialize a fresh file header for a newly created file.
 //	Allocate data blocks for the file out of the map of free disk blocks.
-//	Return FALSE if there are not enough free blocks to accomodate
+//	Return false if there are not enough free blocks to accomodate
 //	the new file.
 //
 //	"freeMap" is the bit map of free disk sectors
@@ -44,11 +44,11 @@ FileHeader::Allocate(BitMap *freeMap, int fileSize)
     numBytes = fileSize;
     numSectors  = divRoundUp(fileSize, SectorSize);
     if (freeMap->NumClear() < numSectors)
-	return FALSE;		// not enough space
+	return false;		// not enough space
 
     for (int i = 0; i < numSectors; i++)
 	dataSectors[i] = freeMap->Find();
-    return TRUE;
+    return true;
 }
 
 //----------------------------------------------------------------------

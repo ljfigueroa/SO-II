@@ -37,8 +37,9 @@
 
 class Console {
   public:
-    Console(char *readFile, char *writeFile, VoidFunctionPtr readAvail, 
-	VoidFunctionPtr writeDone, int callArg);
+    Console(const char *readFile, const char *writeFile, 
+            VoidFunctionPtr readAvail, VoidFunctionPtr writeDone,
+            void* callArg);
 				// initialize the hardware console device
     ~Console();			// clean up console emulation
 
@@ -63,7 +64,7 @@ class Console {
 					// the PutChar I/O completes
     VoidFunctionPtr readHandler; 	// Interrupt handler to call when 
 					// a character arrives from the keyboard
-    int handlerArg;			// argument to be passed to the 
+    void* handlerArg;			// argument to be passed to the 
 					// interrupt handlers
     bool putBusy;    			// Is a PutChar operation in progress?
 					// If so, you can't do another one!

@@ -76,7 +76,7 @@ ShortToMachine(unsigned short shortword) { return ShortToHost(shortword); }
 //      Read "size" (1, 2, or 4) bytes of virtual memory at "addr" into 
 //	the location pointed to by "value".
 //
-//   	Returns FALSE if the translation step from virtual to physical memory
+//   	Returns false if the translation step from virtual to physical memory
 //   	failed.
 //
 //	"addr" -- the virtual address to read from
@@ -93,10 +93,10 @@ Machine::ReadMem(int addr, int size, int *value)
     
     DEBUG('a', "Reading VA 0x%x, size %d\n", addr, size);
     
-    exception = Translate(addr, &physicalAddress, size, FALSE);
+    exception = Translate(addr, &physicalAddress, size, false);
     if (exception != NoException) {
 	machine->RaiseException(exception, addr);
-	return FALSE;
+	return false;
     }
     switch (size) {
       case 1:
@@ -114,11 +114,11 @@ Machine::ReadMem(int addr, int size, int *value)
 	*value = WordToHost(data);
 	break;
 
-      default: ASSERT(FALSE);
+      default: ASSERT(false);
     }
     
     DEBUG('a', "\tvalue read = %8.8x\n", *value);
-    return (TRUE);
+    return true;
 }
 
 //----------------------------------------------------------------------
@@ -126,7 +126,7 @@ Machine::ReadMem(int addr, int size, int *value)
 //      Write "size" (1, 2, or 4) bytes of the contents of "value" into
 //	virtual memory at location "addr".
 //
-//   	Returns FALSE if the translation step from virtual to physical memory
+//   	Returns false if the translation step from virtual to physical memory
 //   	failed.
 //
 //	"addr" -- the virtual address to write to
@@ -142,10 +142,10 @@ Machine::WriteMem(int addr, int size, int value)
      
     DEBUG('a', "Writing VA 0x%x, size %d, value 0x%x\n", addr, size, value);
 
-    exception = Translate(addr, &physicalAddress, size, TRUE);
+    exception = Translate(addr, &physicalAddress, size, true);
     if (exception != NoException) {
 	machine->RaiseException(exception, addr);
-	return FALSE;
+	return false;
     }
     switch (size) {
       case 1:
@@ -162,10 +162,10 @@ Machine::WriteMem(int addr, int size, int value)
 		= WordToMachine((unsigned int) value);
 	break;
 	
-      default: ASSERT(FALSE);
+      default: ASSERT(false);
     }
     
-    return TRUE;
+    return true;
 }
 
 //----------------------------------------------------------------------
@@ -180,7 +180,7 @@ Machine::WriteMem(int addr, int size, int value)
 //	"virtAddr" -- the virtual address to translate
 //	"physAddr" -- the place to store the physical address
 //	"size" -- the amount of memory being read or written
-// 	"writing" -- if TRUE, check the "read-only" bit in the TLB
+// 	"writing" -- if true, check the "read-only" bit in the TLB
 //----------------------------------------------------------------------
 
 ExceptionType
@@ -221,7 +221,7 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 	entry = &pageTable[vpn];
     } else {
         for (entry = NULL, i = 0; i < TLBSize; i++)
-    	    if (tlb[i].valid && (tlb[i].virtualPage == vpn)) {
+    	    if (tlb[i].valid && (tlb[i].virtualPage == (int)vpn)) {
 		entry = &tlb[i];			// FOUND!
 		break;
 	    }
@@ -245,9 +245,9 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 	DEBUG('a', "*** frame %d > %d!\n", pageFrame, NumPhysPages);
 	return BusErrorException;
     }
-    entry->use = TRUE;		// set the use, dirty bits
+    entry->use = true;		// set the use, dirty bits
     if (writing)
-	entry->dirty = TRUE;
+	entry->dirty = true;
     *physAddr = pageFrame * PageSize + offset;
     ASSERT((*physAddr >= 0) && ((*physAddr + size) <= MemorySize));
     DEBUG('a', "phys addr = 0x%x\n", *physAddr);

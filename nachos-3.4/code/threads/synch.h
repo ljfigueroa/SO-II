@@ -1,14 +1,18 @@
-// synch.h 
-//	Data structures for synchronizing threads.
+// synch.h
+//	NOTA: �ste es el �nico fichero fuente con los comentarios en espa�ol
+//	2000 - Jos� Miguel Santos Espino - ULPGC
 //
-//	Three kinds of synchronization are defined here: semaphores,
-//	locks, and condition variables.  The implementation for
-//	semaphores is given; for the latter two, only the procedure
-//	interface is given -- they are to be implemented as part of 
-//	the first assignment.
+//	Estructuras de datos para sincronizar hilos (threads)
 //
-//	Note that all the synchronization objects take a "name" as
-//	part of the initialization.  This is solely for debugging purposes.
+//	Aqu� se definen tres mecanismos de sincronizaci�n: sem�foros
+//	(semaphores), cerrojos (locks) y variables condici�n (condition var-
+//	iables). S�lo est�n implementados los sem�foros; de los cerrojos y
+//	variables condici�n s�lo se proporciona la interfaz. Precisamente el
+//	primer trabajo incluye realizar esta implementaci�n.
+//
+//	Todos los objetos de sincronizaci�n tienen un par�metro "name" en
+//	el constructor; su �nica finalidad es facilitar la depuraci�n del
+//	programa.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
 // All rights reserved.  See copyright.h for copyright notice and limitation 
@@ -21,99 +25,131 @@
 #include "thread.h"
 #include "list.h"
 
-// The following class defines a "semaphore" whose value is a non-negative
-// integer.  The semaphore has only two operations P() and V():
+// La siguiente clase define un "sem�foro" cuyo valor es un entero positivo.
+// El sem�foro ofrece s�lo dos operaciones, P() y V():
 //
-//	P() -- waits until value > 0, then decrement
+//	P() -- espera a que value>0, luego decrementa value
 //
-//	V() -- increment, waking up a thread waiting in P() if necessary
-// 
-// Note that the interface does *not* allow a thread to read the value of 
-// the semaphore directly -- even if you did read the value, the
-// only thing you would know is what the value used to be.  You don't
-// know what the value is now, because by the time you get the value
-// into a register, a context switch might have occurred,
-// and some other thread might have called P or V, so the true value might
-// now be different.
+//	V() -- incrementa value, despiera a un hilo en espera si lo hay
+//
+// Observen que esta interfaz NO permite leer directamente el valor del
+// sem�foro -- aunque hubieras podido leer el valor, no te sirve de nada,
+// porque mientras tanto otro hilo puede haber modificado el sem�foro,
+// si t� has perdido la CPU durante un tiempo.
 
 class Semaphore {
   public:
-    Semaphore(char* debugName, int initialValue);	// set initial value
-    ~Semaphore();   					// de-allocate semaphore
-    char* getName() { return name;}			// debugging assist
-    
-    void P();	 // these are the only operations on a semaphore
-    void V();	 // they are both *atomic*
+    // Constructor: da un valor inicial al sem�foro  
+    Semaphore(const char* debugName, int initialValue);	// set initial value
+    ~Semaphore();   					// destructor
+    const char* getName() { return name;}			// para depuraci�n
+
+    // Las �nicas operaciones p�blicas sobre el sem�foro
+    // ambas deben ser *at�micas*
+    void P();
+    void V();
     
   private:
-    char* name;        // useful for debugging
-    int value;         // semaphore value, always >= 0
-    List *queue;       // threads waiting in P() for the value to be > 0
+    const char* name;        		// para depuraci�n
+    int value;         		// valor del sem�foro, siempre es >= 0
+    List<Thread*> *queue;       // Cola con los hilos que esperan en P() porque el
+                       		// valor es cero
 };
 
-// The following class defines a "lock".  A lock can be BUSY or FREE.
-// There are only two operations allowed on a lock: 
+// La siguiente clase define un "cerrojo" (Lock). Un cerrojo puede tener
+// dos estados: libre y ocupado. S�lo se permiten dos operaciones sobre
+// un cerrojo:
 //
-//	Acquire -- wait until the lock is FREE, then set it to BUSY
+//	Acquire -- espera a que el cerrojo est� libre y lo marca como ocupado
 //
-//	Release -- set lock to be FREE, waking up a thread waiting
-//		in Acquire if necessary
+//	Release -- marca el cerrojo como libre, despertando a alg�n otro
+//                 hilo que estuviera bloqueado en un Acquire
 //
-// In addition, by convention, only the thread that acquired the lock
-// may release it.  As with semaphores, you can't read the lock value
-// (because the value might change immediately after you read it).  
+// Por conveniencia, nadie excepto el hilo que tiene adquirido el cerrojo
+// puede liberarlo. No hay ninguna operaci�n para leer el estado del cerrojo.
+
 
 class Lock {
   public:
-    Lock(char* debugName);  		// initialize lock to be FREE
-    ~Lock();				// deallocate lock
-    char* getName() { return name; }	// debugging assist
+  // Constructor: inicia el cerrojo como libre
+  Lock(const char* debugName);
 
-    void Acquire(); // these are the only operations on a lock
-    void Release(); // they are both *atomic*
+  ~Lock();          // destructor
+  const char* getName() { return name; }	// para depuraci�n
 
-    bool isHeldByCurrentThread();	// true if the current thread
-					// holds this lock.  Useful for
-					// checking in Release, and in
-					// Condition variable ops below.
+  // Operaciones sobre el cerrojo. Ambas deben ser *at�micas*
+  void Acquire(); 
+  void Release();
+
+  // devuelve 'true' si el hilo actual es quien posee el cerrojo.
+  // �til para comprobaciones en el Release() y en las variables condici�n
+  bool isHeldByCurrentThread();	
 
   private:
-    char* name;				// for debugging
-    // plus some other stuff you'll need to define
+    const char* name;				// para depuraci�n
+    // a�adir aqu� otros campos que sean necesarios
 };
 
-// The following class defines a "condition variable".  A condition
-// variable does not have a value, but threads may be queued, waiting
-// on the variable.  These are only operations on a condition variable: 
+//  La siguiente clase define una "variable condici�n". Una variable condici�n
+//  no tiene valor alguno. Se utiliza para encolar hilos que esperan (Wait) a
+//  que otro hilo les avise (Signal). Las variables condici�n est�n vinculadas
+//  a un cerrojo (Lock). 
+//  Estas son las tres operaciones sobre una variable condici�n:
 //
-//	Wait() -- release the lock, relinquish the CPU until signaled, 
-//		then re-acquire the lock
+//     Wait()      -- libera el cerrojo y expulsa al hilo de la CPU.
+//                    El hilo se espera hasta que alguien le hace un Signal()
 //
-//	Signal() -- wake up a thread, if there are any waiting on 
-//		the condition
+//     Signal()    -- si hay alguien esperando en la variable, despierta a uno
+//                    de los hilos. Si no hay nadie esperando, no ocurre nada.
 //
-//	Broadcast() -- wake up all threads waiting on the condition
+//     Broadcast() -- despierta a todos los hilos que est�n esperando
 //
-// All operations on a condition variable must be made while
-// the current thread has acquired a lock.  Indeed, all accesses
-// to a given condition variable must be protected by the same lock.
-// In other words, mutual exclusion must be enforced among threads calling
-// the condition variable operations.
 //
-// In Nachos, condition variables are assumed to obey *Mesa*-style
-// semantics.  When a Signal or Broadcast wakes up another thread,
-// it simply puts the thread on the ready list, and it is the responsibility
-// of the woken thread to re-acquire the lock (this re-acquire is
-// taken care of within Wait()).  By contrast, some define condition
-// variables according to *Hoare*-style semantics -- where the signalling
-// thread gives up control over the lock and the CPU to the woken thread,
-// which runs immediately and gives back control over the lock to the 
-// signaller when the woken thread leaves the critical section.
+//  Todas las operaciones sobre una variable condici�n deben ser realizadas
+//  adquiriendo previamente el cerrojo. Esto significa que las operaciones
+//  sobre variables condici�n han de ejecutarse en exclusi�n mutua.
 //
-// The consequence of using Mesa-style semantics is that some other thread
-// can acquire the lock, and change data structures, before the woken
-// thread gets a chance to run.
+//  Las variables condici�n de Nachos deber�an funcionar seg�n el estilo
+//  "Mesa". Cuando un Signal() o Broadast() despierta a otro hilo,
+//  �ste se coloca en la cola de preparados. El hilo despertado es responsable
+//  de volver a adquirir el cerrojo. Esto lo deben implementar en el cuerpo de
+//  la funci�n Wait().
+//  En contraste, tambi�n existe otro estilo de variables condici�n, seg�n
+//  el estilo "Hoare", seg�n el cual el hilo que hace el Signal() pierde
+//  el control del cerrojo y entrega la CPU al hilo despertado, quien se
+//  ejecuta de inmediato y cuando libera el cerrojo, devuelve el control
+//  al hilo que efectu� el Signal().
+//
+//  El estilo "Mesa" es algo m�s f�cil de implementar, pero no garantiza
+//  que el hilo despertado recupere de inmediato el control del cerrojo.
 
+class Condition {
+ public:
+    // Constructor: se le indica cu�l es el cerrojo al que pertenece
+    // la variable condici�n
+    Condition(const char* debugName, Lock* conditionLock);	
+
+    // libera el objeto
+    ~Condition();	
+    const char* getName() { return (name); }
+
+    // Las tres operaciones sobre variables condici�n.
+    // El hilo que invoque a cualquiera de estas operaciones debe tener
+    // adquirido el cerrojo correspondiente; de lo contrario se debe
+    // producir un error.
+    void Wait(); 	
+    void Signal();   
+    void Broadcast();
+
+  private:
+    const char* name;
+    // aqu� se a�aden otros campos que sean necesarios
+};
+
+/*
+
+C�digo original del Nachos para las variables condici�n - NO USAR
+  
 class Condition {
   public:
     Condition(char* debugName);		// initialize condition to 
@@ -133,4 +169,7 @@ class Condition {
     char* name;
     // plus some other stuff you'll need to define
 };
+
+*/
+
 #endif // SYNCH_H

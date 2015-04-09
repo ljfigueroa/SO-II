@@ -58,13 +58,13 @@ enum IntType { TimerInt, DiskInt, ConsoleWriteInt, ConsoleReadInt,
 
 class PendingInterrupt {
   public:
-    PendingInterrupt(VoidFunctionPtr func, int param, int time, IntType kind);
+    PendingInterrupt(VoidFunctionPtr func, void* param, int time, IntType kind);
 				// initialize an interrupt that will
 				// occur in the future
 
     VoidFunctionPtr handler;    // The function (in the hardware device
 				// emulator) to call when the interrupt occurs
-    int arg;                    // The argument to the function.
+    void* arg;                  // The argument to the function.
     int when;			// When the interrupt is supposed to fire
     IntType type;		// for debugging
 };
@@ -107,17 +107,17 @@ class Interrupt {
     // hardware device simulators.
 
     void Schedule(VoidFunctionPtr handler,// Schedule an interrupt to occur
-	int arg, int when, IntType type);// at time ``when''.  This is called
+	void* arg, int when, IntType type);// at time ``when''.  This is called
     					// by the hardware device simulators.
     
     void OneTick();       		// Advance simulated time
 
   private:
     IntStatus level;		// are interrupts enabled or disabled?
-    List *pending;		// the list of interrupts scheduled
+    List<PendingInterrupt*> *pending;	// the list of interrupts scheduled
 				// to occur in the future
-    bool inHandler;		// TRUE if we are running an interrupt handler
-    bool yieldOnReturn; 	// TRUE if we are to context switch
+    bool inHandler;		// true if we are running an interrupt handler
+    bool yieldOnReturn; 	// true if we are to context switch
 				// on return from the interrupt handler
     MachineStatus status;	// idle, kernel mode, user mode
 
@@ -128,6 +128,11 @@ class Interrupt {
 
     void ChangeLevel(IntStatus old, 	// SetLevel, without advancing the
 	IntStatus now);  		// simulated time
+#ifdef DFS_TICKS_FIX
+    // Restart total ticks and the pending interrupt list.
+    void RestartTicks();
+#endif
+
 };
 
 #endif // INTERRRUPT_H

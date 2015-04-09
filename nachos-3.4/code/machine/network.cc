@@ -12,9 +12,9 @@
 #include "system.h"
 
 // Dummy functions because C++ can't call member functions indirectly 
-static void NetworkReadPoll(int arg)
+static void NetworkReadPoll(void* arg)
 { Network *net = (Network *)arg; net->CheckPktAvail(); }
-static void NetworkSendDone(int arg)
+static void NetworkSendDone(void* arg)
 { Network *net = (Network *)arg; net->SendDone(); }
 
 // Initialize the network emulation
@@ -22,7 +22,7 @@ static void NetworkSendDone(int arg)
 //   reliability says whether we drop packets to emulate unreliable links
 //   readAvail, writeDone, callArg -- analogous to console
 Network::Network(NetworkAddress addr, double reliability,
-	VoidFunctionPtr readAvail, VoidFunctionPtr writeDone, int callArg)
+	VoidFunctionPtr readAvail, VoidFunctionPtr writeDone, void* callArg)
 {
     ident = addr;
     if (reliability < 0) chanceToWork = 0;
@@ -33,7 +33,7 @@ Network::Network(NetworkAddress addr, double reliability,
     writeHandler = writeDone;
     readHandler = readAvail;
     handlerArg = callArg;
-    sendBusy = FALSE;
+    sendBusy = false;
     inHdr.length = 0;
     
     sock = OpenSocket();
@@ -42,7 +42,7 @@ Network::Network(NetworkAddress addr, double reliability,
 						 // in the current directory.
 
     // start polling for incoming packets
-    interrupt->Schedule(NetworkReadPoll, (int)this, NetworkTime, NetworkRecvInt);
+    interrupt->Schedule(NetworkReadPoll, this, NetworkTime, NetworkRecvInt);
 }
 
 Network::~Network()
@@ -58,7 +58,7 @@ void
 Network::CheckPktAvail()
 {
     // schedule the next time to poll for a packet
-    interrupt->Schedule(NetworkReadPoll, (int)this, NetworkTime, NetworkRecvInt);
+    interrupt->Schedule(NetworkReadPoll, this, NetworkTime, NetworkRecvInt);
 
     if (inHdr.length != 0) 	// do nothing if packet is already buffered
 	return;		
@@ -87,7 +87,7 @@ Network::CheckPktAvail()
 void
 Network::SendDone()
 {
-    sendBusy = FALSE;
+    sendBusy = false;
     stats->numPacketsSent++;
     (*writeHandler)(handlerArg);
 }
@@ -98,17 +98,17 @@ Network::SendDone()
 // Note we always pad out a packet to MaxWireSize before putting it into
 // the socket, because it's simpler at the receive end.
 void
-Network::Send(PacketHeader hdr, char* data)
+Network::Send(PacketHeader hdr, const char* data)
 {
     char toName[32];
 
     sprintf(toName, "SOCKET_%d", (int)hdr.to);
     
-    ASSERT((sendBusy == FALSE) && (hdr.length > 0) 
+    ASSERT((sendBusy == false) && (hdr.length > 0) 
 		&& (hdr.length <= MaxPacketSize) && (hdr.from == ident));
     DEBUG('n', "Sending to addr %d, %d bytes... ", hdr.to, hdr.length);
 
-    interrupt->Schedule(NetworkSendDone, (int)this, NetworkTime, NetworkSendInt);
+    interrupt->Schedule(NetworkSendDone, this, NetworkTime, NetworkSendInt);
 
     if (Random() % 100 >= chanceToWork * 100) { // emulate a lost packet
 	DEBUG('n', "oops, lost it!\n");

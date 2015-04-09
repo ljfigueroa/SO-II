@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------
 
 void
-Copy(char *from, char *to)
+Copy(const char *from, const char *to)
 {
     FILE *fp;
     OpenFile* openFile;
@@ -75,7 +75,7 @@ Copy(char *from, char *to)
 //----------------------------------------------------------------------
 
 void
-Print(char *name)
+Print(const char *name)
 {
     OpenFile *openFile;    
     int i, amountRead;
@@ -120,7 +120,7 @@ FileWrite()
     int i, numBytes;
 
     printf("Sequential write of %d byte file, in %d byte chunks\n", 
-	FileSize, ContentSize);
+	FileSize, (int)ContentSize);
     if (!fileSystem->Create(FileName, 0)) {
       printf("Perf test: can't create %s\n", FileName);
       return;
@@ -149,7 +149,7 @@ FileRead()
     int i, numBytes;
 
     printf("Sequential read of %d byte file, in %d byte chunks\n", 
-	FileSize, ContentSize);
+	FileSize, (int)ContentSize);
 
     if ((openFile = fileSystem->Open(FileName)) == NULL) {
 	printf("Perf test: unable to open file %s\n", FileName);

@@ -58,6 +58,6 @@ ExceptionHandler(ExceptionType which)
    	interrupt->Halt();
     } else {
 	printf("Unexpected user mode exception %d %d\n", which, type);
-	ASSERT(FALSE);
+	ASSERT(false);
     }
 }

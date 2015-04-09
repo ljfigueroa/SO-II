@@ -29,7 +29,7 @@
 
 Scheduler::Scheduler()
 { 
-    readyList = new List; 
+    readyList = new List<Thread*>; 
 } 
 
 //----------------------------------------------------------------------
@@ -56,7 +56,7 @@ Scheduler::ReadyToRun (Thread *thread)
     DEBUG('t', "Putting thread %s on ready list.\n", thread->getName());
 
     thread->setStatus(READY);
-    readyList->Append((void *)thread);
+    readyList->Append(thread);
 }
 
 //----------------------------------------------------------------------
@@ -70,7 +70,7 @@ Scheduler::ReadyToRun (Thread *thread)
 Thread *
 Scheduler::FindNextToRun ()
 {
-    return (Thread *)readyList->Remove();
+    return readyList->Remove();
 }
 
 //----------------------------------------------------------------------
@@ -139,9 +139,15 @@ Scheduler::Run (Thread *nextThread)
 // 	Print the scheduler state -- in other words, the contents of
 //	the ready list.  For debugging.
 //----------------------------------------------------------------------
+
+static void
+ThreadPrint (Thread* t) {
+  t->Print();
+}
+
 void
 Scheduler::Print()
 {
     printf("Ready list contents:\n");
-    readyList->Mapcar((VoidFunctionPtr) ThreadPrint);
+    readyList->Apply(ThreadPrint);
 }

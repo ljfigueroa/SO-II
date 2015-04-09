@@ -26,7 +26,7 @@
 // returning.
 class SynchDisk {
   public:
-    SynchDisk(char* name);    		// Initialize a synchronous disk,
+    SynchDisk(const char* name);    	// Initialize a synchronous disk,
 					// by initializing the raw Disk.
     ~SynchDisk();			// De-allocate the synch disk data
     
@@ -36,7 +36,7 @@ class SynchDisk {
 					// or written.  These call
     					// Disk::ReadRequest/WriteRequest and
 					// then wait until the request is done.
-    void WriteSector(int sectorNumber, char* data);
+    void WriteSector(int sectorNumber, const char* data);
     
     void RequestDone();			// Called by the disk device interrupt
 					// handler, to signal that the

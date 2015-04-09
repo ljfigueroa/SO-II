@@ -37,8 +37,8 @@ class PacketHeader {
 				// MailHeader prepended by the post office)
 };
 
-#define MaxWireSize 	64	// largest packet that can go out on the wire
-#define MaxPacketSize 	(MaxWireSize - sizeof(struct PacketHeader))	
+const int MaxWireSize = 64;	// largest packet that can go out on the wire
+const int MaxPacketSize = MaxWireSize - sizeof(struct PacketHeader);	
 				// data "payload" of the largest packet
 
 
@@ -55,11 +55,11 @@ class PacketHeader {
 class Network {
   public:
     Network(NetworkAddress addr, double reliability,
-  	  VoidFunctionPtr readAvail, VoidFunctionPtr writeDone, int callArg);
+  	  VoidFunctionPtr readAvail, VoidFunctionPtr writeDone, void* callArg);
 				// Allocate and initialize network driver
     ~Network();			// De-allocate the network driver data
     
-    void Send(PacketHeader hdr, char* data);
+    void Send(PacketHeader hdr, const char* data);
     				// Send the packet data to a remote machine,
 				// specified by "hdr".  Returns immediately.
     				// "writeHandler" is invoked once the next 
@@ -89,7 +89,7 @@ class Network {
 				//      can be sent.  
     VoidFunctionPtr readHandler;  // Interrupt handler, signalling packet has 
 				// 	arrived.
-    int handlerArg;		// Argument to be passed to interrupt handler
+    void* handlerArg;		// Argument to be passed to interrupt handler
 				//   (pointer to post office)
     bool sendBusy;		// Packet is being sent.
     bool packetAvail;		// Packet has arrived, can be pulled off of

@@ -66,7 +66,7 @@ BitMap::Clear(int which)
 
 //----------------------------------------------------------------------
 // BitMap::Test
-// 	Return TRUE if the "nth" bit is set.
+// 	Return true if the "nth" bit is set.
 //
 //	"which" is the number of the bit to be tested.
 //----------------------------------------------------------------------
@@ -77,9 +77,9 @@ BitMap::Test(int which)
     ASSERT(which >= 0 && which < numBits);
     
     if (map[which / BitsInWord] & (1 << (which % BitsInWord)))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 //----------------------------------------------------------------------

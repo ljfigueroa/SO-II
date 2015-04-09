@@ -33,11 +33,11 @@
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
 
-Semaphore::Semaphore(char* debugName, int initialValue)
+Semaphore::Semaphore(const char* debugName, int initialValue)
 {
     name = debugName;
     value = initialValue;
-    queue = new List;
+    queue = new List<Thread*>;
 }
 
 //----------------------------------------------------------------------
@@ -67,13 +67,13 @@ Semaphore::P()
     IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
     
     while (value == 0) { 			// semaphore not available
-	queue->Append((void *)currentThread);	// so go to sleep
+	queue->Append(currentThread);		// so go to sleep
 	currentThread->Sleep();
     } 
     value--; 					// semaphore available, 
 						// consume its value
     
-    (void) interrupt->SetLevel(oldLevel);	// re-enable interrupts
+    interrupt->SetLevel(oldLevel);		// re-enable interrupts
 }
 
 //----------------------------------------------------------------------
@@ -90,23 +90,25 @@ Semaphore::V()
     Thread *thread;
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
-    thread = (Thread *)queue->Remove();
+    thread = queue->Remove();
     if (thread != NULL)	   // make thread ready, consuming the V immediately
 	scheduler->ReadyToRun(thread);
     value++;
-    (void) interrupt->SetLevel(oldLevel);
+    interrupt->SetLevel(oldLevel);
 }
 
 // Dummy functions -- so we can compile our later assignments 
 // Note -- without a correct implementation of Condition::Wait(), 
 // the test case in the network assignment won't work!
-Lock::Lock(char* debugName) {}
+Lock::Lock(const char* debugName) {}
 Lock::~Lock() {}
 void Lock::Acquire() {}
 void Lock::Release() {}
 
-Condition::Condition(char* debugName) { }
+Condition::Condition(const char* debugName, Lock* conditionLock) { }
 Condition::~Condition() { }
-void Condition::Wait(Lock* conditionLock) { ASSERT(FALSE); }
-void Condition::Signal(Lock* conditionLock) { }
-void Condition::Broadcast(Lock* conditionLock) { }
+void Condition::Wait() { ASSERT(false); }
+void Condition::Signal() { }
+void Condition::Broadcast() { }
+
+

@@ -27,28 +27,36 @@
 
 // Miscellaneous useful routines
 
-#include <bool.h>
-					 	// Boolean values.  
-						// This is the same definition 
-						// as in the g++ library.
 
-#define min(a,b)  (((a) < (b)) ? (a) : (b))
-#define max(a,b)  (((a) > (b)) ? (a) : (b))
+//#define min(a,b)  (((a) < (b)) ? (a) : (b))
+//#define max(a,b)  (((a) > (b)) ? (a) : (b))
+
+// Typedef for host memory references, expressed in numerical (integer) form
+
+#ifdef HOST_x86_64
+// 64-bit architectures
+typedef unsigned long HostMemoryAddress;
+#else
+// 32-bit architectures
+typedef unsigned int HostMemoryAddress;
+#endif
 
 // Divide and either round up or down 
-#define divRoundDown(n,s)  ((n) / (s))
-#define divRoundUp(n,s)    (((n) / (s)) + ((((n) % (s)) > 0) ? 1 : 0))
+inline int divRoundDown (int n, int s) { return n/s; }
+inline int divRoundUp   (int n, int s) { return (n/s) + ( n%s > 0 ? 1 : 0 ); }
 
 // This declares the type "VoidFunctionPtr" to be a "pointer to a
-// function taking an integer argument and returning nothing".  With
+// function taking a pointer argument and returning nothing".  With
 // such a function pointer (say it is "func"), we can call it like this:
 //
-//	(*func) (17);
+//	func (arg);
+// or
+//	(*func) (arg);
 //
 // This is used by Thread::Fork and for interrupt handlers, as well
 // as a couple of other places.
 
-typedef void (*VoidFunctionPtr)(int arg); 
+typedef void (*VoidFunctionPtr)(void* arg); 
 typedef void (*VoidNoArgFunctionPtr)(); 
 
 
@@ -58,11 +66,11 @@ typedef void (*VoidNoArgFunctionPtr)();
 
 // Interface to debugging routines.
 
-extern void DebugInit(char* flags);	// enable printing debug messages
+extern void DebugInit(const char* flags);	// enable printing debug messages
 
-extern bool DebugIsEnabled(char flag); 	// Is this debug flag enabled?
+extern bool DebugIsEnabled(char flag); 		// Is this debug flag enabled?
 
-extern void DEBUG (char flag, char* format, ...);  	// Print debug message 
+extern void DEBUG (char flag, const char* format, ...);  	// Print debug message 
 							// if flag is enabled
 
 //----------------------------------------------------------------------
@@ -81,5 +89,5 @@ extern void DEBUG (char flag, char* format, ...);  	// Print debug message
         Abort();                                                              \
     }
 
+#endif // UTILITY_H
 
-#endif UTILITY_H

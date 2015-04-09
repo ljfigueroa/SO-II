@@ -28,13 +28,13 @@
 
 // Definitions related to the size, and format of user memory
 
-#define PageSize 	SectorSize 	// set the page size equal to
+const int PageSize = SectorSize; 	// set the page size equal to
 					// the disk sector size, for
 					// simplicity
 
-#define NumPhysPages    32
-#define MemorySize 	(NumPhysPages * PageSize)
-#define TLBSize		4		// if there is a TLB, make it small
+const int NumPhysPages = 32;
+const int MemorySize = NumPhysPages * PageSize;
+const int TLBSize = 4;			// if there is a TLB, make it small
 
 enum ExceptionType { NoException,           // Everything ok!
 		     SyscallException,      // A program executed a system call.
@@ -129,7 +129,7 @@ class Machine {
     bool ReadMem(int addr, int size, int* value);
     bool WriteMem(int addr, int size, int value);
     				// Read or write 1, 2, or 4 bytes of virtual 
-				// memory (at addr).  Return FALSE if a 
+				// memory (at addr).  Return false if a 
 				// correct translation couldn't be found.
     
     ExceptionType Translate(int virtAddr, int* physAddr, int size,bool writing);

@@ -46,15 +46,15 @@
 //
 // The track buffer simulation can be disabled by compiling with -DNOTRACKBUF
 
-#define SectorSize 		128	// number of bytes per disk sector
-#define SectorsPerTrack 	32	// number of sectors per disk track 
-#define NumTracks 		32	// number of tracks per disk
-#define NumSectors 		(SectorsPerTrack * NumTracks)
+const int SectorSize = 128;	// number of bytes per disk sector
+const int SectorsPerTrack = 32;	// number of sectors per disk track 
+const int NumTracks = 32;	// number of tracks per disk
+const int NumSectors = SectorsPerTrack * NumTracks;
 					// total # of sectors per disk
 
 class Disk {
   public:
-    Disk(char* name, VoidFunctionPtr callWhenDone, int callArg);
+    Disk(const char* name, VoidFunctionPtr callWhenDone, void* callArg);
     					// Create a simulated disk.  
 					// Invoke (*callWhenDone)(callArg) 
 					// every time a request completes.
@@ -65,7 +65,7 @@ class Disk {
 					// These routines send a request to 
     					// the disk and return immediately.
     					// Only one request allowed at a time!
-    void WriteRequest(int sectorNumber, char* data);
+    void WriteRequest(int sectorNumber, const char* data);
 
     void HandleInterrupt();		// Interrupt handler, invoked when
 					// disk request finishes.
@@ -79,7 +79,7 @@ class Disk {
     int fileno;				// UNIX file number for simulated disk 
     VoidFunctionPtr handler;		// Interrupt handler, to be invoked 
 					// when any disk request finishes
-    int handlerArg;			// Argument to interrupt handler 
+    void* handlerArg;			// Argument to interrupt handler 
     bool active;     			// Is a disk operation in progress?
     int lastSector;			// The previous disk request 
     int bufferInit;			// When the track buffer started 

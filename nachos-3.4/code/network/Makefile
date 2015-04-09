@@ -26,351 +26,1020 @@ include ../Makefile.dep
 #-----------------------------------------------------------------
 # DO NOT DELETE THIS LINE -- make depend uses it
 # DEPENDENCIES MUST END AT END OF FILE
-main.o : ../threads/main.cc ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
-  /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/system.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-list.o : ../threads/list.cc ../threads/copyright.h ../threads/list.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h 
-scheduler.o : ../threads/scheduler.cc ../threads/copyright.h ../threads/scheduler.h \
-  ../threads/list.h ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/system.h \
-  ../machine/interrupt.h ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
-  ../threads/synch.h ../network/post.h ../machine/network.h ../threads/synchlist.h 
-synch.o : ../threads/synch.cc ../threads/copyright.h ../threads/synch.h ../threads/thread.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/machine.h ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
-  ../filesys/filesys.h ../filesys/openfile.h ../threads/list.h ../threads/system.h \
-  ../threads/scheduler.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../network/post.h ../machine/network.h ../threads/synchlist.h 
-synchlist.o : ../threads/synchlist.cc ../threads/copyright.h ../threads/synchlist.h \
-  ../threads/list.h ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/synch.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h 
-system.o : ../threads/system.cc ../threads/copyright.h ../threads/system.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-thread.o : ../threads/thread.cc ../threads/copyright.h ../threads/thread.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/machine.h ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
-  ../filesys/filesys.h ../filesys/openfile.h ../threads/switch.h ../threads/synch.h \
-  ../threads/list.h ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
-  ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-utility.o : ../threads/utility.cc ../threads/copyright.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h 
-threadtest.o : ../threads/threadtest.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-interrupt.o : ../machine/interrupt.cc ../threads/copyright.h ../machine/interrupt.h \
-  ../threads/list.h ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/system.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
-  ../threads/scheduler.h ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
-  ../threads/synch.h ../network/post.h ../machine/network.h ../threads/synchlist.h 
-sysdep.o : ../machine/sysdep.cc ../threads/copyright.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  /import-writable/gnu/lib/g++-include/signal.h /usr/include/signal.h /import-writable/gnu/lib/g++-include/sys/signal.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/sys/signal.h \
-  /usr/include/vm/faultcode.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/sys/stdtypes.h \
-  /import-writable/gnu/lib/g++-include/sys/types.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/sys/types.h \
-  /usr/include/sys/sysmacros.h /import-writable/gnu/lib/g++-include/time.h /usr/include/time.h \
-  /import-writable/gnu/lib/g++-include/sys/socket.h /usr/include/sys/socket.h \
-  /import-writable/gnu/lib/g++-include/sys/file.h /usr/include/sys/file.h /usr/include/sys/fcntlcom.h \
-  /import-writable/gnu/lib/g++-include/sys/stat.h /usr/include/sys/stat.h /usr/include/sys/un.h \
-  /import-writable/gnu/lib/g++-include/sys/time.h /usr/include/sys/time.h ../machine/interrupt.h \
-  ../threads/list.h ../threads/utility.h ../machine/sysdep.h ../threads/system.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h \
-  ../network/post.h ../machine/network.h ../threads/synchlist.h 
-stats.o : ../machine/stats.cc ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
-  /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/stats.h 
-timer.o : ../machine/timer.cc ../threads/copyright.h ../machine/timer.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/system.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-addrspace.o : ../userprog/addrspace.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h ../bin/noff.h 
-bitmap.o : ../userprog/bitmap.cc ../threads/copyright.h ../userprog/bitmap.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../filesys/openfile.h 
-exception.o : ../userprog/exception.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h ../userprog/syscall.h 
-progtest.o : ../userprog/progtest.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h ../machine/console.h 
-console.o : ../machine/console.cc ../threads/copyright.h ../machine/console.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/system.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-machine.o : ../machine/machine.cc ../threads/copyright.h ../machine/machine.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/translate.h ../machine/disk.h ../threads/system.h ../threads/thread.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-mipssim.o : ../machine/mipssim.cc ../threads/copyright.h ../machine/machine.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/translate.h ../machine/disk.h ../machine/mipssim.h ../threads/system.h \
-  ../threads/thread.h ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-translate.o : ../machine/translate.cc ../threads/copyright.h ../machine/machine.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
-  ../filesys/openfile.h ../threads/system.h ../threads/thread.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-directory.o : ../filesys/directory.cc ../threads/copyright.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../filesys/filehdr.h ../machine/disk.h ../userprog/bitmap.h ../filesys/openfile.h \
-  ../filesys/directory.h 
-filehdr.o : ../filesys/filehdr.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h ../filesys/filehdr.h ../userprog/bitmap.h 
-filesys.o : ../filesys/filesys.cc ../threads/copyright.h ../machine/disk.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../userprog/bitmap.h ../filesys/openfile.h ../filesys/directory.h ../filesys/filehdr.h \
-  ../filesys/filesys.h 
-fstest.o : ../filesys/fstest.cc ../threads/copyright.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../filesys/filesys.h ../filesys/openfile.h ../threads/system.h ../threads/thread.h \
-  ../machine/machine.h ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-openfile.o : ../filesys/openfile.cc ../threads/copyright.h ../filesys/filehdr.h \
-  ../machine/disk.h ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../userprog/bitmap.h ../filesys/openfile.h ../threads/system.h ../threads/thread.h \
-  ../machine/machine.h ../machine/translate.h ../userprog/addrspace.h ../filesys/filesys.h \
-  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
-  ../machine/timer.h ../filesys/synchdisk.h ../threads/synch.h ../network/post.h \
-  ../machine/network.h ../threads/synchlist.h 
-synchdisk.o : ../filesys/synchdisk.cc ../threads/copyright.h ../filesys/synchdisk.h \
-  ../machine/disk.h ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/synch.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/list.h 
-disk.o : ../machine/disk.cc ../threads/copyright.h ../machine/disk.h ../threads/utility.h \
-  ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h /import-writable/gnu/lib/g++-include/_G_config.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/system.h ../threads/thread.h ../machine/machine.h ../machine/translate.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-nettest.o : ../network/nettest.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
-post.o : ../network/post.cc ../threads/copyright.h ../network/post.h ../machine/network.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/synchlist.h ../threads/list.h ../threads/synch.h ../threads/thread.h \
-  ../machine/machine.h ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
-  ../filesys/filesys.h ../filesys/openfile.h 
-network.o : ../machine/network.cc ../threads/copyright.h ../threads/system.h \
-  ../threads/utility.h ../machine/sysdep.h /import-writable/gnu/lib/g++-include/stdio.h \
-  /import-writable/gnu/lib/g++-include/_G_config.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdio.h \
-  /import-writable/gnu/lib/g++-include/stdarg.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stdarg.h \
-  /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/va-sparc.h \
-  /import-writable/gnu/lib/g++-include/string.h /import-writable/gnu/lib/g++-include/memory.h \
-  /import-writable/gnu/lib/g++-include/stddef.h /import-writable/gnu/lib/gcc-lib/sparc-sun-sunos4.1.3/2.3.3/include/stddef.h \
-  ../threads/thread.h ../machine/machine.h ../machine/translate.h ../machine/disk.h \
-  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
-  ../threads/list.h ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
-  ../filesys/synchdisk.h ../threads/synch.h ../network/post.h ../machine/network.h \
-  ../threads/synchlist.h 
+main.o: ../threads/main.cc ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h ../threads/copyright.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/system.h ../threads/thread.h ../machine/machine.h \
+ ../threads/utility.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/synch.h \
+ ../network/post.h ../machine/network.h ../threads/synchlist.h \
+ ../threads/synch.h
+scheduler.o: ../threads/scheduler.cc ../threads/copyright.h \
+ ../threads/scheduler.h ../threads/list.h ../threads/utility.h \
+ ../machine/sysdep.h ../threads/copyright.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/system.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h ../filesys/synchdisk.h ../machine/disk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h ../threads/synch.h
+synch.o: ../threads/synch.cc ../threads/copyright.h ../threads/synch.h \
+ ../threads/thread.h ../threads/utility.h ../machine/sysdep.h \
+ ../threads/copyright.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/machine.h ../threads/utility.h ../machine/translate.h \
+ ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../threads/list.h ../threads/system.h \
+ ../threads/scheduler.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h
+system.o: ../threads/system.cc ../threads/copyright.h ../threads/system.h \
+ ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../threads/preemptive.h
+thread.o: ../threads/thread.cc ../threads/copyright.h ../threads/thread.h \
+ ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/machine.h ../threads/utility.h ../machine/translate.h \
+ ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../threads/switch.h ../threads/synch.h \
+ ../threads/list.h ../threads/system.h ../threads/scheduler.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h ../filesys/synchdisk.h ../machine/disk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h
+utility.o: ../threads/utility.cc ../threads/copyright.h \
+ ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h
+threadtest.o: ../threads/threadtest.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/utility.h ../machine/sysdep.h \
+ ../threads/copyright.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h
+interrupt.o: ../machine/interrupt.cc ../threads/copyright.h \
+ ../machine/interrupt.h ../threads/list.h ../threads/copyright.h \
+ ../threads/utility.h ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/system.h ../threads/thread.h ../machine/machine.h \
+ ../threads/utility.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h
+sysdep.o: ../machine/sysdep.cc ../threads/copyright.h \
+ /usr/include/stdio.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ /usr/include/xlocale.h /usr/include/signal.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/signum.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h \
+ /usr/include/x86_64-linux-gnu/bits/sigaction.h \
+ /usr/include/x86_64-linux-gnu/bits/sigcontext.h \
+ /usr/include/x86_64-linux-gnu/bits/sigstack.h \
+ /usr/include/x86_64-linux-gnu/sys/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+ /usr/include/x86_64-linux-gnu/bits/sigthread.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/sys/socket.h \
+ /usr/include/x86_64-linux-gnu/sys/uio.h \
+ /usr/include/x86_64-linux-gnu/bits/uio.h \
+ /usr/include/x86_64-linux-gnu/bits/socket.h \
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
+ /usr/include/x86_64-linux-gnu/asm/socket.h \
+ /usr/include/asm-generic/socket.h \
+ /usr/include/x86_64-linux-gnu/asm/sockios.h \
+ /usr/include/asm-generic/sockios.h \
+ /usr/include/x86_64-linux-gnu/sys/file.h /usr/include/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ /usr/include/x86_64-linux-gnu/sys/un.h \
+ /usr/include/x86_64-linux-gnu/sys/mman.h \
+ /usr/include/x86_64-linux-gnu/bits/mman.h \
+ /usr/include/x86_64-linux-gnu/sys/syscall.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
+ /usr/include/x86_64-linux-gnu/bits/syscall.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
+ ../machine/interrupt.h ../threads/list.h ../threads/copyright.h \
+ ../threads/utility.h ../machine/sysdep.h ../threads/system.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../machine/stats.h \
+ ../machine/timer.h ../filesys/synchdisk.h ../machine/disk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h ../threads/synch.h
+stats.o: ../machine/stats.cc ../threads/copyright.h ../threads/utility.h \
+ ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/stats.h
+timer.o: ../machine/timer.cc ../threads/copyright.h ../machine/timer.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/synch.h \
+ ../network/post.h ../machine/network.h ../threads/synchlist.h \
+ ../threads/synch.h
+preemptive.o: ../threads/preemptive.cc ../threads/preemptive.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h ../threads/copyright.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
+ /usr/include/x86_64-linux-gnu/sys/ptrace.h \
+ /usr/include/x86_64-linux-gnu/sys/wait.h /usr/include/signal.h \
+ /usr/include/x86_64-linux-gnu/bits/signum.h \
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h \
+ /usr/include/x86_64-linux-gnu/bits/sigaction.h \
+ /usr/include/x86_64-linux-gnu/bits/sigcontext.h \
+ /usr/include/x86_64-linux-gnu/bits/sigstack.h \
+ /usr/include/x86_64-linux-gnu/sys/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/sigthread.h \
+ /usr/include/x86_64-linux-gnu/sys/resource.h \
+ /usr/include/x86_64-linux-gnu/bits/resource.h \
+ /usr/include/x86_64-linux-gnu/sys/user.h
+addrspace.o: ../userprog/addrspace.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../userprog/addrspace.h ../bin/noff.h
+bitmap.o: ../userprog/bitmap.cc ../threads/copyright.h \
+ ../userprog/bitmap.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../filesys/openfile.h
+exception.o: ../userprog/exception.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../userprog/syscall.h
+progtest.o: ../userprog/progtest.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../machine/console.h ../userprog/addrspace.h
+console.o: ../machine/console.cc ../threads/copyright.h \
+ ../machine/console.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/synch.h \
+ ../network/post.h ../machine/network.h ../threads/synchlist.h \
+ ../threads/synch.h
+machine.o: ../machine/machine.cc ../threads/copyright.h \
+ ../machine/machine.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/translate.h ../machine/disk.h ../threads/system.h \
+ ../threads/utility.h ../threads/thread.h ../machine/machine.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/synch.h \
+ ../network/post.h ../machine/network.h ../threads/synchlist.h \
+ ../threads/synch.h
+mipssim.o: ../machine/mipssim.cc ../threads/copyright.h \
+ ../machine/machine.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/translate.h ../machine/disk.h ../machine/mipssim.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../threads/scheduler.h ../threads/list.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h ../filesys/synchdisk.h ../machine/disk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h ../threads/synch.h
+translate.o: ../machine/translate.cc ../threads/copyright.h \
+ ../machine/machine.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/system.h \
+ ../threads/utility.h ../threads/thread.h ../machine/machine.h \
+ ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
+ ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/synch.h \
+ ../network/post.h ../machine/network.h ../threads/synchlist.h \
+ ../threads/synch.h
+directory.o: ../filesys/directory.cc ../threads/copyright.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../filesys/filehdr.h ../machine/disk.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../filesys/directory.h ../filesys/openfile.h
+filehdr.o: ../filesys/filehdr.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../filesys/filehdr.h ../userprog/bitmap.h ../filesys/openfile.h
+filesys.o: ../filesys/filesys.cc ../threads/copyright.h ../machine/disk.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../userprog/bitmap.h ../filesys/openfile.h ../filesys/directory.h \
+ ../filesys/openfile.h ../filesys/filehdr.h ../filesys/filesys.h
+fstest.o: ../filesys/fstest.cc ../threads/copyright.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/system.h \
+ ../threads/utility.h ../threads/thread.h ../machine/machine.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../threads/scheduler.h ../threads/list.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h ../filesys/synchdisk.h ../machine/disk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h ../threads/synch.h ../threads/thread.h
+openfile.o: ../filesys/openfile.cc ../threads/copyright.h \
+ ../filesys/filehdr.h ../machine/disk.h ../threads/utility.h \
+ ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../userprog/bitmap.h ../filesys/openfile.h ../filesys/openfile.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../threads/synch.h ../network/post.h ../machine/network.h \
+ ../threads/synchlist.h ../threads/synch.h
+synchdisk.o: ../filesys/synchdisk.cc ../threads/copyright.h \
+ ../filesys/synchdisk.h ../machine/disk.h ../threads/utility.h \
+ ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/synch.h ../threads/thread.h ../threads/utility.h \
+ ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../threads/list.h
+disk.o: ../machine/disk.cc ../threads/copyright.h ../machine/disk.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../machine/translate.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h
+nettest.o: ../network/nettest.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h \
+ ../network/post.h
+post.o: ../network/post.cc ../threads/copyright.h ../network/post.h \
+ ../machine/network.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/synchlist.h ../threads/list.h ../threads/utility.h \
+ ../threads/synch.h ../threads/thread.h ../machine/machine.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h
+network.o: ../machine/network.cc ../threads/copyright.h \
+ ../threads/system.h ../threads/copyright.h ../threads/utility.h \
+ ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
+ ../threads/thread.h ../machine/machine.h ../threads/utility.h \
+ ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../filesys/synchdisk.h \
+ ../machine/disk.h ../threads/synch.h ../network/post.h \
+ ../machine/network.h ../threads/synchlist.h ../threads/synch.h
 # DEPENDENCIES MUST END AT END OF FILE
 # IF YOU PUT STUFF HERE IT WILL GO AWAY
 # see make depend above

@@ -66,12 +66,12 @@
 
 //----------------------------------------------------------------------
 // FileSystem::FileSystem
-// 	Initialize the file system.  If format = TRUE, the disk has
+// 	Initialize the file system.  If format == true, the disk has
 //	nothing on it, and we need to initialize the disk to contain
 //	an empty directory, and a bitmap of free sectors (with almost but
 //	not all of the sectors marked as free).  
 //
-//	If format = FALSE, we just have to open the files
+//	If format == false, we just have to open the files
 //	representing the bitmap and the directory.
 //
 //	"format" -- should we initialize the disk?
@@ -156,7 +156,7 @@ FileSystem::FileSystem(bool format)
 //	  Store the new file header on disk 
 //	  Flush the changes to the bitmap and the directory back to disk
 //
-//	Return TRUE if everything goes ok, otherwise, return FALSE.
+//	Return true if everything goes ok, otherwise, return false.
 //
 // 	Create fails if:
 //   		file is already in directory
@@ -172,7 +172,7 @@ FileSystem::FileSystem(bool format)
 //----------------------------------------------------------------------
 
 bool
-FileSystem::Create(char *name, int initialSize)
+FileSystem::Create(const char *name, int initialSize)
 {
     Directory *directory;
     BitMap *freeMap;
@@ -186,21 +186,21 @@ FileSystem::Create(char *name, int initialSize)
     directory->FetchFrom(directoryFile);
 
     if (directory->Find(name) != -1)
-      success = FALSE;			// file is already in directory
+      success = false;			// file is already in directory
     else {	
         freeMap = new BitMap(NumSectors);
         freeMap->FetchFrom(freeMapFile);
         sector = freeMap->Find();	// find a sector to hold the file header
     	if (sector == -1) 		
-            success = FALSE;		// no free block for file header 
+            success = false;		// no free block for file header 
         else if (!directory->Add(name, sector))
-            success = FALSE;	// no space in directory
+            success = false;	// no space in directory
 	else {
     	    hdr = new FileHeader;
 	    if (!hdr->Allocate(freeMap, initialSize))
-            	success = FALSE;	// no space on disk for data
+            	success = false;	// no space on disk for data
 	    else {	
-	    	success = TRUE;
+	    	success = true;
 		// everthing worked, flush all changes back to disk
     	    	hdr->WriteBack(sector); 		
     	    	directory->WriteBack(directoryFile);
@@ -225,7 +225,7 @@ FileSystem::Create(char *name, int initialSize)
 //----------------------------------------------------------------------
 
 OpenFile *
-FileSystem::Open(char *name)
+FileSystem::Open(const char *name)
 { 
     Directory *directory = new Directory(NumDirEntries);
     OpenFile *openFile = NULL;
@@ -248,14 +248,14 @@ FileSystem::Open(char *name)
 //	    Delete the space for its data blocks
 //	    Write changes to directory, bitmap back to disk
 //
-//	Return TRUE if the file was deleted, FALSE if the file wasn't
+//	Return true if the file was deleted, false if the file wasn't
 //	in the file system.
 //
 //	"name" -- the text name of the file to be removed
 //----------------------------------------------------------------------
 
 bool
-FileSystem::Remove(char *name)
+FileSystem::Remove(const char *name)
 { 
     Directory *directory;
     BitMap *freeMap;
@@ -267,7 +267,7 @@ FileSystem::Remove(char *name)
     sector = directory->Find(name);
     if (sector == -1) {
        delete directory;
-       return FALSE;			 // file not found 
+       return false;			 // file not found 
     }
     fileHdr = new FileHeader;
     fileHdr->FetchFrom(sector);
@@ -284,7 +284,7 @@ FileSystem::Remove(char *name)
     delete fileHdr;
     delete directory;
     delete freeMap;
-    return TRUE;
+    return true;
 } 
 
 //----------------------------------------------------------------------

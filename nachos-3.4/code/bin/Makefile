@@ -13,11 +13,13 @@
 # CFLAGS= -I./ -I../threads -DHOST_IS_BIG_ENDIAN
 # all: coff2noff
 
+include ../Makefile.dep
+
 CC=gcc
-CFLAGS=-I./ -I../threads
+CFLAGS=-I./ -I../threads $(HOST)
 LD=gcc
 
-all: coff2noff disassemble 
+all: coff2noff 
 
 # converts a COFF file to Nachos object format
 coff2noff: coff2noff.o

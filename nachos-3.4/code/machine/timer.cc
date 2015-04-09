@@ -24,7 +24,7 @@
 #include "system.h"
 
 // dummy function because C++ does not allow pointers to member functions
-static void TimerHandler(int arg)
+static void TimerHandler(void* arg)
 { Timer *p = (Timer *)arg; p->TimerExpired(); }
 
 //----------------------------------------------------------------------
@@ -41,14 +41,14 @@ static void TimerHandler(int arg)
 //		at random, instead of fixed, intervals.
 //----------------------------------------------------------------------
 
-Timer::Timer(VoidFunctionPtr timerHandler, int callArg, bool doRandom)
+Timer::Timer(VoidFunctionPtr timerHandler, void* callArg, bool doRandom)
 {
     randomize = doRandom;
     handler = timerHandler;
     arg = callArg; 
 
     // schedule the first interrupt from the timer device
-    interrupt->Schedule(TimerHandler, (int) this, TimeOfNextInterrupt(), 
+    interrupt->Schedule(TimerHandler, this, TimeOfNextInterrupt(), 
 		TimerInt); 
 }
 
@@ -62,7 +62,7 @@ void
 Timer::TimerExpired() 
 {
     // schedule the next timer device interrupt
-    interrupt->Schedule(TimerHandler, (int) this, TimeOfNextInterrupt(), 
+    interrupt->Schedule(TimerHandler, this, TimeOfNextInterrupt(), 
 		TimerInt);
 
     // invoke the Nachos interrupt handler for this device

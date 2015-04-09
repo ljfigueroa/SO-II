@@ -30,7 +30,6 @@ extern "C" {
 #include <string.h>
 #include <signal.h>
 #include <sys/types.h>
-#include <sys/time.h>
 #include <sys/socket.h>
 #include <sys/file.h>
 #include <sys/un.h>
@@ -38,54 +37,20 @@ extern "C" {
 #ifdef HOST_i386
 #include <sys/time.h>
 #endif
-#ifdef HOST_SPARC
-#include <sys/time.h>
+#ifdef HOST_LINUX
+#include <sys/syscall.h>
+#include <unistd.h>
 #endif
 
 
 // UNIX routines called by procedures in this file 
 
-#ifdef HOST_SNAKE
-// int creat(char *name, unsigned short mode);
-// int open(const char *name, int flags, ...);
-#else
-int creat(const char *name, unsigned short mode);
-int open(const char *name, int flags, ...);
-// void signal(int sig, VoidFunctionPtr func); -- this may work now!
-#ifdef HOST_i386
-int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
-             struct timeval *timeout);
-#else
-int select(int numBits, void *readFds, void *writeFds, void *exceptFds, 
-	struct timeval *timeout);
-#endif
-#endif
+#include <stdlib.h> // rand(), srand(), etc.
+#include <unistd.h> // unlink(), open(), close(), sleep(), etc.
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/mman.h>
 
-int unlink(char *name);
-int read(int filedes, char *buf, int numBytes);
-int write(int filedes, char *buf, int numBytes);
-int lseek(int filedes, int offset, int whence);
-int tell(int filedes);
-int close(int filedes);
-int unlink(char *name);
-
-// definition varies slightly from platform to platform, so don't 
-// define unless gcc complains
-// extern int recvfrom(int s, void *buf, int len, int flags, void *from, int *fromlen);
-// extern int sendto(int s, void *msg, int len, int flags, void *to, int tolen);
-
-
-void srand(unsigned seed);
-int rand(void);
-unsigned sleep(unsigned);
-void abort();
-void exit();
-int mprotect(char *addr, int len, int prot);
-
-int socket(int, int, int);
-int bind (int, const void*, int);
-int recvfrom (int, void*, int, int, void*, int *);
-int sendto (int, const void*, int, int, void*, int);
 }
 
 #include "interrupt.h"
@@ -122,7 +87,7 @@ PollFile(int fd)
         pollTime.tv_usec = 0;                 	// no delay
 
 // poll file or socket
-#ifdef HOST_i386
+#ifdef HOST_LINUX
     retVal = select(32, (fd_set*)&rfd, (fd_set*)&wfd, (fd_set*)&xfd, &pollTime);
 #else
     retVal = select(32, &rfd, &wfd, &xfd, &pollTime);
@@ -130,8 +95,8 @@ PollFile(int fd)
 
     ASSERT((retVal == 0) || (retVal == 1));
     if (retVal == 0)
-	return FALSE;                 		// no char waiting to be read
-    return TRUE;
+	return false;                 		// no char waiting to be read
+    return true;
 }
 
 //----------------------------------------------------------------------
@@ -143,7 +108,7 @@ PollFile(int fd)
 //----------------------------------------------------------------------
 
 int
-OpenForWrite(char *name)
+OpenForWrite(const char *name)
 {
     int fd = open(name, O_RDWR|O_CREAT|O_TRUNC, 0666);
 
@@ -160,7 +125,7 @@ OpenForWrite(char *name)
 //----------------------------------------------------------------------
 
 int
-OpenForReadWrite(char *name, bool crashOnError)
+OpenForReadWrite(const char *name, bool crashOnError)
 {
     int fd = open(name, O_RDWR, 0);
 
@@ -199,7 +164,7 @@ ReadPartial(int fd, char *buffer, int nBytes)
 //----------------------------------------------------------------------
 
 void
-WriteFile(int fd, char *buffer, int nBytes)
+WriteFile(int fd, const char *buffer, int nBytes)
 {
     int retVal = write(fd, buffer, nBytes);
     ASSERT(retVal == nBytes);
@@ -225,7 +190,7 @@ Lseek(int fd, int offset, int whence)
 int 
 Tell(int fd)
 {
-#ifdef HOST_i386
+#if defined(HOST_i386) || defined(HOST_LINUX)
     return lseek(fd,0,SEEK_CUR); // 386BSD doesn't have the tell() system call
 #else
     return tell(fd);
@@ -251,7 +216,7 @@ Close(int fd)
 //----------------------------------------------------------------------
 
 bool 
-Unlink(char *name)
+Unlink(const char *name)
 {
     return unlink(name);
 }
@@ -291,7 +256,7 @@ CloseSocket(int sockID)
 //----------------------------------------------------------------------
 
 static void 
-InitSocketName(struct sockaddr_un *uname, char *name)
+InitSocketName(struct sockaddr_un *uname, const char *name)
 {
     uname->sun_family = AF_UNIX;
     strcpy(uname->sun_path, name);
@@ -304,7 +269,7 @@ InitSocketName(struct sockaddr_un *uname, char *name)
 //----------------------------------------------------------------------
 
 void
-AssignNameToSocket(char *socketName, int sockID)
+AssignNameToSocket(const char *socketName, int sockID)
 {
     struct sockaddr_un uName;
     int retVal;
@@ -322,7 +287,7 @@ AssignNameToSocket(char *socketName, int sockID)
 // 	Delete the UNIX file name we assigned to our IPC port, on cleanup.
 //----------------------------------------------------------------------
 void
-DeAssignNameToSocket(char *socketName)
+DeAssignNameToSocket(const char *socketName)
 {
     (void) unlink(socketName);
 }
@@ -346,16 +311,18 @@ void
 ReadFromSocket(int sockID, char *buffer, int packetSize)
 {
     int retVal;
-    extern int errno;
+//    Comentado para evitar error de compilacion Red Hat 9 (2004)    
+//    extern int errno;
     struct sockaddr_un uName;
     int size = sizeof(uName);
    
     retVal = recvfrom(sockID, buffer, packetSize, 0,
-				   (struct sockaddr *) &uName, &size);
+				   (struct sockaddr *) &uName,(socklen_t*) &size);
 
     if (retVal != packetSize) {
         perror("in recvfrom");
-        printf("called: %x, got back %d, %d\n", buffer, retVal, errno);
+//        Comentado para evitar error de compilacion Red Hat 9 (2004)	
+//        printf("called: %x, got back %d, %d\n", buffer, retVal, errno);
     }
     ASSERT(retVal == packetSize);
 }
@@ -366,14 +333,20 @@ ReadFromSocket(int sockID, char *buffer, int packetSize)
 //	Abort on error.
 //----------------------------------------------------------------------
 void
-SendToSocket(int sockID, char *buffer, int packetSize, char *toName)
+SendToSocket(int sockID, const char *buffer, int packetSize, const char *toName)
 {
     struct sockaddr_un uName;
     int retVal;
 
     InitSocketName(&uName, toName);
+#ifdef HOST_LINUX
+    retVal = sendto(sockID, buffer, packetSize, 0,
+			  (const struct sockaddr *) &uName, sizeof(uName));
+#else
     retVal = sendto(sockID, buffer, packetSize, 0,
 			  (char *) &uName, sizeof(uName));
+#endif
+
     ASSERT(retVal == packetSize);
 }
 
@@ -387,7 +360,8 @@ SendToSocket(int sockID, char *buffer, int packetSize, char *toName)
 void 
 CallOnUserAbort(VoidNoArgFunctionPtr func)
 {
-    (void)signal(SIGINT, (VoidFunctionPtr) func);
+    typedef void (*SignalHandler) (int);
+    (void)signal(SIGINT, (SignalHandler) func);
 }
 
 //----------------------------------------------------------------------
@@ -466,8 +440,10 @@ AllocBoundedArray(int size)
     int pgSize = getpagesize();
     char *ptr = new char[pgSize * 2 + size];
 
+#ifndef HOST_LINUX
     mprotect(ptr, pgSize, 0);
     mprotect(ptr + pgSize + size, pgSize, 0);
+#endif
     return ptr + pgSize;
 }
 
@@ -480,11 +456,13 @@ AllocBoundedArray(int size)
 //----------------------------------------------------------------------
 
 void 
-DeallocBoundedArray(char *ptr, int size)
+DeallocBoundedArray(const char *ptr, int size)
 {
     int pgSize = getpagesize();
 
+#ifndef HOST_LINUX
     mprotect(ptr - pgSize, pgSize, PROT_READ | PROT_WRITE | PROT_EXEC);
     mprotect(ptr + size, pgSize, PROT_READ | PROT_WRITE | PROT_EXEC);
+#endif
     delete [] (ptr - pgSize);
 }

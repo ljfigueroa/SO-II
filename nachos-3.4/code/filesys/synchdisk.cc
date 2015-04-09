@@ -24,7 +24,7 @@
 //----------------------------------------------------------------------
 
 static void
-DiskRequestDone (int arg)
+DiskRequestDone (void* arg)
 {
     SynchDisk* disk = (SynchDisk *)arg;
 
@@ -40,11 +40,11 @@ DiskRequestDone (int arg)
 //	   (usually, "DISK")
 //----------------------------------------------------------------------
 
-SynchDisk::SynchDisk(char* name)
+SynchDisk::SynchDisk(const char* name)
 {
     semaphore = new Semaphore("synch disk", 0);
     lock = new Lock("synch disk lock");
-    disk = new Disk(name, DiskRequestDone, (int) this);
+    disk = new Disk(name, DiskRequestDone, this);
 }
 
 //----------------------------------------------------------------------
@@ -88,7 +88,7 @@ SynchDisk::ReadSector(int sectorNumber, char* data)
 //----------------------------------------------------------------------
 
 void
-SynchDisk::WriteSector(int sectorNumber, char* data)
+SynchDisk::WriteSector(int sectorNumber, const char* data)
 {
     lock->Acquire();			// only one disk I/O at a time
     disk->WriteRequest(sectorNumber, data);

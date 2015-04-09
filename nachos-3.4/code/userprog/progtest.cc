@@ -21,7 +21,7 @@
 //----------------------------------------------------------------------
 
 void
-StartProcess(char *filename)
+StartProcess(const char *filename)
 {
     OpenFile *executable = fileSystem->Open(filename);
     AddrSpace *space;
@@ -39,7 +39,7 @@ StartProcess(char *filename)
     space->RestoreState();		// load page table register
 
     machine->Run();			// jump to the user progam
-    ASSERT(FALSE);			// machine->Run never returns;
+    ASSERT(false);			// machine->Run never returns;
 					// the address space exits
 					// by doing the syscall "exit"
 }
@@ -56,8 +56,8 @@ static Semaphore *writeDone;
 // 	Wake up the thread that requested the I/O.
 //----------------------------------------------------------------------
 
-static void ReadAvail(int arg) { readAvail->V(); }
-static void WriteDone(int arg) { writeDone->V(); }
+static void ReadAvail(void* arg) { readAvail->V(); }
+static void WriteDone(void* arg) { writeDone->V(); }
 
 //----------------------------------------------------------------------
 // ConsoleTest
@@ -66,7 +66,7 @@ static void WriteDone(int arg) { writeDone->V(); }
 //----------------------------------------------------------------------
 
 void 
-ConsoleTest (char *in, char *out)
+ConsoleTest (const char *in, const char *out)
 {
     char ch;
 

@@ -7,14 +7,12 @@
 # Depending on your platform, you need to select the correct definition.
 # Also, you need to edit the Makefile in the bin subdirectory.
 
-# DEC MIPS, Ultrix
-HOST = -DHOST_MIPS
+HOST = -DHOST_`uname -m` -DHOST_LINUX
+CPP=gcc
 
-# SUN SPARC, Sun 4.xx 
+# SUN SPARC, Sun 4.xx (not supported, just to show how to declare a
+# big-endian processor)
 # HOST = -DHOST_SPARC -DHOST_IS_BIG_ENDIAN
-
-# HP PA-RISC, HP_UX
-# HOST = -DHOST_SNAKE -DHOST_IS_BIG_ENDIAN
 
 # 386, 386BSD Unix, or NetBSD Unix (available via anon ftp 
 #    from agate.berkeley.edu)
@@ -22,5 +20,7 @@ HOST = -DHOST_MIPS
 # CPP=/usr/bin/cpp
 
 # slight variant for 386 FreeBSD
-# HOST = -DHOST_i386 -DFreeBSD
+# HOST = -DHOST_i386 -DHOST_FreeBSD
 # CPP=/usr/bin/cpp
+
+

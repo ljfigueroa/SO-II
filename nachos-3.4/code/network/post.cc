@@ -29,7 +29,7 @@
 //	"data" -- payload data
 //----------------------------------------------------------------------
 
-Mail::Mail(PacketHeader pktH, MailHeader mailH, char *msgData)
+Mail::Mail(PacketHeader pktH, MailHeader mailH, const char *msgData)
 {
     ASSERT(mailH.length <= MaxMailSize);
 
@@ -49,7 +49,7 @@ Mail::Mail(PacketHeader pktH, MailHeader mailH, char *msgData)
 
 MailBox::MailBox()
 { 
-    messages = new SynchList(); 
+    messages = new SynchList<Mail*>; 
 }
 
 //----------------------------------------------------------------------
@@ -95,11 +95,11 @@ PrintHeader(PacketHeader pktHdr, MailHeader mailHdr)
 //----------------------------------------------------------------------
 
 void 
-MailBox::Put(PacketHeader pktHdr, MailHeader mailHdr, char *data)
+MailBox::Put(PacketHeader pktHdr, MailHeader mailHdr, const char *data)
 { 
     Mail *mail = new Mail(pktHdr, mailHdr, data); 
 
-    messages->Append((void *)mail);	// put on the end of the list of 
+    messages->Append(mail);		// put on the end of the list of 
 					// arrived messages, and wake up 
 					// any waiters
 }
@@ -120,8 +120,8 @@ void
 MailBox::Get(PacketHeader *pktHdr, MailHeader *mailHdr, char *data) 
 { 
     DEBUG('n', "Waiting for mail in mailbox\n");
-    Mail *mail = (Mail *) messages->Remove();	// remove message from list;
-						// will wait if list is empty
+    Mail *mail = messages->Remove();	// remove message from list;
+					// will wait if list is empty
 
     *pktHdr = mail->pktHdr;
     *mailHdr = mail->mailHdr;
@@ -145,11 +145,11 @@ MailBox::Get(PacketHeader *pktHdr, MailHeader *mailHdr, char *data)
 //	"arg" -- pointer to the Post Office managing the Network
 //----------------------------------------------------------------------
 
-static void PostalHelper(int arg)
+static void PostalHelper(void* arg)
 { PostOffice* po = (PostOffice *) arg; po->PostalDelivery(); }
-static void ReadAvail(int arg)
+static void ReadAvail(void* arg)
 { PostOffice* po = (PostOffice *) arg; po->IncomingPacket(); }
-static void WriteDone(int arg)
+static void WriteDone(void* arg)
 { PostOffice* po = (PostOffice *) arg; po->PacketSent(); }
 
 //----------------------------------------------------------------------
@@ -184,14 +184,14 @@ PostOffice::PostOffice(NetworkAddress addr, double reliability, int nBoxes)
     boxes = new MailBox[nBoxes];
 
 // Third, initialize the network; tell it which interrupt handlers to call
-    network = new Network(addr, reliability, ReadAvail, WriteDone, (int) this);
+    network = new Network(addr, reliability, ReadAvail, WriteDone, this);
 
 
 // Finally, create a thread whose sole job is to wait for incoming messages,
 //   and put them in the right mailbox. 
     Thread *t = new Thread("postal worker");
 
-    t->Fork(PostalHelper, (int) this);
+    t->Fork(PostalHelper, this);
 }
 
 //----------------------------------------------------------------------
@@ -257,7 +257,7 @@ PostOffice::PostalDelivery()
 //----------------------------------------------------------------------
 
 void
-PostOffice::Send(PacketHeader pktHdr, MailHeader mailHdr, char* data)
+PostOffice::Send(PacketHeader pktHdr, MailHeader mailHdr, const char* data)
 {
     char* buffer = new char[MaxPacketSize];	// space to hold concatenated
 						// mailHdr + data

@@ -105,7 +105,7 @@ Machine::OneInstruction(Instruction *instr)
     instr->Decode();
 
     if (DebugIsEnabled('m')) {
-       struct OpString *str = &opStrings[instr->opCode];
+       struct OpString *str = &opStrings[(int)instr->opCode];
 
        ASSERT(instr->opCode <= MaxOpcode);
        printf("At PC = 0x%x: ", registers[PCReg]);
@@ -123,88 +123,88 @@ Machine::OneInstruction(Instruction *instr)
     switch (instr->opCode) {
 	
       case OP_ADD:
-	sum = registers[instr->rs] + registers[instr->rt];
-	if (!((registers[instr->rs] ^ registers[instr->rt]) & SIGN_BIT) &&
-	    ((registers[instr->rs] ^ sum) & SIGN_BIT)) {
+	sum = registers[(int)instr->rs] + registers[(int)instr->rt];
+	if (!((registers[(int)instr->rs] ^ registers[(int)instr->rt]) & SIGN_BIT) &&
+	    ((registers[(int)instr->rs] ^ sum) & SIGN_BIT)) {
 	    RaiseException(OverflowException, 0);
 	    return;
 	}
-	registers[instr->rd] = sum;
+	registers[(int)instr->rd] = sum;
 	break;
 	
       case OP_ADDI:
-	sum = registers[instr->rs] + instr->extra;
-	if (!((registers[instr->rs] ^ instr->extra) & SIGN_BIT) &&
+	sum = registers[(int)instr->rs] + instr->extra;
+	if (!((registers[(int)instr->rs] ^ instr->extra) & SIGN_BIT) &&
 	    ((instr->extra ^ sum) & SIGN_BIT)) {
 	    RaiseException(OverflowException, 0);
 	    return;
 	}
-	registers[instr->rt] = sum;
+	registers[(int)instr->rt] = sum;
 	break;
 	
       case OP_ADDIU:
-	registers[instr->rt] = registers[instr->rs] + instr->extra;
+	registers[(int)instr->rt] = registers[(int)instr->rs] + instr->extra;
 	break;
 	
       case OP_ADDU:
-	registers[instr->rd] = registers[instr->rs] + registers[instr->rt];
+	registers[(int)instr->rd] = registers[(int)instr->rs] + registers[(int)instr->rt];
 	break;
 	
       case OP_AND:
-	registers[instr->rd] = registers[instr->rs] & registers[instr->rt];
+	registers[(int)instr->rd] = registers[(int)instr->rs] & registers[(int)instr->rt];
 	break;
 	
       case OP_ANDI:
-	registers[instr->rt] = registers[instr->rs] & (instr->extra & 0xffff);
+	registers[(int)instr->rt] = registers[(int)instr->rs] & (instr->extra & 0xffff);
 	break;
 	
       case OP_BEQ:
-	if (registers[instr->rs] == registers[instr->rt])
+	if (registers[(int)instr->rs] == registers[(int)instr->rt])
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_BGEZAL:
 	registers[R31] = registers[NextPCReg] + 4;
       case OP_BGEZ:
-	if (!(registers[instr->rs] & SIGN_BIT))
+	if (!(registers[(int)instr->rs] & SIGN_BIT))
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_BGTZ:
-	if (registers[instr->rs] > 0)
+	if (registers[(int)instr->rs] > 0)
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_BLEZ:
-	if (registers[instr->rs] <= 0)
+	if (registers[(int)instr->rs] <= 0)
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_BLTZAL:
 	registers[R31] = registers[NextPCReg] + 4;
       case OP_BLTZ:
-	if (registers[instr->rs] & SIGN_BIT)
+	if (registers[(int)instr->rs] & SIGN_BIT)
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_BNE:
-	if (registers[instr->rs] != registers[instr->rt])
+	if (registers[(int)instr->rs] != registers[(int)instr->rt])
 	    pcAfter = registers[NextPCReg] + IndexToAddr(instr->extra);
 	break;
 	
       case OP_DIV:
-	if (registers[instr->rt] == 0) {
+	if (registers[(int)instr->rt] == 0) {
 	    registers[LoReg] = 0;
 	    registers[HiReg] = 0;
 	} else {
-	    registers[LoReg] =  registers[instr->rs] / registers[instr->rt];
-	    registers[HiReg] = registers[instr->rs] % registers[instr->rt];
+	    registers[LoReg] =  registers[(int)instr->rs] / registers[(int)instr->rt];
+	    registers[HiReg] = registers[(int)instr->rs] % registers[(int)instr->rt];
 	}
 	break;
 	
       case OP_DIVU:	  
-	  rs = (unsigned int) registers[instr->rs];
-	  rt = (unsigned int) registers[instr->rt];
+	  rs = (unsigned int) registers[(int)instr->rs];
+	  rt = (unsigned int) registers[(int)instr->rt];
 	  if (rt == 0) {
 	      registers[LoReg] = 0;
 	      registers[HiReg] = 0;
@@ -223,14 +223,14 @@ Machine::OneInstruction(Instruction *instr)
 	break;
 	
       case OP_JALR:
-	registers[instr->rd] = registers[NextPCReg] + 4;
+	registers[(int)instr->rd] = registers[NextPCReg] + 4;
       case OP_JR:
-	pcAfter = registers[instr->rs];
+	pcAfter = registers[(int)instr->rs];
 	break;
 	
       case OP_LB:
       case OP_LBU:
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 	if (!machine->ReadMem(tmp, 1, &value))
 	    return;
 
@@ -244,7 +244,7 @@ Machine::OneInstruction(Instruction *instr)
 	
       case OP_LH:
       case OP_LHU:	  
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 	if (tmp & 0x1) {
 	    RaiseException(AddressErrorException, tmp);
 	    return;
@@ -262,11 +262,11 @@ Machine::OneInstruction(Instruction *instr)
       	
       case OP_LUI:
 	DEBUG('m', "Executing: LUI r%d,%d\n", instr->rt, instr->extra);
-	registers[instr->rt] = instr->extra << 16;
+	registers[(int)instr->rt] = instr->extra << 16;
 	break;
 	
       case OP_LW:
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 	if (tmp & 0x3) {
 	    RaiseException(AddressErrorException, tmp);
 	    return;
@@ -278,7 +278,7 @@ Machine::OneInstruction(Instruction *instr)
 	break;
     	
       case OP_LWL:	  
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 
 	// ReadMem assumes all 4 byte requests are aligned on an even 
 	// word boundary.  Also, the little endian/big endian swap code would
@@ -290,7 +290,7 @@ Machine::OneInstruction(Instruction *instr)
 	if (registers[LoadReg] == instr->rt)
 	    nextLoadValue = registers[LoadValueReg];
 	else
-	    nextLoadValue = registers[instr->rt];
+	    nextLoadValue = registers[(int)instr->rt];
 	switch (tmp & 0x3) {
 	  case 0:
 	    nextLoadValue = value;
@@ -309,7 +309,7 @@ Machine::OneInstruction(Instruction *instr)
 	break;
       	
       case OP_LWR:
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 
 	// ReadMem assumes all 4 byte requests are aligned on an even 
 	// word boundary.  Also, the little endian/big endian swap code would
@@ -321,7 +321,7 @@ Machine::OneInstruction(Instruction *instr)
 	if (registers[LoadReg] == instr->rt)
 	    nextLoadValue = registers[LoadValueReg];
 	else
-	    nextLoadValue = registers[instr->rt];
+	    nextLoadValue = registers[(int)instr->rt];
 	switch (tmp & 0x3) {
 	  case 0:
 	    nextLoadValue = (nextLoadValue & 0xffffff00) |
@@ -343,139 +343,139 @@ Machine::OneInstruction(Instruction *instr)
 	break;
     	
       case OP_MFHI:
-	registers[instr->rd] = registers[HiReg];
+	registers[(int)instr->rd] = registers[HiReg];
 	break;
 	
       case OP_MFLO:
-	registers[instr->rd] = registers[LoReg];
+	registers[(int)instr->rd] = registers[LoReg];
 	break;
 	
       case OP_MTHI:
-	registers[HiReg] = registers[instr->rs];
+	registers[HiReg] = registers[(int)instr->rs];
 	break;
 	
       case OP_MTLO:
-	registers[LoReg] = registers[instr->rs];
+	registers[LoReg] = registers[(int)instr->rs];
 	break;
 	
       case OP_MULT:
-	Mult(registers[instr->rs], registers[instr->rt], TRUE,
+	Mult(registers[(int)instr->rs], registers[(int)instr->rt], true,
 	     &registers[HiReg], &registers[LoReg]);
 	break;
 	
       case OP_MULTU:
-	Mult(registers[instr->rs], registers[instr->rt], FALSE,
+	Mult(registers[(int)instr->rs], registers[(int)instr->rt], false,
 	     &registers[HiReg], &registers[LoReg]);
 	break;
 	
       case OP_NOR:
-	registers[instr->rd] = ~(registers[instr->rs] | registers[instr->rt]);
+	registers[(int)instr->rd] = ~(registers[(int)instr->rs] | registers[(int)instr->rt]);
 	break;
 	
       case OP_OR:
-	registers[instr->rd] = registers[instr->rs] | registers[instr->rs];
+	registers[(int)instr->rd] = registers[(int)instr->rs] | registers[(int)instr->rs];
 	break;
 	
       case OP_ORI:
-	registers[instr->rt] = registers[instr->rs] | (instr->extra & 0xffff);
+	registers[(int)instr->rt] = registers[(int)instr->rs] | (instr->extra & 0xffff);
 	break;
 	
       case OP_SB:
 	if (!machine->WriteMem((unsigned) 
-		(registers[instr->rs] + instr->extra), 1, registers[instr->rt]))
+		(registers[(int)instr->rs] + instr->extra), 1, registers[(int)instr->rt]))
 	    return;
 	break;
 	
       case OP_SH:
 	if (!machine->WriteMem((unsigned) 
-		(registers[instr->rs] + instr->extra), 2, registers[instr->rt]))
+		(registers[(int)instr->rs] + instr->extra), 2, registers[(int)instr->rt]))
 	    return;
 	break;
 	
       case OP_SLL:
-	registers[instr->rd] = registers[instr->rt] << instr->extra;
+	registers[(int)instr->rd] = registers[(int)instr->rt] << instr->extra;
 	break;
 	
       case OP_SLLV:
-	registers[instr->rd] = registers[instr->rt] <<
-	    (registers[instr->rs] & 0x1f);
+	registers[(int)instr->rd] = registers[(int)instr->rt] <<
+	    (registers[(int)instr->rs] & 0x1f);
 	break;
 	
       case OP_SLT:
-	if (registers[instr->rs] < registers[instr->rt])
-	    registers[instr->rd] = 1;
+	if (registers[(int)instr->rs] < registers[(int)instr->rt])
+	    registers[(int)instr->rd] = 1;
 	else
-	    registers[instr->rd] = 0;
+	    registers[(int)instr->rd] = 0;
 	break;
 	
       case OP_SLTI:
-	if (registers[instr->rs] < instr->extra)
-	    registers[instr->rt] = 1;
+	if (registers[(int)instr->rs] < instr->extra)
+	    registers[(int)instr->rt] = 1;
 	else
-	    registers[instr->rt] = 0;
+	    registers[(int)instr->rt] = 0;
 	break;
 	
       case OP_SLTIU:	  
-	rs = registers[instr->rs];
+	rs = registers[(int)instr->rs];
 	imm = instr->extra;
 	if (rs < imm)
-	    registers[instr->rt] = 1;
+	    registers[(int)instr->rt] = 1;
 	else
-	    registers[instr->rt] = 0;
+	    registers[(int)instr->rt] = 0;
 	break;
       	
       case OP_SLTU:	  
-	rs = registers[instr->rs];
-	rt = registers[instr->rt];
+	rs = registers[(int)instr->rs];
+	rt = registers[(int)instr->rt];
 	if (rs < rt)
-	    registers[instr->rd] = 1;
+	    registers[(int)instr->rd] = 1;
 	else
-	    registers[instr->rd] = 0;
+	    registers[(int)instr->rd] = 0;
 	break;
       	
       case OP_SRA:
-	registers[instr->rd] = registers[instr->rt] >> instr->extra;
+	registers[(int)instr->rd] = registers[(int)instr->rt] >> instr->extra;
 	break;
 	
       case OP_SRAV:
-	registers[instr->rd] = registers[instr->rt] >>
-	    (registers[instr->rs] & 0x1f);
+	registers[(int)instr->rd] = registers[(int)instr->rt] >>
+	    (registers[(int)instr->rs] & 0x1f);
 	break;
 	
       case OP_SRL:
-	tmp = registers[instr->rt];
+	tmp = registers[(int)instr->rt];
 	tmp >>= instr->extra;
-	registers[instr->rd] = tmp;
+	registers[(int)instr->rd] = tmp;
 	break;
 	
       case OP_SRLV:
-	tmp = registers[instr->rt];
-	tmp >>= (registers[instr->rs] & 0x1f);
-	registers[instr->rd] = tmp;
+	tmp = registers[(int)instr->rt];
+	tmp >>= (registers[(int)instr->rs] & 0x1f);
+	registers[(int)instr->rd] = tmp;
 	break;
 	
       case OP_SUB:	  
-	diff = registers[instr->rs] - registers[instr->rt];
-	if (((registers[instr->rs] ^ registers[instr->rt]) & SIGN_BIT) &&
-	    ((registers[instr->rs] ^ diff) & SIGN_BIT)) {
+	diff = registers[(int)instr->rs] - registers[(int)instr->rt];
+	if (((registers[(int)instr->rs] ^ registers[(int)instr->rt]) & SIGN_BIT) &&
+	    ((registers[(int)instr->rs] ^ diff) & SIGN_BIT)) {
 	    RaiseException(OverflowException, 0);
 	    return;
 	}
-	registers[instr->rd] = diff;
+	registers[(int)instr->rd] = diff;
 	break;
       	
       case OP_SUBU:
-	registers[instr->rd] = registers[instr->rs] - registers[instr->rt];
+	registers[(int)instr->rd] = registers[(int)instr->rs] - registers[(int)instr->rt];
 	break;
 	
       case OP_SW:
 	if (!machine->WriteMem((unsigned) 
-		(registers[instr->rs] + instr->extra), 4, registers[instr->rt]))
+		(registers[(int)instr->rs] + instr->extra), 4, registers[(int)instr->rt]))
 	    return;
 	break;
 	
       case OP_SWL:	  
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 
 	// The little endian/big endian swap code would
         // fail (I think) if the other cases are ever exercised.
@@ -485,18 +485,18 @@ Machine::OneInstruction(Instruction *instr)
 	    return;
 	switch (tmp & 0x3) {
 	  case 0:
-	    value = registers[instr->rt];
+	    value = registers[(int)instr->rt];
 	    break;
 	  case 1:
-	    value = (value & 0xff000000) | ((registers[instr->rt] >> 8) &
+	    value = (value & 0xff000000) | ((registers[(int)instr->rt] >> 8) &
 					    0xffffff);
 	    break;
 	  case 2:
-	    value = (value & 0xffff0000) | ((registers[instr->rt] >> 16) &
+	    value = (value & 0xffff0000) | ((registers[(int)instr->rt] >> 16) &
 					    0xffff);
 	    break;
 	  case 3:
-	    value = (value & 0xffffff00) | ((registers[instr->rt] >> 24) &
+	    value = (value & 0xffffff00) | ((registers[(int)instr->rt] >> 24) &
 					    0xff);
 	    break;
 	}
@@ -505,7 +505,7 @@ Machine::OneInstruction(Instruction *instr)
 	break;
     	
       case OP_SWR:	  
-	tmp = registers[instr->rs] + instr->extra;
+	tmp = registers[(int)instr->rs] + instr->extra;
 
 	// The little endian/big endian swap code would
         // fail (I think) if the other cases are ever exercised.
@@ -515,16 +515,16 @@ Machine::OneInstruction(Instruction *instr)
 	    return;
 	switch (tmp & 0x3) {
 	  case 0:
-	    value = (value & 0xffffff) | (registers[instr->rt] << 24);
+	    value = (value & 0xffffff) | (registers[(int)instr->rt] << 24);
 	    break;
 	  case 1:
-	    value = (value & 0xffff) | (registers[instr->rt] << 16);
+	    value = (value & 0xffff) | (registers[(int)instr->rt] << 16);
 	    break;
 	  case 2:
-	    value = (value & 0xff) | (registers[instr->rt] << 8);
+	    value = (value & 0xff) | (registers[(int)instr->rt] << 8);
 	    break;
 	  case 3:
-	    value = registers[instr->rt];
+	    value = registers[(int)instr->rt];
 	    break;
 	}
 	if (!machine->WriteMem((tmp & ~0x3), 4, value))
@@ -536,11 +536,11 @@ Machine::OneInstruction(Instruction *instr)
 	return; 
 	
       case OP_XOR:
-	registers[instr->rd] = registers[instr->rs] ^ registers[instr->rt];
+	registers[(int)instr->rd] = registers[(int)instr->rs] ^ registers[(int)instr->rt];
 	break;
 	
       case OP_XORI:
-	registers[instr->rt] = registers[instr->rs] ^ (instr->extra & 0xffff);
+	registers[(int)instr->rt] = registers[(int)instr->rs] ^ (instr->extra & 0xffff);
 	break;
 	
       case OP_RES:
@@ -549,7 +549,7 @@ Machine::OneInstruction(Instruction *instr)
 	return;
 	
       default:
-	ASSERT(FALSE);
+	ASSERT(false);
     }
     
     // Now we have successfully executed the instruction.
@@ -642,7 +642,7 @@ Mult(int a, int b, bool signedArith, int* hiPtr, int* loPtr)
 
     // Compute the sign of the result, then make everything positive
     // so unsigned computation can be done in the main loop.
-    bool negative = FALSE;
+    bool negative = false;
     if (signedArith) {
 	if (a < 0) {
 	    negative = !negative;
