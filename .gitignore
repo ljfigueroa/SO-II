@@ -75,3 +75,8 @@ Session.vim
 *.rej
 *.diff
 *.patch
+
+## Toolchain
+nachos-3.4/code/test/mips-dec-ultrix42/
+nachos-3.4/code/test/lib/
+nachos-3.4/code/test/gcc-mips.tar.gz
