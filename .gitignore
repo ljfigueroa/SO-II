@@ -80,3 +80,14 @@ Session.vim
 nachos-3.4/code/test/mips-dec-ultrix42/
 nachos-3.4/code/test/lib/
 nachos-3.4/code/test/gcc-mips.tar.gz
+
+## NACHOS
+nachos-3.4/code/test/filetest
+nachos-3.4/code/test/halt
+nachos-3.4/code/test/matmult
+nachos-3.4/code/test/shell
+nachos-3.4/code/test/sort
+nachos-3.4/code/bin/coff2noff
+*.coff
+nachos
+swtch.s
