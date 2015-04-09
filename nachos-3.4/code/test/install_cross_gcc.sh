@@ -1,5 +1,9 @@
 #!/bin/bash
-wget http://dcc.fceia.unr.edu.ar:81/svn/lcc/R-412/Public/gcc-mips.tar.gz
+if [ "$FCEIA" == "" ]; then
+    wget http://elopez.github.io/SO-II/gcc-mips.tar.gz -O gcc-mips.tar.gz
+else
+    wget http://dcc.fceia.unr.edu.ar:81/svn/lcc/R-412/Public/gcc-mips.tar.gz -O gcc-mips.tar.gz
+fi
 tar xvzf gcc-mips.tar.gz
 mkdir $PWD/lib
 ln -s $PWD/mips-dec-ultrix42 $PWD/lib/gcc-lib
