@@ -91,3 +91,4 @@ nachos-3.4/code/bin/coff2noff
 *.coff
 nachos
 swtch.s
+*.autodep
