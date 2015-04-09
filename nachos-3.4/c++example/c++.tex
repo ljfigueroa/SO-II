@@ -40,11 +40,11 @@ in C++ is like juggling chainsaws.'' \\ \hbox{} \hfill Anonymous.
 This note introduces some simple C++ concepts and outlines a
 subset of C++ that is easier to learn and use than
 the full language.  Although we originally wrote this note for
-explaining the C++ used in the Nachos project, I believe it is 
+explaining the C++ used in the Nachos project, I believe it is
 useful to anyone learning C++.
 I assume that you are already somewhat familiar with C concepts
 like procedures, for loops, and pointers; these are pretty easy
-to pick up from reading Kernighan and Ritchie's ``The C Programming 
+to pick up from reading Kernighan and Ritchie's ``The C Programming
 Language.''
 
 I should admit up front that I am quite opinionated about C++, if
@@ -55,7 +55,7 @@ the prescriptions contained here; most of the objections are of
 the form, ``How could you have possibly left out feature X?''
 However, I've found from teaching C++ to nearly 1000 undergrads
 over the past several years that the subset of C++ described here is
-pretty easy to learn, taking only a day or so for most students 
+pretty easy to learn, taking only a day or so for most students
 to get started.
 
 The basic premise of this note is that while object-oriented
@@ -67,9 +67,9 @@ every programming language feature ever imagined, and more.
 The natural tendency when faced with a new language feature
 is to try to use it, but in C++ this approach leads to disaster.
 
-Thus, we need to carefully distinguish between (i) those concepts 
+Thus, we need to carefully distinguish between (i) those concepts
 that are fundamental (e.g., classes, member functions, constructors)
--- ones that everyone should know and use, (ii) those that are sometimes 
+-- ones that everyone should know and use, (ii) those that are sometimes
 but rarely useful (e.g., single inheritance, templates) -- ones that
 beginner programmers should be able to recognize (in case they run across
 them) but avoid using in their own programs, at least for a while,
@@ -82,13 +82,13 @@ and I will admit that, like the hated goto, it is possible to
 construct cases when the program would be simpler using a goto or
 multiple inheritance.  However, it is
 my belief that most programmers will never encounter such cases,
-and even if you do, you will be much more likely to misuse the 
+and even if you do, you will be much more likely to misuse the
 feature than properly apply it.
-For example, I seriously doubt an undergraduate would need any of 
+For example, I seriously doubt an undergraduate would need any of
 the features listed under (iii) for any course project (at least
-at Berkeley this is true).  And if you find yourself wanting to use 
-a feature like multiple inheritance, then, my advice is to fully 
-implement your program both with and without the feature, and choose 
+at Berkeley this is true).  And if you find yourself wanting to use
+a feature like multiple inheritance, then, my advice is to fully
+implement your program both with and without the feature, and choose
 whichever is simpler.  Sure, this takes more effort, but
 pretty soon you'll know from experience when a feature is useful and when
 it isn't, and you'll be able to skip the dual implementation.
@@ -100,17 +100,17 @@ It is a good idea to look over the first assignment as you read this
 introduction.  Of course, your TA's will answer any questions you may
 have.
 
-You should not need a book on C++ to do the Nachos assignments, but if 
+You should not need a book on C++ to do the Nachos assignments, but if
 you are curious, there is a large selection of C++ books
 at Cody's and other technical bookstores. (My wife quips that C++ was
 invented to make researchers at Bell Labs rich from writing
 ``How to Program in C++'' books.)   Most new software development
-these days is being done in C++, so it is a pretty good bet you'll 
+these days is being done in C++, so it is a pretty good bet you'll
 run across it in the future.  I use Stroustrup's "The C++
-Programming Language" as a reference manual, although other 
+Programming Language" as a reference manual, although other
 books may be more readable.  I would also recommend Scott Meyer's
 ``Effective C++'' for people just beginning to learn the language,
-and Coplien's ``Advanced C++'' once you've been programming in C++ 
+and Coplien's ``Advanced C++'' once you've been programming in C++
 for a couple years and are familiar with the language basics.
 Also, C++ is continually evolving, so be careful to buy books that describe
 the latest version (currently 3.0, I think!).
@@ -163,12 +163,12 @@ to some examples.
 \begin{enumerate}
 
 \item {\bf Classes and objects}.  A class is similar to a C {\em structure},
-except that the definition of the data structure, {\em and} all of the 
+except that the definition of the data structure, {\em and} all of the
 functions that operate on the data structure are grouped together
 in one place.  An {\em object} is an instance of a class (an instance
 of the data structure); objects share the same functions with other objects
-of the same class, but each object (each instance) has its own copy of 
-the data structure.  A class thus defines two aspects of the objects: 
+of the same class, but each object (each instance) has its own copy of
+the data structure.  A class thus defines two aspects of the objects:
 the {\em data} they contain, and the {\em behavior} they have.
 
 \item {\bf Member functions}.  These are functions which are
@@ -223,19 +223,19 @@ Stack::Push(int value) {
 \end{verbatim}
 
 This class has two data members, {\tt top} and {\tt stack}, and one
-member function, {\tt Push}.  
+member function, {\tt Push}.
 The notation {\em class}::{\em function} denotes the
 {\em function} member of the class {\em class}.  (In the style we use,
 most function names are capitalized.)  The function is defined beneath
-it.  
+it.
 
-As an aside, note that we use a call to {\tt ASSERT} to check that 
+As an aside, note that we use a call to {\tt ASSERT} to check that
 the stack hasn't overflowed; ASSERT drops into the debugger if the condition
 is false.  It is an extremely good idea for you to use ASSERT
 statements liberally throughout your code to document assumptions
 made by your implementation.  Better to catch errors automatically
-via ASSERTs than to let them go by and have your program overwrite 
-random locations.  
+via ASSERTs than to let them go by and have your program overwrite
+random locations.
 
 In actual usage, the definition of {\tt class Stack} would typically
 go in the file {\tt stack.h} and the definitions of the member
@@ -348,10 +348,10 @@ Which form you prefer is a matter of style, but it's usually best
 to be explicit, so that it is obvious what is intended.  In Nachos,
 we make everything explicit.
 
-What is not a matter of style: {\bf all data members of a class 
+What is not a matter of style: {\bf all data members of a class
 should be private.}  All operations on data should be via that
-class' member functions.  Keeping data private adds to the modularity 
-of the system, since you can redefine how the data members are stored 
+class' member functions.  Keeping data private adds to the modularity
+of the system, since you can redefine how the data members are stored
 without changing how you access them.
 
 \item {\bf Constructors and the operator new.}  In C, in
@@ -422,7 +422,7 @@ automatic or global variables, you put them after the variable name.
 
 It is crucial that you {\bf always} define a constructor
 for every class you define, and that the constructor initialize
-{\bf every} data member of the class.  If you don't define 
+{\bf every} data member of the class.  If you don't define
 your own constructor, the compiler will automatically define
 one for you, and believe me, it won't do what you want
 (``the unhelpful compiler'').
@@ -431,11 +431,11 @@ values, and while your program may work anyway, it might not
 the next time you recompile (or vice versa!).
 
 As with normal C variables, variables declared inside a function
-are deallocated automatically when the function returns; for  
+are deallocated automatically when the function returns; for
 example, the {\tt s1} object is deallocated when {\tt test}
-returns.  Data allocated with {\tt new} (such as {\tt s2}) is 
+returns.  Data allocated with {\tt new} (such as {\tt s2}) is
 stored on the heap, however, and remains after the function returns;
-heap data must be explicitly disposed of using {\tt delete}, described below.  
+heap data must be explicitly disposed of using {\tt delete}, described below.
 
 The {\tt new} operator can also be used to allocate arrays, illustrated
 above in allocating an array of {\tt ints}, of dimension {\tt size}:
@@ -491,10 +491,10 @@ to occupy space until the program is over -- this is called
 memory is supposed to be unlimited, you can in fact run out of it --
 and so you should be careful to {\bf always} delete what you allocate.
 Of course, it is even worse to call {\tt delete} too early --
-{\tt delete} calls the destructor and puts the space back on the heap 
+{\tt delete} calls the destructor and puts the space back on the heap
 for later re-use.  If you are still using the object, you will
 get random and non-repeatable results that will be very difficult
-to debug.  In my experience, using data that has already been deleted 
+to debug.  In my experience, using data that has already been deleted
 is major source of hard-to-locate bugs in student (and professional)
 programs, so hey, be careful out there!
 
@@ -504,17 +504,17 @@ the function returns; in the {\tt test()} example above, {\tt s1}
 will be deallocated when {\tt test()} returns, without you having to
 do anything.
 
-In Nachos, we always explicitly allocate and deallocate objects with 
+In Nachos, we always explicitly allocate and deallocate objects with
 {\tt new} and {\tt delete}, to make it clear when the constructor and
-destructor is being called.  For example, if an object contains another 
+destructor is being called.  For example, if an object contains another
 object as a member variable, we use
 {\tt new} to explicitly allocated and initialize the member variable,
 instead of implicitly allocating it as part of the containing object.
-C++ has strange, non-intuitive rules for the order in which the 
-constructors and destructors are called when you implicitly allocate 
-and deallocate objects.  In practice, although simpler, explicit allocation 
-is slightly slower and it makes it more likely that you will forget 
-to deallocate an object (a bad thing!), and so some would disagree with 
+C++ has strange, non-intuitive rules for the order in which the
+constructors and destructors are called when you implicitly allocate
+and deallocate objects.  In practice, although simpler, explicit allocation
+is slightly slower and it makes it more likely that you will forget
+to deallocate an object (a bad thing!), and so some would disagree with
 this approach.
 
 When you deallocate an array, you have to tell the compiler that
@@ -540,8 +540,8 @@ true for {\tt enum}s.
 \item You can define functions inside of a {\tt class} definition,
 whereupon they become {\it inline functions}, which are expanded in
 the body of the function where they are used.  The rule of thumb to
-follow is to only consider inlining one-line functions, and even then 
-do so rarely.  
+follow is to only consider inlining one-line functions, and even then
+do so rarely.
 
 As an example, we could make the {\tt Full} routine an inline.
 
@@ -555,13 +555,13 @@ class Stack {
 
 There are two motivations for inlines: convenience
 and performance.  If overused, inlines can make your code more confusing,
-because the implementation for an object is no longer in one place, 
+because the implementation for an object is no longer in one place,
 but spread between the {\tt .h} and {\tt .c} files.  Inlines can sometimes
-speed up your code (by avoiding the overhead of a procedure call), but 
-that shouldn't be your principal concern as a student (rather, at least to 
-begin with, you should be most concerned with writing code that is simple 
+speed up your code (by avoiding the overhead of a procedure call), but
+that shouldn't be your principal concern as a student (rather, at least to
+begin with, you should be most concerned with writing code that is simple
 and bug free).  Not to mention that inlining sometimes slows down a program,
-since the object code for the function is duplicated wherever the function 
+since the object code for the function is duplicated wherever the function
 is called, potentially hurting cache performance.
 
 \item Inside a function body, you can declare some variables, execute
@@ -580,15 +580,15 @@ loop, however, which is not what one might expect or desire.
 the end of the line.  These are usually more handy than the
 \verb+/* */+ style of comments.
 
-\item C++ provides some new opportunities to use the 
+\item C++ provides some new opportunities to use the
 {\tt const} keyword from ANSI C.  The basic idea of {\tt const}
 is to provide extra information to the compiler about how a variable
-or function is used, to allow it to flag an error if it is being 
-used improperly.  You should always look for ways to get the compiler 
+or function is used, to allow it to flag an error if it is being
+used improperly.  You should always look for ways to get the compiler
 to catch bugs for you.  After all, which takes less time?  Fixing
-a compiler-flagged error, or chasing down the same bug using gdb?  
+a compiler-flagged error, or chasing down the same bug using gdb?
 
-For example, you can declare that a member function only reads the 
+For example, you can declare that a member function only reads the
 member data, and never modifies the object:
 
 \begin{verbatim}
@@ -599,7 +599,7 @@ class Stack {
 };
 \end{verbatim}
 
-As in C, you can use {\tt const} to declare that a variable is never 
+As in C, you can use {\tt const} to declare that a variable is never
 modified:
 
 \begin{verbatim}
@@ -628,8 +628,8 @@ compiler won't complain if you try to print a floating point number
 as an integer. In fact, you can use traditional {\tt printf} in a C++
 program, but you will get bizarre behavior if you try to use both
 {\tt printf} and {\tt <<} on the same stream.  Reading from {\tt stdin}
-works the same way as writing to {\tt stdout}, except using the shift 
-right operator instead of shift left.  
+works the same way as writing to {\tt stdout}, except using the shift
+right operator instead of shift left.
 In order to read two integers from {\tt stdin}:
 
 \begin{verbatim}
@@ -650,34 +650,34 @@ to do I/O in C++.
 There are a few C++ features, namely (single) inheritance and templates,
 which are easily abused, but can dramatically simplify an
 implementation if used properly.  I describe the basic idea
-behind these ``dangerous but useful'' features here, in case you 
+behind these ``dangerous but useful'' features here, in case you
 run across them.  Feel free to skip this section -- it's long,
 complex, and you can understand 99\% of the code in Nachos without
 reading this section.
 
 Up to this point, there really hasn't been any fundamental difference
-between programming in C and in C++.  In fact, most experienced 
+between programming in C and in C++.  In fact, most experienced
 C programmers organize their functions into modules that relate
-to a single data structure (a "class"), and often even use a naming 
-convention which mimics C++, for example, naming routines 
-{\tt StackFull()} and {\tt StackPush()}.  However, the features 
+to a single data structure (a "class"), and often even use a naming
+convention which mimics C++, for example, naming routines
+{\tt StackFull()} and {\tt StackPush()}.  However, the features
 I'm about to describe {\em do} require a paradigm shift -- there
 is no simple translation from them into a normal C program.
-The benefit will be that, in some circumstances, you will be able to 
+The benefit will be that, in some circumstances, you will be able to
 write generic code that works with multiple kinds of objects.
 
 Nevertheless, I would advise a beginning C++ programmer against trying
 to use these features, because you will almost
-certainly misuse them.  It's possible (even easy!) to write completely 
+certainly misuse them.  It's possible (even easy!) to write completely
 inscrutable code using inheritance and/or templates.  Although
-you might find it amusing to write code that is impossible for your 
+you might find it amusing to write code that is impossible for your
 graders to understand, I assure you they won't find it amusing at all,
 and will return the favor when they assign grades.  In industry,
-a high premium is placed on keeping code simple and readable. 
+a high premium is placed on keeping code simple and readable.
 It's easy to write new code, but the real cost comes when
 you try to keep it working, even as you add new features to it.
 
-Nachos contains a few examples of the correct use of inheritance 
+Nachos contains a few examples of the correct use of inheritance
 and templates, but realize that Nachos does {\em not} use them
 everywhere.  In fact, if you get confused by this section, don't worry,
 you don't need to use any of these features in order to do the Nachos
@@ -691,7 +691,7 @@ about them!
 \subsection{Inheritance}
 Inheritance captures the idea that certain classes of objects are
 related to each other in useful ways.  For example, lists
-and sorted lists have quite similar behavior -- they both 
+and sorted lists have quite similar behavior -- they both
 allow the user to insert, delete, and find elements that are
 on the list.  There are two benefits to using inheritance:
 
@@ -703,14 +703,14 @@ example, inheritance is widely used in windowing systems.
 Everything on the screen (windows, scroll bars, titles, icons)
 is its own object, but they all share a set of member functions
 in common, such as a routine {\tt Repaint} to redraw the object
-onto the screen.  This way, the code to repaint the entire screen 
+onto the screen.  This way, the code to repaint the entire screen
 can simply call the {\tt Repaint} function on every object on the screen.
 The code that calls {\tt Repaint} doesn't need to know which
 kinds of objects are on the screen, as long as each implements
 {\tt Repaint}.
 
 \item You can share pieces of an implementation between two
-objects.  For example, if you were to implement both lists and 
+objects.  For example, if you were to implement both lists and
 sorted lists in C, you'd probably find yourself repeating code
 in both places -- in fact, you might be really tempted to
 only implement sorted lists, so that you only had to debug
@@ -725,7 +725,7 @@ print, all remain the same.
 \subsubsection{Shared Behavior}
 
 Let me use our Stack example to illustrate the first of these.
-Our Stack implementation 
+Our Stack implementation
 above could have been implemented with linked lists, instead of an array.
 Any code using a Stack shouldn't
 care which implementation is being used, except that the linked list
@@ -734,7 +734,7 @@ array implementation to handle overflow by automatically resizing
 the array as items are pushed on the stack.)
 
 To allow the two implementations to coexist, we first define an
-{\em abstract} Stack, containing just the public member functions, 
+{\em abstract} Stack, containing just the public member functions,
 but no data.
 
 \begin{verbatim}
@@ -742,30 +742,30 @@ class Stack {
   public:
     Stack();
     virtual ~Stack();          // deallocate the stack
-    virtual void Push(int value) = 0; 
+    virtual void Push(int value) = 0;
                                // Push an integer, checking for overflow.
     virtual bool Full() = 0;   // Is the stack is full?
 };
 
 // For g++, need these even though no data to initialize.
-Stack::Stack {}             
+Stack::Stack {}
 Stack::~Stack() {}
 \end{verbatim}
 
 The {\tt Stack} definition is called a {\em base class} or sometimes a {\em
-superclass}.  We can then define two different {\em derived classes}, 
+superclass}.  We can then define two different {\em derived classes},
 sometimes called {\em subclasses} which inherit behavior from the base
-class.  (Of course, inheritance is recursive -- a derived class can in 
+class.  (Of course, inheritance is recursive -- a derived class can in
 turn be a base class for yet another derived class, and so on.)
-Note that I have prepended the functions in the base class is prepended 
-with the keyword {\tt virtual}, to signify that they can be redefined by 
+Note that I have prepended the functions in the base class is prepended
+with the keyword {\tt virtual}, to signify that they can be redefined by
 each of the two derived classes.  The virtual functions are
 initialized to zero, to tell the compiler that those functions
 must be defined by the derived classes.
 
 Here's how we could declare the array-based and list-based
-implementations of {\tt Stack}. The syntax {\tt : public Stack} signifies 
-that both {\tt ArrayStack} and {\tt ListStack} are kinds 
+implementations of {\tt Stack}. The syntax {\tt : public Stack} signifies
+that both {\tt ArrayStack} and {\tt ListStack} are kinds
 of {\tt Stacks}, and share the same behavior as the base class.
 
 \begin{verbatim}
@@ -783,7 +783,7 @@ class ArrayStack : public Stack {  // the same as in Section 2
 
 class ListStack : public Stack {
   public:
-    ListStack(); 
+    ListStack();
     ~ListStack();
     void Push(int value);
     bool Full();
@@ -791,23 +791,23 @@ class ListStack : public Stack {
     List *list;		// list of items pushed on the stack
 };
 
-ListStack::ListStack() { 
+ListStack::ListStack() {
     list = new List;
 }
 
-ListStack::~ListStack() { 
-    delete list; 
+ListStack::~ListStack() {
+    delete list;
 }
 \end{verbatim}
 \newpage
 \begin{verbatim}
 void ListStack::Push(int value) {
-    list->Prepend(value); 
+    list->Prepend(value);
 }
 
 bool ListStack::Full() {
     return FALSE; 	// this stack never overflows!
-}  
+}
 \end{verbatim}
 
 The neat concept here is that I can assign pointers to instances of
@@ -841,33 +841,33 @@ abstract class {\tt Stack}, I do not need to {\em implement} its
 functions.  This might seem a bit strange, but remember that
 the derived classes are the various implementations of Stack,
 and Stack serves only to reflect the shared behavior between
-the different implementations.  
+the different implementations.
 
-Also note that the destructor for {\tt Stack} is a virtual 
+Also note that the destructor for {\tt Stack} is a virtual
 function but the constructor is not.  Clearly, when I create an
-object, I have to know which kind of object it is, whether 
-{\tt ArrayStack} or {\tt ListStack}.  The compiler 
-makes sure that no one creates an instance of the abstract {\tt Stack} 
-by mistake -- you cannot instantiate any class whose virtual 
-functions are not completely defined (in other words, if any of 
+object, I have to know which kind of object it is, whether
+{\tt ArrayStack} or {\tt ListStack}.  The compiler
+makes sure that no one creates an instance of the abstract {\tt Stack}
+by mistake -- you cannot instantiate any class whose virtual
+functions are not completely defined (in other words, if any of
 its functions are set to zero in the class definition).
 
 But when I deallocate an object, I may no longer know its exact
 type.  In the above code, I want to call the destructor for the
 derived object, even though the code only knows that I am deleting
 an object of class {\tt Stack}.  If the destructor were not virtual,
-then the compiler would invoke {\tt Stack}'s destructor, which is 
+then the compiler would invoke {\tt Stack}'s destructor, which is
 not at all what I want.  This is an easy mistake to make (I made
 it in the first draft of this article!) -- if you don't define
-a destructor for the abstract class, the compiler will define one 
+a destructor for the abstract class, the compiler will define one
 for you implicitly (and by the way, it won't be virtual, since you
 have a {\em really} unhelpful compiler).  The result for the
-above code would be a memory leak, and who knows how you would 
+above code would be a memory leak, and who knows how you would
 figure that out!
 
 \subsubsection{Shared Implementation}
 
-What about sharing code, the other reason for inheritance? 
+What about sharing code, the other reason for inheritance?
 In C++, it is possible to use member functions
 of a base class in its derived class.  (You can also share
 data between a base class and derived classes, but this
@@ -878,7 +878,7 @@ Suppose that I wanted to add a new member function,
 The {\tt ArrayStack} class already keeps count of the number of
 items on the stack, so I could duplicate that code in {\tt ListStack}.
 Ideally, I'd like to be able to use the same code in both places.
-With inheritance, we can move the counter into the 
+With inheritance, we can move the counter into the
 {\tt Stack} class, and then invoke the base class operations
 from the derived class to update the counter.
 
@@ -895,16 +895,16 @@ class Stack {
     int numPushed;
 };
 
-Stack::Stack() { 
-    numPushed = 0; 
+Stack::Stack() {
+    numPushed = 0;
 }
 
-void Stack::Push(int value) { 
-    numPushed++; 
+void Stack::Push(int value) {
+    numPushed++;
 }
 
-int Stack::NumPushed() { 
-    return numPushed; 
+int Stack::NumPushed() {
+    return numPushed;
 }
 \end{verbatim}
 
@@ -915,16 +915,16 @@ one of them here:
 \begin{verbatim}
 class ArrayStack : public Stack {
   public:
-    ArrayStack(int sz);   
-    ~ArrayStack();        
-    void Push(int value); 
-    bool Full();     
+    ArrayStack(int sz);
+    ~ArrayStack();
+    void Push(int value);
+    bool Full();
   private:
     int size;        // The maximum capacity of the stack.
     int *stack;      // A pointer to an array that holds the contents.
 };
 
-ArrayStack::ArrayStack(int sz) : Stack() { 
+ArrayStack::ArrayStack(int sz) : Stack() {
     size = sz;
     stack = new int[size];   // Let's get an array of integers.
 }
@@ -949,11 +949,11 @@ It does that by adding {\tt : Stack()} to the first line in the constructor:
 ArrayStack::ArrayStack(int sz) : Stack()
 \end{verbatim}
 
-The same thing applies to destructors.  There are special rules for which 
-get called first -- the constructor/destructor for the base class or 
+The same thing applies to destructors.  There are special rules for which
+get called first -- the constructor/destructor for the base class or
 the constructor/destructor for the derived class.  All I should say is,
-it's a bad idea to rely on whatever the rule is -- more generally, it is a 
-bad idea to write code which requires the reader to consult a manual 
+it's a bad idea to rely on whatever the rule is -- more generally, it is a
+bad idea to write code which requires the reader to consult a manual
 to tell whether or not the code works!
 
 \item I introduced a new keyword, {\tt protected}, in the new definition
@@ -961,13 +961,13 @@ of {\tt Stack}.  For a base class, {\tt protected} signifies that those
 member data and functions are accessible to classes derived (recursively)
 from this class, but inaccessible to other classes.  In other words, protected
 data is {\tt public} to derived classes, and {\tt private} to everyone else.
-For example, we need {\tt Stack}'s constructor to be callable by 
+For example, we need {\tt Stack}'s constructor to be callable by
 {\tt ArrayStack} and {\tt ListStack}, but we don't want anyone
-else to create instances of {\tt Stack}.  Hence, we make {\tt Stack}'s 
+else to create instances of {\tt Stack}.  Hence, we make {\tt Stack}'s
 constructor a protected function.  In this case, this is not strictly
 necessary since the compiler will complain if anyone tries to create an
-instance of {\tt Stack} because {\tt Stack} still has an undefined virtual 
-functions, {\tt Push}.  By defining {\tt Stack::Stack} as {\tt protected}, 
+instance of {\tt Stack} because {\tt Stack} still has an undefined virtual
+functions, {\tt Push}.  By defining {\tt Stack::Stack} as {\tt protected},
 you are safe even if someone comes along later and defines {\tt Stack::Push}.
 
 Note however that I made {\tt Stack}'s data member {\tt private}, not
@@ -975,13 +975,13 @@ Note however that I made {\tt Stack}'s data member {\tt private}, not
 as a rule of thumb you should never allow one class to see directly
 access the data in another, even among classes related
 by inheritance.  Otherwise, if you ever change the implementation
-of the base class, you will have to examine and change all the 
+of the base class, you will have to examine and change all the
 implementations of the derived classes, violating modularity.
 
 \item The interface for a derived class automatically includes all
-functions defined for its base class, without having to explicitly 
-list them in the derived class.  Although we didn't define 
-{\tt NumPushed()} in {\tt ArrayStack}, we can still call it for 
+functions defined for its base class, without having to explicitly
+list them in the derived class.  Although we didn't define
+{\tt NumPushed()} in {\tt ArrayStack}, we can still call it for
 those objects:
 
 \begin{verbatim}
@@ -991,8 +991,8 @@ those objects:
 \end{verbatim}
 
 \item Conversely, even though we have defined a routine {\tt Stack::Push()},
-because it is declared as {\tt virtual}, if we invoke {\tt Push()} 
-on an {\tt ArrayStack} object, we will get {\tt ArrayStack}'s version 
+because it is declared as {\tt virtual}, if we invoke {\tt Push()}
+on an {\tt ArrayStack} object, we will get {\tt ArrayStack}'s version
 of {\tt Push}:
 
 \begin{verbatim}
@@ -1002,14 +1002,14 @@ of {\tt Push}:
         s->Push(5);		// ArrayStack::Push
 \end{verbatim}
 
-\item {\tt Stack::NumPushed()} is not {\tt virtual}.  That means 
+\item {\tt Stack::NumPushed()} is not {\tt virtual}.  That means
 that it cannot be re-defined by {\tt Stack}'s derived classes.
 Some people believe that you should mark {\em all} functions
 in a base class as {\tt virtual}; that way, if you later want to
 implement a derived class that redefines a function, you don't have
 to modify the base class to do so.
 
-\item Member functions in a derived class can explicitly invoke 
+\item Member functions in a derived class can explicitly invoke
 public or protected functions in the base class, by the full
 name of the function, {\tt Base::Function()}, as in:
 
@@ -1021,33 +1021,33 @@ void ArrayStack::Push(int value)
 }
 \end{verbatim}
 
-Of course, if we just called {\tt Push()} here (without prepending 
-{\tt Stack::}, the compiler would think we were referring 
+Of course, if we just called {\tt Push()} here (without prepending
+{\tt Stack::}, the compiler would think we were referring
 to {\tt ArrayStack}'s {\tt Push()}, and so that would recurse,
 which is not exactly what we had in mind here.
 
 \end{enumerate}
 
 Whew!  Inheritance in C++ involves lots and lots of details.
-But it's real downside is that it tends to spread implementation 
-details across multiple files -- if you have a deep inheritance 
-tree, it can take some serious digging to figure out what code 
+But it's real downside is that it tends to spread implementation
+details across multiple files -- if you have a deep inheritance
+tree, it can take some serious digging to figure out what code
 actually executes when a member function is invoked.
 
 So the question to ask yourself before using inheritance is:
 what's your goal?  Is it to write your programs with the
 fewest number of characters possible?  If so, inheritance is
-really useful, but so is changing all of your function and variable 
+really useful, but so is changing all of your function and variable
 names to be one letter long -- "a", "b", "c" -- and once you
-run out of lower case ones, start using upper case, then two character 
+run out of lower case ones, start using upper case, then two character
 variable names: "XX XY XZ Ya ..." (I'm joking here.)
 Needless to say, it is really easy to write unreadable code
-using inheritance.  
+using inheritance.
 
 So when is it a good idea to use inheritance and when should it be
-avoided?  My rule of thumb is to only use it for representing 
+avoided?  My rule of thumb is to only use it for representing
 {\em shared behavior} between objects, and to never use it for
-representing {\em shared implementation}.  With C++, you can use 
+representing {\em shared implementation}.  With C++, you can use
 inheritance for both concepts, but only the first will lead to
 truly simpler implementations.
 
@@ -1085,14 +1085,14 @@ in its performance characteristics.
 Templates are another useful but dangerous concept in C++.
 With templates, you can parameterize a class definition
 with a {\em type}, to allow you to write generic type-independent
-code.  For example, our {\tt Stack} implementation above only worked 
-for pushing and popping {\em integers}; what if we wanted a stack 
+code.  For example, our {\tt Stack} implementation above only worked
+for pushing and popping {\em integers}; what if we wanted a stack
 of characters, or floats, or pointers, or some arbitrary data structure?
 
 In C++, this is pretty easy to do using templates:
 
 \begin{verbatim}
-template <class T> 
+template <class T>
 class Stack {
   public:
     Stack(int sz);    // Constructor:  initialize variables, allocate space.
@@ -1119,7 +1119,7 @@ once we do that, we can use the type parameters just like normal types:
 
 \begin{verbatim}
      // template version of Stack::Stack
-template <class T> 
+template <class T>
 Stack<T>::Stack(int sz) {
     size = sz;
     top = 0;
@@ -1127,7 +1127,7 @@ Stack<T>::Stack(int sz) {
 }
 
      // template version of Stack::Push
-template <class T> 
+template <class T>
 void
 Stack<T>::Push(T value) {
     ASSERT(!Full());
@@ -1162,12 +1162,12 @@ we'd get one copy of the code for {\tt ints} and one copy for {\tt chars}.
 
 So what's wrong with templates?  You've all been taught to make
 your code modular so that it can be re-usable, so {\em everything}
-should be a template, right?  Wrong.  
+should be a template, right?  Wrong.
 
-The principal problem with templates is that they can be {\em very} 
-difficult to debug -- templates are easy to use if they work, but 
-finding a bug in them can be difficult. In part this is because 
-current generation C++ debuggers don't really understand templates 
+The principal problem with templates is that they can be {\em very}
+difficult to debug -- templates are easy to use if they work, but
+finding a bug in them can be difficult. In part this is because
+current generation C++ debuggers don't really understand templates
 very well.  Nevertheless, it is easier to debug a template than
 two nearly identical implementations that differ only in their types.
 
@@ -1177,7 +1177,7 @@ do need to implement a template, implement and debug a non-template
 version first.  Once that is working, it won't be hard to convert
 it to a template.  Then all you have to worry about code
 explosion -- e.g., your program's object code is now megabytes
-because of the 15 copies of the hash table/list/... routines, one for 
+because of the 15 copies of the hash table/list/... routines, one for
 each kind of thing you want to put in a hash table/list/...
 (Remember, you have an unhelpful compiler!)
 
@@ -1185,17 +1185,17 @@ each kind of thing you want to put in a hash table/list/...
 
 Despite the length of this note, there are numerous
 features in C++ that I haven't explained.  I'm sure each feature
-has its advocates, but despite programming in C and C++ for over 15 
+has its advocates, but despite programming in C and C++ for over 15
 years, I haven't found a compelling reason to use them in any code
-that I've written (outside of a programming language class!) 
+that I've written (outside of a programming language class!)
 
-Indeed, there is a compelling reason to avoid using these features -- they are 
+Indeed, there is a compelling reason to avoid using these features -- they are
 easy to misuse, resulting in programs that are harder to read and understand
-instead of easier to understand.  In most cases, the features are also 
+instead of easier to understand.  In most cases, the features are also
 redundant -- there are other ways of accomplishing the same end.  Why have
 two ways of doing the same thing?  Why not stick with the simpler one?
 
-I do not use any of the following features in Nachos.  
+I do not use any of the following features in Nachos.
 If you use them, {\it caveat hacker}.
 
 \begin{enumerate}
@@ -1208,12 +1208,12 @@ with multiple inheritance can get really confusing.
 
 \item {\bf References.}  Reference variables are rather hard to
 understand in general; they play the same role as pointers, with
-slightly different syntax (unfortunately, I'm not joking!) 
-Their most common use is to declare some parameters to a function 
-as {\it reference parameters}, as in Pascal.  A call-by-reference 
-parameter can be modified by the calling function, without the callee 
-having to pass a pointer.  The effect is that parameters look 
-(to the caller) like they are called by value (and therefore can't change), 
+slightly different syntax (unfortunately, I'm not joking!)
+Their most common use is to declare some parameters to a function
+as {\it reference parameters}, as in Pascal.  A call-by-reference
+parameter can be modified by the calling function, without the callee
+having to pass a pointer.  The effect is that parameters look
+(to the caller) like they are called by value (and therefore can't change),
 but in fact can be transparently modified by the called function.
 Obviously, this can be a source of obscure bugs, not to mention
 that the semantics of references in C++ are in general not obvious.
@@ -1222,7 +1222,7 @@ that the semantics of references in C++ are in general not obvious.
 of the operators (such as {\tt +} and \verb+>>+) for class objects.
 This is dangerous at best ("exactly which implementation of '+' does
 this refer to?"), and when used in non-intuitive ways, a
-source of great confusion, made worse by the fact that C++ does 
+source of great confusion, made worse by the fact that C++ does
 implicit type conversion, which can affect which operator
 is invoked.  Unfortunately, C++'s I/O facilities
 make heavy use of operator overloading and references, so you
@@ -1231,11 +1231,11 @@ can't completely escape them, but think twice before you redefine
 
 \item {\bf Function overloading.}  You can also define different functions
 in a class with the same name but different argument types.  This is also
-dangerous (since it's easy to slip up and get the unintended version), 
+dangerous (since it's easy to slip up and get the unintended version),
 and we never use it.  We will also avoid using default arguments (for the
-same reason).  Note that it can be a good idea to use the same name for 
+same reason).  Note that it can be a good idea to use the same name for
 functions in different classes, provided they use the same
-arguments and behave the same way -- a good example of this is that 
+arguments and behave the same way -- a good example of this is that
 most Nachos objects have a {\tt Print()} method.
 
 \item {\bf Standard template library.} An ANSI standard has emerged for a
@@ -1244,17 +1244,17 @@ etc., called the standard template library.  Using such a library
 should make programming much simpler if the data structure you need
 is already provided in the library.  Alas, the standard template
 library pushes the envelope of legal C++, and so virtually no
-compilers (including g++) can support it today.  Not to mention that 
-it uses (big surprise!) references, operator overloading, and 
+compilers (including g++) can support it today.  Not to mention that
+it uses (big surprise!) references, operator overloading, and
 function overloading.
 
 \item {\bf Exceptions.} There are two ways to return an error from
 a procedure.  One is simple -- just define the procedure to return
 an error code if it isn't able to do it's job.  For example,
 the standard library routine {\tt malloc} returns NULL if there
-is no available memory.  However, lots of programmers are lazy and 
-don't check error codes.  So what's the solution?  You might think 
-it would be to get programmers who aren't lazy, but no, the C++ solution 
+is no available memory.  However, lots of programmers are lazy and
+don't check error codes.  So what's the solution?  You might think
+it would be to get programmers who aren't lazy, but no, the C++ solution
 is to add a programming language construct!  A procedure can
 return an error by ``raising an exception'' which effectively
 causes a {\tt goto} back up the execution stack to the last
@@ -1271,27 +1271,27 @@ discussion of this issue.  All of these features are legal C;
 what's legal isn't necessarily good.
 
 \begin{enumerate}
-\item Pointer arithmetic.  Runaway pointers are a principal source 
+\item Pointer arithmetic.  Runaway pointers are a principal source
 of hard-to-find bugs in C programs, because the symptom of this happening
 can be mangled data structures in a completely different part of the program.
-Depending on exactly which objects are allocated on the heap in which 
+Depending on exactly which objects are allocated on the heap in which
 order, pointer bugs can appear and disappear, seemingly at random.
 For example, {\tt printf} sometimes allocates memory on the heap,
 which can change the addresses returned by all future calls to {\tt new}.
 Thus, adding a {\tt printf} can change things so that a pointer
 which used to (by happenstance) mangle a critical data structure
-(such as the middle of a thread's execution stack), now overwrites memory 
+(such as the middle of a thread's execution stack), now overwrites memory
 that may not even be used.
 
-The best way to avoid runaway pointers is (no surprise) to be 
+The best way to avoid runaway pointers is (no surprise) to be
 {\em very} careful when using pointers.  Instead of iterating
-through an array with pointer arithmetic, use a separate index  
+through an array with pointer arithmetic, use a separate index
 variable, and assert that the index is never larger than the size
 of the array.  Optimizing compilers have gotten very good, so that the
 generated machine code is likely to be the same in either case.
 
 Even if you don't use pointer arithmetic, it's still easy
-(easy is bad in this context!) to have an off-by-one errror 
+(easy is bad in this context!) to have an off-by-one errror
 that causes your program to step beyond the end of an array.
 How do you fix this?  Define a class to contain the array
 {\em and its length}; before allowing any access to the array,
@@ -1299,7 +1299,7 @@ you can then check whether the access is legal or in error.
 
 \item Casts from integers to pointers and back.  Another source
 of runaway pointers is that C and C++ allow you to convert
-integers to pointers, and back again.  Needless to say, using a 
+integers to pointers, and back again.  Needless to say, using a
 random integer value as a pointer is likely to result in unpredictable
 symptoms that will be very hard to track down.
 
@@ -1311,9 +1311,9 @@ you are also writing highly non-portable code.
 \item Using bit shift in place of a multiply or divide.
 This is a clarity issue.  If you are doing arithmetic, use
 arithmetic operators; if you are doing bit manipulation,
-use bitwise operators.  If I am trying to multiply by 8, which is 
-easier to understand, {\tt x << 3} or {\tt x * 8}?  In the 70's, 
-when C was being developed, the former would yield more efficient 
+use bitwise operators.  If I am trying to multiply by 8, which is
+easier to understand, {\tt x << 3} or {\tt x * 8}?  In the 70's,
+when C was being developed, the former would yield more efficient
 machine code, but today's compilers generate the same code in both
 cases, so readability should be your primary concern.
 
@@ -1334,8 +1334,8 @@ whether you've made a mistake.
 
 \item Using {\tt \#define} when you could use {\tt enum}.
 When a variable can hold one of a small number of values,
-the original C practice was to use {\tt \#define} to set up 
-symbolic names for each of the values.  {\tt enum} does this 
+the original C practice was to use {\tt \#define} to set up
+symbolic names for each of the values.  {\tt enum} does this
 in a type-safe way -- it allows the compiler to verify
 that the variable is only assigned one of the enumerated values,
 and none other.  Again, the advantage is to eliminate a class of
@@ -1348,8 +1348,8 @@ errors from your program, making it quicker to debug.
 Even if you follow the approach I've outlined above, it is still
 as easy to write unreadable and undebuggable code in C++ as it
 is in C, and perhaps easier, given the more powerful features the
-language provides.  For the Nachos project, and in general, we suggest 
-you adhere to the following guidelines (and tell us if you catch us 
+language provides.  For the Nachos project, and in general, we suggest
+you adhere to the following guidelines (and tell us if you catch us
 breaking them):
 
 \begin{enumerate}
@@ -1385,8 +1385,8 @@ interface} to the class, and the {\tt .cc} file acts as the
 respective {\tt .h} file).  If using a particular {\tt .h} file requires
 another {\tt .h} file to be included (e.g., {\tt synch.h} needs
 class definitions from {\tt thread.h}) you should include the dependency
-in the {\tt .h} file, so that the user of your class doesn't have to 
-track down all the dependencies himself.  
+in the {\tt .h} file, so that the user of your class doesn't have to
+track down all the dependencies himself.
 To protect against multiple inclusion, bracket each {\tt .h}
 file with something like:
 \begin{verbatim}
@@ -1400,11 +1400,11 @@ class Stack { ... };
 Sometimes this will not be enough, and you will have a circular
 dependency.  For example, you might have a {\tt .h} file that
 uses a definition from one {\tt .h} file, but also defines something
-needed by that {\tt .h} file.  In this case, you will have to do 
+needed by that {\tt .h} file.  In this case, you will have to do
 something ad-hoc.  One thing to realize is that you don't always
 have to completely define a class before it is used.  If you
 only use a pointer to class {\tt Stack} and do not access any
-member functions or data from the class, you can write, in lieu of 
+member functions or data from the class, you can write, in lieu of
 including {\tt stack.h}:
 \begin{verbatim}
 class Stack;
@@ -1417,16 +1417,16 @@ and you will have to move stuff around or alter your definitions.
 is behaving properly.  An assertion is a condition that if
 FALSE signifies that there is a bug in the program;
 {\tt ASSERT} tests an expression and aborts if the condition is
-false.  We used {\tt ASSERT} above in {\tt Stack::Push()} to check 
+false.  We used {\tt ASSERT} above in {\tt Stack::Push()} to check
 that the stack wasn't full. The idea is to catch errors as early
-as possible, when they are easier to locate, instead of waiting until 
-there is a user-visible symptom of the error (such as a segmentation 
+as possible, when they are easier to locate, instead of waiting until
+there is a user-visible symptom of the error (such as a segmentation
 fault, after memory has been trashed by a rogue pointer).
 
-Assertions are particularly useful at the beginnings and ends of 
-procedures, to check that the procedure was called with the right 
+Assertions are particularly useful at the beginnings and ends of
+procedures, to check that the procedure was called with the right
 arguments, and that the procedure did what it is supposed to.
-For example, at the beginning of List::Insert, you could assert that 
+For example, at the beginning of List::Insert, you could assert that
 the item being inserted isn't already on the list, and at the end of
 the procedure, you could assert that the item is now on the list.
 
@@ -1436,18 +1436,18 @@ version.  But many people run with ASSERTs enabled even in production.
 
 \item Write a module test for every module in your program.
 Many programmers have the notion that testing code means running
-the entire program on some sample input; if it doesn't crash, that 
+the entire program on some sample input; if it doesn't crash, that
 means it's working, right?  Wrong.  You have no way of knowing
 how much code was exercised for the test.  Let me urge you to
 be methodical about testing.  Before you put a new module
-into a bigger system, make sure the module works as advertised 
-by testing it standalone.  If you do this for every module, 
+into a bigger system, make sure the module works as advertised
+by testing it standalone.  If you do this for every module,
 then when you put the modules together, instead of {\em hoping}
 that everything will work, you will {\em know} it will work.
 
 Perhaps more importantly, module tests provide an opportunity
-to find as many bugs as possible in a localized context.  
-Which is easier: finding a bug in a 100 line program, or in a 
+to find as many bugs as possible in a localized context.
+Which is easier: finding a bug in a 100 line program, or in a
 10000 line program?
 
 \end{enumerate}
@@ -1465,7 +1465,7 @@ names like \verb+Run__9SchedulerP6Thread+.
 On the other hand, in GDB (but not DBX) when you do a stack backtrace
 when in a forked thread (in homework 1), after printing out the
 correct frames at the top of the stack, the debugger will sometimes
-go into a loop printing the lower-most frame ({\tt ThreadRoot}), and 
+go into a loop printing the lower-most frame ({\tt ThreadRoot}), and
 you have to type control-C when it says ``more?''.  If you understand
 assembly language and can fix this, please let me know.
 
@@ -1476,14 +1476,14 @@ read through it and play around with it to make sure you understand
 the features of C++ described in this paper.
 
 To compile the simple stack test, type {\tt make all} --
-this will compile the simple stack test ({\tt stack.cc}), 
+this will compile the simple stack test ({\tt stack.cc}),
 the inherited stack test ({\tt inheritstack.cc}), and
 the template version of stacks ({\tt templatestack.cc}).
 
 \section{Epilogue}
 
-I've argued in this note that you should avoid using certain C++ 
-and C features.  But you're probably thinking I must be leaving 
+I've argued in this note that you should avoid using certain C++
+and C features.  But you're probably thinking I must be leaving
 something out -- if someone put the
 feature in the language, there must be a good reason, right?  I believe that
 every programmer should strive to write code whose behavior would be
@@ -1515,22 +1515,22 @@ This book is only for experts, but it has some good ideas in it,
 so keep it in mind once you've been programming in C++ for a few years.
 
 \item[] James Gosling.  ``The Java Language.''  Online at
-``http://java.sun.com/''  Java is a safe subset of C++.  It's main 
-application is the safe extension of Web browsers by allowing 
-you to download Java code as part of clicking on a link to 
-interpret and display the document.  Safety is key here, since 
-after all, you don't want to click on a Web link and have 
-it download code that will crash your browser.  Java was defined 
-independently of this document, but interestingly, it enforces a 
+``http://java.sun.com/''  Java is a safe subset of C++.  It's main
+application is the safe extension of Web browsers by allowing
+you to download Java code as part of clicking on a link to
+interpret and display the document.  Safety is key here, since
+after all, you don't want to click on a Web link and have
+it download code that will crash your browser.  Java was defined
+independently of this document, but interestingly, it enforces a
 very similar style (for example, no multiple inheritance and
 no operator overloading).
 
 \item[] C.A.R. Hoare, ``The Emperor's Old Clothes.''
 {\em Communications of the ACM}, Vol. 24, No. 2, February 1981,
-pp. 75-83.  Tony Hoare's Turing Award lecture.  How do you build 
+pp. 75-83.  Tony Hoare's Turing Award lecture.  How do you build
 software that really works?  Attitude is everything -- you need
-a healthy respect for how hard it is to build working software. 
-It might seem that addding this whiz-bang feature is only 
+a healthy respect for how hard it is to build working software.
+It might seem that addding this whiz-bang feature is only
 ``a small matter of code'', but that's the path to late, buggy
 products that don't work.
 
@@ -1541,20 +1541,20 @@ describe all of C's newest features.  But still the best place for
 a beginner to start, even when learning C++.
 
 \item[] Steve Maguire, ``Writing Solid Code'', Microsoft Press.
-How to write bug-free software; I think this should be required 
-reading for all software engineers.  This really {\em will} change 
-your life -- if you don't follow the recommendations in this book, 
+How to write bug-free software; I think this should be required
+reading for all software engineers.  This really {\em will} change
+your life -- if you don't follow the recommendations in this book,
 you'll probably never write code that completely works, and you'll
-spend your entire life struggling with hard to find bugs.  
-There is a better way!  Contrary to the programming language types, 
+spend your entire life struggling with hard to find bugs.
+There is a better way!  Contrary to the programming language types,
 this doesn't involve proving the correctness of your programs, whatever
-that means.  Instead, Maguire has a set of practical engineering 
+that means.  Instead, Maguire has a set of practical engineering
 solutions to writing solid code.
 
 \item[] Steve Maguire, ``Debugging the Development Process'', Microsoft Press.
 Maguire's follow up book on how to lead an effective team, and
-by the way, how to be an effective engineer.  Maguire's background is 
-that he is a turnaround artist for Microsoft -- he gets assigned to 
+by the way, how to be an effective engineer.  Maguire's background is
+that he is a turnaround artist for Microsoft -- he gets assigned to
 floundering teams, and figures out how to make them effective.
 After you've pulled a few all-nighters to get that last bug out
 of your course project, you're probably wondering why in heck you're
@@ -1562,7 +1562,7 @@ studying computer science anyway.  This book will explain how
 to write programs that work, {\em and} still have a life!
 
 \item[] Scott Meyers, ``Effective C++''.  This book describes how
-50 easy ways to make mistakes C++; if you avoid these, you will 
+50 easy ways to make mistakes C++; if you avoid these, you will
 be a lot more likely to write C++ code that works.
 
 \item[] Bjarne Stroustrup, ``The C++ Programming Language'', Addison-Wesley.

@@ -6,7 +6,7 @@
 #
 #    Nachos assumes that the location of the program startup routine (the
 # 	location the kernel jumps to when the program initially starts up)
-#       is at location 0.  This means: start.o must be the first .o passed 
+#       is at location 0.  This means: start.o must be the first .o passed
 # 	to ld, in order for the routine "Start" to be loaded at location 0
 #
 
@@ -80,10 +80,10 @@ filetest: filetest.o start.o
 # Las reglas anteriores para construir los ejecutables
 # halt, shell, sort y filetest se podrían suprimir
 
-%: %.c 
-	make start.o 
+%: %.c
+	make start.o
 	$(CC) $(CFLAGS) -c $<
 	$(LD) $(LDFLAGS) start.o $*.o -o $*.coff
 	../bin/coff2noff $*.coff $@
-	
+
 

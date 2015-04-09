@@ -20,12 +20,12 @@ Generic:
 
 Sample assignments:
 
-	thread.tex 	concurrency and threads 
+	thread.tex 	concurrency and threads
 
-	userprog.tex 	multiprogramming and system calls 
+	userprog.tex 	multiprogramming and system calls
 
-	vm.tex 		virtual memory and TLB handling 
+	vm.tex 		virtual memory and TLB handling
 
-	filesys.tex	file system 
+	filesys.tex	file system
 
-	network.tex	network protocol and distributed system 
+	network.tex	network protocol and distributed system

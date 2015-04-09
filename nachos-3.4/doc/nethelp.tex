@@ -15,11 +15,11 @@
 
 % Real hardware typically provides a mechanism for moving a message from one
 % machine to another, but no more.  On top of this simple carrier we want
-% to provide the illusion that there is a network per process, and that 
+% to provide the illusion that there is a network per process, and that
 % packets written on that network are delivered directly to the process at
 % the other end, that they are not lost and that they are not corrupted.
 
-The network is like a sequence of wires which transport packets among 
+The network is like a sequence of wires which transport packets among
 a small group of machines.  Some machines sit on more than one of these
 wires, these machines are called gateways.  To send a message to a machine,
 you need to decide how to get to that machine.  It would be difficult for
@@ -34,7 +34,7 @@ Instead what is done is each machine only needs to know how to make the first
 step towards the destination.  Usually this means that each machine knows
 how to get to the gateway which will put the packet on the right track towards
 the destination.  The gateway knows how to get to the next gateway, and
-so on until the packet reaches the final gateway, and this machine 
+so on until the packet reaches the final gateway, and this machine
 sends it directly to the destination.
 
 In Nachos, we will have a much simpler system.  There will only be a
@@ -58,11 +58,11 @@ doesn't know how to deliver that.  Even if there were only one Joe in all of
 New Jersey, he might move around some (drive to work, go to a movie, play
 in some toxic waste) so the post office can't deliver the message directly
 to him.  Rather what you do is specify some well known drop point, say
-a post office box.  To send the letter to Joe you say 
-{\it Post Office Box 10202, Joisey City, NJ}, 
+a post office box.  To send the letter to Joe you say
+{\it Post Office Box 10202, Joisey City, NJ},
 and the post office moves the message to that box.  Some time
 later, when convenient, Joe comes to the post office building and looks
-in his box for new letters.  
+in his box for new letters.
 
 Keep in mind that the only reason you know that sending a letter to a given
 PO Box (or address) will get to a specific individual is that you know that
@@ -84,7 +84,7 @@ services, which do things like get the mail, report who is on the machine,
 do file transfer and remote login stuff, and so forth.  Each of these is
 a process which accepts messages from other machines and does some kind of
 work.  The problem is, how do you know where to send the message to get
-in touch with the service you are interested in.  In Unix, there is a 
+in touch with the service you are interested in.  In Unix, there is a
 text file called {\tt /etc/services} which is a list of the programs and
 the location at which they can be reached.  This is how they publish their
 mail box number (kind of like a phone book).
@@ -115,7 +115,7 @@ having all communication come to one address where they will have to sort
 it according to whether it is for the old or the new business.
 
 In this situation we have three boxes in use.  One is the box the client is
-using to get messages from the rlogin server.  One is the published 
+using to get messages from the rlogin server.  One is the published
 communications end point that the rlogin server listens to for new
 connections.  The third is a private box used on a per communications
 bases by the client and the server on the server machine, which is the
@@ -130,7 +130,7 @@ which is just a bunch of information.  By convention, the destination and
 the return address appear on the outside of the letter, so the post office
 workers can find it easily.  The only service they provide is moving the
 letter to its destination (if it has a stamp).  There is also a limitation
-on the weight of a letter, so you couldn't send the OED 
+on the weight of a letter, so you couldn't send the OED
 \footnote{Oxford English Dictionary} to your friend in
 Boston with one 29 cent stamp.
 
@@ -174,7 +174,7 @@ the source machine id number and a serial number, unique to the source machine.
 When machine {\it danube} sends a packet to another machine, it generates
 a serial number (by incrementing the number of the last packet it sent),
 places this number in a field in the packet header, and sends it.  It waits
-to hear from the destination that this packet has been received before 
+to hear from the destination that this packet has been received before
 deleting the memory buffer used to hold the message.  If it doesn't hear
 before the timeout it retransmits.  After some number of retransmits it
 decides that for some reason it is not possible at this time to communicate
@@ -190,13 +190,13 @@ has been changed, it will not notice if two bits were changed.
 
 The check sum is a kind of a strengthening of the parity check idea.
 For each
-packet the source machine runs a procedure which computes a fairly large 
+packet the source machine runs a procedure which computes a fairly large
 number
-(say 32 bits) according to the bits in the packet.  One possibility is to 
+(say 32 bits) according to the bits in the packet.  One possibility is to
 break the packet into 4 byte words, treat these words as numbers, and add
 the numbers together ignoring overflow.  This checksum is added to the packet.
 The receiving end computes the same function on the packet (minus the checksum
-field of course) and compares the two numbers.  If they are different it 
+field of course) and compares the two numbers.  If they are different it
 reports a corrupted packet transmission to the source.
 
 There are more elaborate schemes, called error correcting codes, which
@@ -205,8 +205,8 @@ one changed bit and to
 detect when one or two bits in the byte have been changed.
 Such things are called error correcting codes.
 
-A final service which simple protocols might provide is fragmentation.  
-Sometimes the network hardware won't allow the transmission of packets 
+A final service which simple protocols might provide is fragmentation.
+Sometimes the network hardware won't allow the transmission of packets
 larger than a certain size.  Often it is not the first network, but some
 intermediate network between the source and the destination, which has
 the  limitation on size.  Since the user doesn't know, and doesn't want
@@ -219,7 +219,7 @@ the users intervention.
 
 The protocol, when given a large packet, breaks it up into small enough
 packets and transmits them separately.  This is called fragmentation.
-The fragments 
+The fragments
 themselves may be fragmented again by another network, so the whole
 packet may arrive in many pieces of varying sizes.
 The receiving end is responsible
@@ -261,7 +261,7 @@ programmers to think about the problem.
 One kind of message passing that programmers do all the time is procedure
 call.  Calling a procedure is like passing the arguments in a message to
 the procedure and waiting for the procedure to send back the result,
-a.k.a. the return value, 
+a.k.a. the return value,
 in another message.  This is a popular form of interprocess
 communication which seems to be just the right model for many problems, and
 is something that people can work with comfortably.  In fact, most systems
@@ -272,7 +272,7 @@ know whether the procedure is local or remote.
 
 \subsection{Remote Procedure Call}
 
-Remote procedure call is abstractly like a regular procedure call.  In 
+Remote procedure call is abstractly like a regular procedure call.  In
 implementation, they are very much like system calls.
 
 A system call
@@ -286,7 +286,7 @@ the name of the file.  You send this request to the kernel with the
 This is very similar to a remote procedure call.  In an RPC you need to
 create a package which can be sent to another machine (or even the same
 machine) and contains enough information to run the procedure call.
-This information includes the procedure to run and the arguments.  
+This information includes the procedure to run and the arguments.
 
 There is one important difference.
 The kernel has access to the address space of the calling process in a system
@@ -297,10 +297,10 @@ of the information the procedure needs to run must be in the packet.  If
 a string is to be passed, then the string itself must be present, not just
 a pointer to the string.
 
-Often procedures share information through global variables (for instance 
+Often procedures share information through global variables (for instance
 global data structures) or kernel resources (open files, file location).
 This kind of sharing doesn't work with RPC, since the global space and kernel
-of the caller are separate from those of the callee.	
+of the caller are separate from those of the callee.
 
 Side effects also generally don't carry over between machines.
 A procedure to draw a picture on the screen might not be a good candidate for
@@ -308,8 +308,8 @@ RPC-hood, since the display is a global resource on the machine that the
 procedure runs on.  You don't want to draw the picture on the wrong machine.
 
 Many window systems, such as X11, allow windowing applications to
-run on machines other than the one the display lives on, by sending all 
-drawing requests off to the machine with the display.  This is essentially 
+run on machines other than the one the display lives on, by sending all
+drawing requests off to the machine with the display.  This is essentially
 using an RPC mechanism to give machines access to a machine local resource,
 the screen that the user is looking at, which lives on another machine.
 
@@ -332,7 +332,7 @@ number) and having the receiver send back an acknowledgement packet with
 this serial number, each time it correctly receives a packet.  The serial
 number can also be used to solve the reordering problem, if the packets on
 each machine are given numbers in increasing order according to when they are
-sent.  This also helps with the lost packet problem, since the receiving 
+sent.  This also helps with the lost packet problem, since the receiving
 machine knows that a packet was lost or reordered as soon as an incoming packet
 doesn't have the next serial number.
 
@@ -364,7 +364,7 @@ sometimes called a virtual circuit.  When one side puts data into this
 connection, the data appears in the same order on the other side.  There is
 no structure on the data.  This is like a Unix pipe.
 \footnote{Pipes are exclusively unidirectional. There is a related
-object in Unix called a socketpair.  See ``man 2 pipe'' and 
+object in Unix called a socketpair.  See ``man 2 pipe'' and
 ``man 2 socketpair'' for more information.}
 
 The socket communications facility in Unix uses this model.  When you create
@@ -379,7 +379,7 @@ will need to implement a method for making the initial connection, and for
 sending data once the connection is made.
 
 In Unix,
-when a process is ready to start a stream communication session, it 
+when a process is ready to start a stream communication session, it
 announces this by {\tt accept}ing connections to a mail box
 and {\tt listen}ing for activity.  When a
 process wants to communicate with another process which is accepting
@@ -395,7 +395,7 @@ the function of several of these (for instance bind, listen and accept)
 in your implementation.
 
 The {\tt rlogin} program is a good example of an application in which
-streams are the correct communication model.  On the client side of 
+streams are the correct communication model.  On the client side of
 rlogin the program takes the user key events and sends them off to the
 other end.  The client also takes the data out of the socket whenever
 some appears and puts it on the users screen.  The server end gets data
@@ -406,7 +406,7 @@ end, the kernel provides a bunch of pseudo terminals, {\tt pty}s, which
 act like terminals in that they send data to a program through interrupts
 and allow terminal editing, like back space and kill line.}
 on the server end (this is initially the shell), and takes the output
-of that program and sticks it into the socket.  
+of that program and sticks it into the socket.
 
 \end{document}
 

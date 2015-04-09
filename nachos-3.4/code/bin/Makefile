@@ -2,10 +2,10 @@
 #
 # Makefile for:
 #	coff2noff -- converts a normal MIPS executable into a Nachos executable
-#	disassemble -- disassembles a normal MIPS executable 
+#	disassemble -- disassembles a normal MIPS executable
 #
 # Copyright (c) 1992 The Regents of the University of California.
-# All rights reserved.  See copyright.h for copyright notice and limitation 
+# All rights reserved.  See copyright.h for copyright notice and limitation
 # of liability and disclaimer of warranty provisions.
 
 # If the host is big endian (SPARC, SNAKE, etc):
@@ -19,7 +19,7 @@ CC=gcc
 CFLAGS=-I./ -I../threads $(HOST)
 LD=gcc
 
-all: coff2noff 
+all: coff2noff
 
 # converts a COFF file to Nachos object format
 coff2noff: coff2noff.o

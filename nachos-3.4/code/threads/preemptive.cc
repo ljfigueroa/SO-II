@@ -1,4 +1,4 @@
-// preemptive.cc 
+// preemptive.cc
 //	Extension to make kernel threads be periodically preempted
 //      It only works on Linux x86 environments
 //
@@ -6,7 +6,7 @@
 //
 // Permission to use, copy, modify, and distribute this software and its
 // documentation for any purpose, without fee, and without written agreement is
-// hereby granted, provided that the above copyright notice appear in all 
+// hereby granted, provided that the above copyright notice appear in all
 // copies of this software.
 
 #include "preemptive.h"
@@ -38,13 +38,13 @@ void PreemptiveScheduler::SetUp ( unsigned long timeSliceLength )
       DEBUG ( 'p', "Preemptive scheduler: unable to launch child process\n" );
       ASSERT (false);
       break;
-    
+
     // child process: original Nachos code
     case 0:
       LetMeBeMonitored ();
       // resumes Nachos execution as a child process
       return;
-    
+
     // parent process: monitor code
     default:
       MonitorProcess ( childPid, timeSliceLength );
@@ -56,9 +56,9 @@ void LetMeBeMonitored ()
 {
   // allow the parent process to ptrace me
   ptrace ( PTRACE_TRACEME, 0, NULL, NULL );
-  
+
   DEBUG ( 'p', "Preemptive scheduler: child process will be ptraced\n" );
-  
+
   // Raise a signal to bring back control to the parent
   raise(SIGUSR1);
 }
@@ -68,9 +68,9 @@ void MonitorProcess ( int childPid, unsigned long timeSliceLength )
 {
   // machine instruction counter
   long long instructionCounter = 1;
-  
+
   while (true) {
-    
+
     // Wait for child process
     int wait_val;
     wait (&wait_val);
@@ -81,25 +81,25 @@ void MonitorProcess ( int childPid, unsigned long timeSliceLength )
 
     // Increment instruction counter
     instructionCounter++;
-    
+
     // From time to time, insert machine code to force a context switch
     if ( instructionCounter % timeSliceLength == 0 )
     {
       // Get child value of 'inContextSwitch'
       long incs = ptrace ( PTRACE_PEEKDATA, childPid, (long)&inContextSwitch, NULL );
-      
-      if ( incs == 0 ) { 
+
+      if ( incs == 0 ) {
         DEBUG ( 'p', "Preemptive scheduler: "
                      "forcing a context switch at instruction %lld\n",
                      instructionCounter );
-                     
+
         struct user_regs_struct regs;
-        
+
         // Get child process registers
         ptrace ( PTRACE_GETREGS,  childPid, NULL, &regs );
 
 	// build a call stack frame by inserting EIP/RIP on top of the stack
-#ifdef HOST_i386        
+#ifdef HOST_i386
         regs.esp = regs.esp - 4;
         ptrace ( PTRACE_POKEDATA, childPid, regs.esp, regs.eip );
         // force a jump to ContextSwitch()
@@ -116,7 +116,7 @@ void MonitorProcess ( int childPid, unsigned long timeSliceLength )
         ptrace ( PTRACE_SETREGS, childPid, NULL, &regs );
       }
     }
-    
+
     // Resume child execution
     ptrace( PTRACE_SINGLESTEP, childPid, NULL, NULL );
   }
@@ -133,7 +133,7 @@ void MonitorProcess ( int childPid, unsigned long timeSliceLength )
 static void ContextSwitch (void)
 {
   // prevent register loss: save all registers
-#ifdef HOST_i386        
+#ifdef HOST_i386
   __asm__ ("pushal");
   __asm__ ("subl $8, %esp");
 #elif defined(HOST_x86_64)
@@ -143,9 +143,9 @@ static void ContextSwitch (void)
   __asm__ ("push %r8; push %r9; push %r10; push %r11; push %r12; push %r13; push %r14; push %r15");
   __asm__ ("sub $16, %rsp");
 #endif
-  
+
   inContextSwitch = true;
-  
+
   // make a context switch if interrupts are enabled
   if ( interrupt->getLevel() == IntOn ) {
     inContextSwitch = false;
@@ -154,9 +154,9 @@ static void ContextSwitch (void)
     interrupt->YieldOnReturn();
     inContextSwitch = false;
   }
-  
+
   // restore old register values
-#ifdef HOST_i386        
+#ifdef HOST_i386
   __asm__ ("addl $8, %esp");
   __asm__ ("popal");
 #elif defined(HOST_x86_64)

@@ -1,11 +1,11 @@
-// synchlist.h 
+// synchlist.h
 //	Data structures for synchronized access to a list.
 //
 //	Implemented by surrounding the List abstraction
 //	with synchronization routines.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 #ifndef SYNCHLIST_H
@@ -31,7 +31,7 @@ class SynchList {
 				// and wake up any thread waiting in remove
     Item Remove();		// remove the first item from the front of
 				// the list, waiting if the list is empty
-				
+
     void Apply(void (*func)(Item));
 				// apply function to every item in the list
 
@@ -43,7 +43,7 @@ class SynchList {
 
 //----------------------------------------------------------------------
 // SynchList::SynchList
-//	Allocate and initialize the data structures needed for a 
+//	Allocate and initialize the data structures needed for a
 //	synchronized list, empty to start with.
 //	Elements can now be added to the list.
 //----------------------------------------------------------------------
@@ -52,20 +52,20 @@ template <class Item>
 SynchList<Item>::SynchList()
 {
     list = new List<Item>;
-    lock = new Lock("list lock"); 
+    lock = new Lock("list lock");
     listEmpty = new Condition("list empty cond",lock);
     // original // listEmpty = new Condition("list empty cond");
 }
 
 //----------------------------------------------------------------------
 // SynchList::~SynchList
-//	De-allocate the data structures created for synchronizing a list. 
+//	De-allocate the data structures created for synchronizing a list.
 //----------------------------------------------------------------------
 
 template <class Item>
 SynchList<Item>::~SynchList()
-{ 
-    delete list; 
+{
+    delete list;
     delete lock;
     delete listEmpty;
 }
@@ -82,7 +82,7 @@ template <class Item>
 void
 SynchList<Item>::Append(Item item)
 {
-    lock->Acquire();		// enforce mutual exclusive access to the list 
+    lock->Acquire();		// enforce mutual exclusive access to the list
     list->Append(item);
     listEmpty->Signal();	// wake up a waiter, if any
     // original // listEmpty->Signal(lock);	// wake up a waiter, if any
@@ -94,11 +94,11 @@ SynchList<Item>::Append(Item item)
 //      Remove an "item" from the beginning of the list.  Wait if
 //	the list is empty.
 // Returns:
-//	The removed item. 
+//	The removed item.
 //----------------------------------------------------------------------
 
 template <class Item>
-Item 
+Item
 SynchList<Item>::Remove()
 {
     Item item;
@@ -124,10 +124,10 @@ SynchList<Item>::Remove()
 template <class Item>
 void
 SynchList<Item>::Apply(void (*func)(Item))
-{ 
-    lock->Acquire(); 
+{
+    lock->Acquire();
     list->Apply(func);
-    lock->Release(); 
+    lock->Release();
 }
 
 #endif // SYNCHLIST_H

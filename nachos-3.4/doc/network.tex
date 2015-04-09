@@ -14,7 +14,7 @@ Due date: Tuesday December 7, 5:00 p.m.
 \vspace{.2in}
 
 The final assignment will be a little more open ended than the others,
-calling for more experimentation and creativity on your part.  
+calling for more experimentation and creativity on your part.
 We will provide you with some low level network communications facilities;
 you will build a nicer abstraction on top of those, and then use
 that abstraction in building a distributed application.
@@ -22,7 +22,7 @@ that abstraction in building a distributed application.
 Each separate Nachos (emulated as a UNIX process) is a node in the network;
 a network (emulated via UNIX sockets) provides the communication medium
 between these nodes.  You can test out the basic network functionality
-by running `nachos -m 0 -o 1' and `nachos -m 1 -o 0' simultaneously 
+by running `nachos -m 0 -o 1' and `nachos -m 1 -o 0' simultaneously
 (preferably, on different terminals or in different windows).
 [Note: this test case requires a working implementation of locks
 and condition variables from assignment 1, but nothing else.]
@@ -47,34 +47,34 @@ gets from node to node) are taken care of by the network.
 
 \end{description}
 
-The post office provides a more convenient abstraction than the raw network; 
-you are to continue this layering process -- at each level, the 
+The post office provides a more convenient abstraction than the raw network;
+you are to continue this layering process -- at each level, the
 software removes one physical constraint and replaces it with an abstraction.
 Thus, reliable messages can be built on top of an unreliable service,
 large messages can be built on top of fixed-length messages, etc.
 
-A separate document (appended) goes into more detail on network issues. 
+A separate document (appended) goes into more detail on network issues.
 
 \begin{description}
 
 \item{1.} Implement reliable messages with no size limits.
 Currently the communications facility provides unreliable transmission
 of limited size packets.  You must implement protocols to fix this.
-It is up to you how to implement these protocols; for instance, you may 
+It is up to you how to implement these protocols; for instance, you may
 build your support on top of the post office or underneath, on top of
 the raw network device.
 
-Warning: you are strongly advised to do a very careful paper design 
+Warning: you are strongly advised to do a very careful paper design
 of your protocol before starting to implement it.  It is very
-easy to design protocols (particularly for reliability) that do not 
+easy to design protocols (particularly for reliability) that do not
 work, and it is typically very difficult to find and fix protocol bugs
 after the protocol has been implemented.
 
-The Nachos network emulation can be made to randomly drop packets by 
+The Nachos network emulation can be made to randomly drop packets by
 using the command line argument `-n \#'; the number, between 0 and 1,
 reflects the likelihood that a packet will be successfully delivered.
 To simplify matters, you may assume that packet delivery is ``fail-safe'';
-packets may be dropped, but if a packet is delivered, its contents have 
+packets may be dropped, but if a packet is delivered, its contents have
 not been corrupted.  (In practice, a hardware or software checksum would
 be needed to detect this kind of error).
 
@@ -85,21 +85,21 @@ be needed to detect this kind of error).
 We leave the choice up to you.  Use your imagination!
 Here are some possibilities to consider (since some of these are
 obviously more work than others, we will offer up to 10\% extra credit
-for solutions implementing any of c - f): 
+for solutions implementing any of c - f):
 
 \begin{description}
 
-\item{a.} Support multi-user talk (cf. UNIX talk), between more than 
+\item{a.} Support multi-user talk (cf. UNIX talk), between more than
 two machines.
 
-\item{b.} Build a network gateway protocol.  
+\item{b.} Build a network gateway protocol.
 
-Currently, we assume that 
+Currently, we assume that
 the network hardware allows each Nachos machine to directly send messages to
-every other Nachos machine, but this is unrealistic, even in a local 
-area network.  Implement a protocol that would allow Nachos 
+every other Nachos machine, but this is unrealistic, even in a local
+area network.  Implement a protocol that would allow Nachos
 machines to send messages to each other in a point-to-point network.
-Make your protocol robust, so that it will work even as machines 
+Make your protocol robust, so that it will work even as machines
 are added or removed from the network.
 
 \item{c.} Build a caching network file system.

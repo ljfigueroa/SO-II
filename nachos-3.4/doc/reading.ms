@@ -35,7 +35,7 @@ The Emperor's Old Clothes.
 \fICommunications of the ACM\fR, vol. 24, no. 2 (February 1981),
 pp. 75-83.
 .LP
-Andrew Birrell.  
+Andrew Birrell.
 An Introduction to Programming with Threads.
 Technical Report #35, Digital Equipment Corporation Systems Research Center.
 .LP
@@ -46,11 +46,11 @@ A Case Study of Using Threads in Interactive Programs.
 Dennis M. Ritchie and Ken Thompson.  The UNIX Timesharing System.
 \fICommunications of the ACM\fR, vol. 17, no. 7 (July 1974), pp. 365-375.
 .LP
-H. Levy and P. Lipman.  
-Virtual Memory Management in the VAX/VMS Operating System.  
+H. Levy and P. Lipman.
+Virtual Memory Management in the VAX/VMS Operating System.
 \fIIEEE Computer Magazine\fR, March 1982, pp. 35-41.
 .LP
-M. McKusick, W. Joy, S. Leffler, and R. Fabry.  
+M. McKusick, W. Joy, S. Leffler, and R. Fabry.
 A Fast File System for UNIX.
 \fIACM Transactions on Computer Systems\fR, vol. 2, no. 3 (August 1984),
 pp. 181-197.
@@ -69,7 +69,7 @@ Robert Morris and Ken Thompson,
 Password Security:  A Case History.
 Communications of the ACM, vol. 22, no. 11 (November 1979), pp. 594-597.
 .LP
-Butler Lampson.  
+Butler Lampson.
 Hints for Computer System Design.
 Proceedings of the 10th Symposium on Operating Systems Principles (1983),
 pp. 33-48.

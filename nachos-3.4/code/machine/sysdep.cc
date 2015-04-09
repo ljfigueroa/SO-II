@@ -1,5 +1,5 @@
 // sysdep.cc
-//	Implementation of system-dependent interface.  Nachos uses the 
+//	Implementation of system-dependent interface.  Nachos uses the
 //	routines defined here, rather than directly calling the UNIX library,
 //	to simplify porting between versions of UNIX, and even to
 //	other systems, such as MSDOS.
@@ -8,7 +8,7 @@
 //	for the underlying UNIX system calls.
 //
 //	NOTE: all of these routines refer to operations on the underlying
-//	host machine (e.g., the DECstation, SPARC, etc.), supporting the 
+//	host machine (e.g., the DECstation, SPARC, etc.), supporting the
 //	Nachos simulation code.  Nachos implements similar operations,
 //	(such as opening a file), but those are implemented in terms
 //	of hardware devices, which are simulated by calls to the underlying
@@ -20,7 +20,7 @@
 // 	changed by the C++ compiler.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 #include "copyright.h"
@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 
-// UNIX routines called by procedures in this file 
+// UNIX routines called by procedures in this file
 
 #include <stdlib.h> // rand(), srand(), etc.
 #include <unistd.h> // unlink(), open(), close(), sleep(), etc.
@@ -58,7 +58,7 @@ extern "C" {
 
 //----------------------------------------------------------------------
 // PollFile
-// 	Check open file or open socket to see if there are any 
+// 	Check open file or open socket to see if there are any
 //	characters that can be read immediately.  If so, read them
 //	in, and return TRUE.
 //
@@ -101,7 +101,7 @@ PollFile(int fd)
 
 //----------------------------------------------------------------------
 // OpenForWrite
-// 	Open a file for writing.  Create it if it doesn't exist; truncate it 
+// 	Open a file for writing.  Create it if it doesn't exist; truncate it
 //	if it does already exist.  Return the file descriptor.
 //
 //	"name" -- file name
@@ -112,7 +112,7 @@ OpenForWrite(const char *name)
 {
     int fd = open(name, O_RDWR|O_CREAT|O_TRUNC, 0666);
 
-    ASSERT(fd >= 0); 
+    ASSERT(fd >= 0);
     return fd;
 }
 
@@ -175,7 +175,7 @@ WriteFile(int fd, const char *buffer, int nBytes)
 // 	Change the location within an open file.  Abort on error.
 //----------------------------------------------------------------------
 
-void 
+void
 Lseek(int fd, int offset, int whence)
 {
     int retVal = lseek(fd, offset, whence);
@@ -187,7 +187,7 @@ Lseek(int fd, int offset, int whence)
 // 	Report the current location within an open file.
 //----------------------------------------------------------------------
 
-int 
+int
 Tell(int fd)
 {
 #if defined(HOST_i386) || defined(HOST_LINUX)
@@ -203,11 +203,11 @@ Tell(int fd)
 // 	Close a file.  Abort on error.
 //----------------------------------------------------------------------
 
-void 
+void
 Close(int fd)
 {
     int retVal = close(fd);
-    ASSERT(retVal >= 0); 
+    ASSERT(retVal >= 0);
 }
 
 //----------------------------------------------------------------------
@@ -215,7 +215,7 @@ Close(int fd)
 // 	Delete a file.
 //----------------------------------------------------------------------
 
-bool 
+bool
 Unlink(const char *name)
 {
     return unlink(name);
@@ -223,8 +223,8 @@ Unlink(const char *name)
 
 //----------------------------------------------------------------------
 // OpenSocket
-// 	Open an interprocess communication (IPC) connection.  For now, 
-//	just open a datagram port where other Nachos (simulating 
+// 	Open an interprocess communication (IPC) connection.  For now,
+//	just open a datagram port where other Nachos (simulating
 //	workstations on a network) can send messages to this Nachos.
 //----------------------------------------------------------------------
 
@@ -232,7 +232,7 @@ int
 OpenSocket()
 {
     int sockID;
-    
+
     sockID = socket(AF_UNIX, SOCK_DGRAM, 0);
     ASSERT(sockID >= 0);
 
@@ -241,7 +241,7 @@ OpenSocket()
 
 //----------------------------------------------------------------------
 // CloseSocket
-// 	Close the IPC connection. 
+// 	Close the IPC connection.
 //----------------------------------------------------------------------
 
 void
@@ -255,7 +255,7 @@ CloseSocket(int sockID)
 // 	Initialize a UNIX socket address -- magical!
 //----------------------------------------------------------------------
 
-static void 
+static void
 InitSocketName(struct sockaddr_un *uname, const char *name)
 {
     uname->sun_family = AF_UNIX;
@@ -265,7 +265,7 @@ InitSocketName(struct sockaddr_un *uname, const char *name)
 //----------------------------------------------------------------------
 // AssignNameToSocket
 // 	Give a UNIX file name to the IPC port, so other instances of Nachos
-//	can locate the port. 
+//	can locate the port.
 //----------------------------------------------------------------------
 
 void
@@ -311,17 +311,17 @@ void
 ReadFromSocket(int sockID, char *buffer, int packetSize)
 {
     int retVal;
-//    Comentado para evitar error de compilacion Red Hat 9 (2004)    
+//    Comentado para evitar error de compilacion Red Hat 9 (2004)
 //    extern int errno;
     struct sockaddr_un uName;
     int size = sizeof(uName);
-   
+
     retVal = recvfrom(sockID, buffer, packetSize, 0,
 				   (struct sockaddr *) &uName,(socklen_t*) &size);
 
     if (retVal != packetSize) {
         perror("in recvfrom");
-//        Comentado para evitar error de compilacion Red Hat 9 (2004)	
+//        Comentado para evitar error de compilacion Red Hat 9 (2004)
 //        printf("called: %x, got back %d, %d\n", buffer, retVal, errno);
     }
     ASSERT(retVal == packetSize);
@@ -357,7 +357,7 @@ SendToSocket(int sockID, const char *buffer, int packetSize, const char *toName)
 //	hitting ctl-C.
 //----------------------------------------------------------------------
 
-void 
+void
 CallOnUserAbort(VoidNoArgFunctionPtr func)
 {
     typedef void (*SignalHandler) (int);
@@ -371,7 +371,7 @@ CallOnUserAbort(VoidNoArgFunctionPtr func)
 //	in a different UNIX shell.
 //----------------------------------------------------------------------
 
-void 
+void
 Delay(int seconds)
 {
     (void) sleep((unsigned) seconds);
@@ -382,7 +382,7 @@ Delay(int seconds)
 // 	Quit and drop core.
 //----------------------------------------------------------------------
 
-void 
+void
 Abort()
 {
     abort();
@@ -393,7 +393,7 @@ Abort()
 // 	Quit without dropping core.
 //----------------------------------------------------------------------
 
-void 
+void
 Exit(int exitCode)
 {
     exit(exitCode);
@@ -405,7 +405,7 @@ Exit(int exitCode)
 //	now obsolete "srand" and "rand" because they are more portable!
 //----------------------------------------------------------------------
 
-void 
+void
 RandomInit(unsigned seed)
 {
     srand(seed);
@@ -416,7 +416,7 @@ RandomInit(unsigned seed)
 // 	Return a pseudo-random number.
 //----------------------------------------------------------------------
 
-int 
+int
 Random()
 {
     return rand();
@@ -424,7 +424,7 @@ Random()
 
 //----------------------------------------------------------------------
 // AllocBoundedArray
-// 	Return an array, with the two pages just before 
+// 	Return an array, with the two pages just before
 //	and after the array unmapped, to catch illegal references off
 //	the end of the array.  Particularly useful for catching overflow
 //	beyond fixed-size thread execution stacks.
@@ -434,7 +434,7 @@ Random()
 //	"size" -- amount of useful space needed (in bytes)
 //----------------------------------------------------------------------
 
-char * 
+char *
 AllocBoundedArray(int size)
 {
     int pgSize = getpagesize();
@@ -455,7 +455,7 @@ AllocBoundedArray(int size)
 //	"size" -- amount of useful space in the array (in bytes)
 //----------------------------------------------------------------------
 
-void 
+void
 DeallocBoundedArray(const char *ptr, int size)
 {
     int pgSize = getpagesize();

@@ -15,8 +15,8 @@
 //	programa.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
-// synch.h -- synchronization primitives.  
+// All rights reserved.  See copyright.h for copyright notice and limitation
+// synch.h -- synchronization primitives.
 
 #ifndef SYNCH_H
 #define SYNCH_H
@@ -39,7 +39,7 @@
 
 class Semaphore {
   public:
-    // Constructor: da un valor inicial al sem�foro  
+    // Constructor: da un valor inicial al sem�foro
     Semaphore(const char* debugName, int initialValue);	// set initial value
     ~Semaphore();   					// destructor
     const char* getName() { return name;}			// para depuraci�n
@@ -48,7 +48,7 @@ class Semaphore {
     // ambas deben ser *at�micas*
     void P();
     void V();
-    
+
   private:
     const char* name;        		// para depuraci�n
     int value;         		// valor del sem�foro, siempre es >= 0
@@ -78,12 +78,12 @@ class Lock {
   const char* getName() { return name; }	// para depuraci�n
 
   // Operaciones sobre el cerrojo. Ambas deben ser *at�micas*
-  void Acquire(); 
+  void Acquire();
   void Release();
 
   // devuelve 'true' si el hilo actual es quien posee el cerrojo.
   // �til para comprobaciones en el Release() y en las variables condici�n
-  bool isHeldByCurrentThread();	
+  bool isHeldByCurrentThread();
 
   private:
     const char* name;				// para depuraci�n
@@ -93,7 +93,7 @@ class Lock {
 //  La siguiente clase define una "variable condici�n". Una variable condici�n
 //  no tiene valor alguno. Se utiliza para encolar hilos que esperan (Wait) a
 //  que otro hilo les avise (Signal). Las variables condici�n est�n vinculadas
-//  a un cerrojo (Lock). 
+//  a un cerrojo (Lock).
 //  Estas son las tres operaciones sobre una variable condici�n:
 //
 //     Wait()      -- libera el cerrojo y expulsa al hilo de la CPU.
@@ -127,18 +127,18 @@ class Condition {
  public:
     // Constructor: se le indica cu�l es el cerrojo al que pertenece
     // la variable condici�n
-    Condition(const char* debugName, Lock* conditionLock);	
+    Condition(const char* debugName, Lock* conditionLock);
 
     // libera el objeto
-    ~Condition();	
+    ~Condition();
     const char* getName() { return (name); }
 
     // Las tres operaciones sobre variables condici�n.
     // El hilo que invoque a cualquiera de estas operaciones debe tener
     // adquirido el cerrojo correspondiente; de lo contrario se debe
     // producir un error.
-    void Wait(); 	
-    void Signal();   
+    void Wait();
+    void Signal();
     void Broadcast();
 
   private:
@@ -149,20 +149,20 @@ class Condition {
 /*
 
 C�digo original del Nachos para las variables condici�n - NO USAR
-  
+
 class Condition {
   public:
-    Condition(char* debugName);		// initialize condition to 
+    Condition(char* debugName);		// initialize condition to
 					// "no one waiting"
     ~Condition();			// deallocate the condition
     char* getName() { return (name); }
-    
-    void Wait(Lock *conditionLock); 	// these are the 3 operations on 
-					// condition variables; releasing the 
-					// lock and going to sleep are 
+
+    void Wait(Lock *conditionLock); 	// these are the 3 operations on
+					// condition variables; releasing the
+					// lock and going to sleep are
 					// *atomic* in Wait()
     void Signal(Lock *conditionLock);   // conditionLock must be held by
-    void Broadcast(Lock *conditionLock);// the currentThread for all of 
+    void Broadcast(Lock *conditionLock);// the currentThread for all of
 					// these operations
 
   private:

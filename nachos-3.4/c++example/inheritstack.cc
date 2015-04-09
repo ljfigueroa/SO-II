@@ -1,9 +1,9 @@
 // inheritstack.cc
-//	Routines for two implementions of a LIFO stack of integers, 
+//	Routines for two implementions of a LIFO stack of integers,
 //	one as an array, the other as a list.
-//	
+//
 // Copyright (c) 1992,1993,1995 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 
@@ -71,7 +71,7 @@ ArrayStack::~ArrayStack() {
 void
 ArrayStack::Push(int value) {
     ASSERT(!Full());
-    
+
     stack[top++] = value;
 }
 
@@ -85,7 +85,7 @@ int
 ArrayStack::Pop() {
 
     ASSERT(!Empty());
-    
+
     return (stack[--top]);
 }
 
@@ -155,7 +155,7 @@ int
 ListStack::Pop() {
 
     ASSERT(!Empty());
-    
+
     return stack->Remove();
 }
 
@@ -181,27 +181,27 @@ ListStack::Empty() {
 
 //----------------------------------------------------------------------
 // Stack::SelfTest
-// 	Test our stack implementation by pushing 10 numbers onto the 
+// 	Test our stack implementation by pushing 10 numbers onto the
 //	stack, and then print them as it pops them off.
 //
 //	Note this code is generic between the two versions --
 //	it doesn't matter whether this is an ArrayStack or a ListStack!
 //
-//	"numToPush" is the number of items to put on the stack in the 
+//	"numToPush" is the number of items to put on the stack in the
 //	selftest.
 //----------------------------------------------------------------------
 
 void
 Stack::SelfTest(int numToPush) {
     int count = 17;
-    
+
     // Put a bunch of stuff in the stack...
     for (int i = 0; i < numToPush; i++) {
 	ASSERT(!Full());
 	cout << "pushing " << count << "\n";
 	Push(count++);
     }
-    
+
     // ... and take it out again.
     while (!Empty()) {
 	cout << "popping " << Pop() << "\n";
@@ -216,7 +216,7 @@ Stack::SelfTest(int numToPush) {
 int
 main() {
     Stack *s1 = new ArrayStack(10);   // Constructor with an argument.
-    Stack *s2 = new ListStack(); 
+    Stack *s2 = new ListStack();
 
     cout << "Testing ArrayStack\n";
     s1->SelfTest(10);

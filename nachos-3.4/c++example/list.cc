@@ -1,13 +1,13 @@
-// list.cc 
-//     	Routines to manage a singly-linked list of integers. 
+// list.cc
+//     	Routines to manage a singly-linked list of integers.
 //
 // 	A "ListElement" is allocated for each item to be put on the
 //	list; it is de-allocated when the item is removed. This means
 //      we don't need to keep a "next" pointer in every object we
 //      want to put on a list.
-// 
+//
 // Copyright (c) 1992,1993,1995 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 
@@ -36,7 +36,7 @@ class ListElement {
      ListElement(int value) { item = value; next = NULL;};
      					// constructor for list element
 
-     ListElement *next;		// next element on list, 
+     ListElement *next;		// next element on list,
 				// NULL if this is the last
      int item; 	    	        // value of this element
 };
@@ -49,20 +49,20 @@ class ListElement {
 //	Elements can now be added to the list.
 //----------------------------------------------------------------------
 
-List::List() { 
+List::List() {
 
-    first = last = NULL; 
+    first = last = NULL;
 }
 
 
 //----------------------------------------------------------------------
 // List::~List
-//	Prepare a list for deallocation.  If the list still contains any 
+//	Prepare a list for deallocation.  If the list still contains any
 //	ListElements, de-allocate them.
 //----------------------------------------------------------------------
 
-List::~List() { 
-   
+List::~List() {
+
     while (!Empty())
 	(void) Remove();	 // delete all the list elements
 }
@@ -71,7 +71,7 @@ List::~List() {
 //----------------------------------------------------------------------
 // List::Prepend
 //      Put an integer on the front of the list.
-//      
+//
 //	Allocate a ListElement to keep track of the integer.
 //      If the list is empty, then this will be the only element.
 //	Otherwise, put it at the beginning.
@@ -96,7 +96,7 @@ List::Prepend(int value) {
 // List::Remove
 //      Remove the first integer from the front of the list.
 //	Error if nothing on the list.
-// 
+//
 // Returns:
 //	The removed integer.
 //----------------------------------------------------------------------
@@ -111,7 +111,7 @@ List::Remove() {
     element = first;
     value = first->item;
 
-    if (first == last) {	// list had one item, now has none 
+    if (first == last) {	// list had one item, now has none
         first = NULL;
 	last = NULL;
     } else {
@@ -128,6 +128,6 @@ List::Remove() {
 //----------------------------------------------------------------------
 
 bool
-List::Empty() { 
+List::Empty() {
     return (first == NULL);
 }
