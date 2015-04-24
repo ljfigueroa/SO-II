@@ -1,0 +1,86 @@
+1 - ¿Cuánta memoria tiene la máquina simulada para Nachos?
+
+Mirando en machine/machine.h podemos encontrar lo siguiente:
+
+	const int PageSize = SectorSize;
+	(...)
+	const int NumPhysPages = 32;
+	const int MemorySize = NumPhysPages * PageSize;
+
+Y luego en machine/machine.cc,
+
+	mainMemory = new char[MemorySize];
+
+Por lo que debemos calcular MemorySize para saber cuántos bytes de
+memoria posee la máquina. SectorSize se define en machine/disk.h como:
+
+	const int SectorSize = 128;
+
+Tenemos entonces 32 páginas con 128 bits por página, que equivalen a
+4096 bytes (4KiB).
+
+2 - ¿Cómo cambiaría ese valor?
+
+Podría modificarse tanto SectorSize, PageSize, NumPhysPages o MemorySize
+para cambiar la cantidad de memoria de la máquina. Sin embargo, tanto
+SectorSize como PageSize son utilizadas en otras partes del código, y
+requerirían un análisis más cuidadoso antes de modificarlas. De forma
+similar, configurar MemorySize a un valor fijo mayor podría otorgar
+mayor memoria a la máquina, pero generaría un costo extra de
+mantenimiento en el sistema, y podría haber potenciales problemas en,
+por ejemplo, el acceso a esa memoria si el número de páginas y el tamaño
+no concuerdan. Por lo tanto, la opción más segura para recomendar sería
+modificar NumPhysPages, es decir, el número de páginas de memoria disponibles.
+
+3 - ¿De qué tamaño es un disco?
+
+En machine/disk.h podemos ver
+
+	const int SectorSize = 128;
+	const int SectorsPerTrack = 32;
+	const int NumTracks = 32;
+	const int NumSectors = SectorsPerTrack * NumTracks;
+
+Siguiendo la misma lógica que en (1), tenemos 128 bytes por sector, 32
+sectores por pista y 32 pistas, por lo que los discos tienen 131072
+bytes (128KiB)
+
+4 - ¿Cuántas instrucciones de MIPS simula Nachos?
+
+En machine/mipssim.h se #define una macro OP_* por cada instrucción
+simulada, por lo que contándolas con grep tenemos
+
+	$ grep 'define OP_' machine/mipssim.h -c
+	60
+
+Sin embargo, dos de estas macros (OP_UNIMP y OP_RES) no corresponden a
+instrucciones simuladas:
+
+	OP_UNIMP - means that this instruction is legal, but hasn't
+		   been implemented in the simulator yet.
+	OP_RES -   means that this is a reserved opcode (it isn't
+		   supported by the architecture).
+
+Por lo que podemos afirmar que Nachos simula entonces sólo 58
+instrucciones de MIPS.
+
+5 - ¿Qué operaciones realiza el código que simula la instrucción add?
+
+Podemos reescribir el código que implementa la operación add en el
+siguiente pseudocódígo para facilitar su lectura:
+
+	sum = rs + rt;
+	if ((los bit de signo de rs y rt son iguales) &&
+	    (los bit de signo de rs y sum son distintos)) {
+		RaiseException(OverflowException, 0);
+		return;
+	}
+	rd = sum;
+
+Este código realiza la suma de los valores en los registros rs y rt,
+guardando el resultado en rd. Además, se fija si se produjo un overflow
+al efectuar la suma y de ser así, levanta una excepción de overflow.
+Para detectar esto, revisa los bits de signo de los sumandos y el
+resultado. Por ejemplo, si se suman dos números positivos (y por lo
+tanto rs y rt tienen el mismo signo), el resultado deberá ser también
+positivo, y los signos de rs y sum deberán coincidir.
