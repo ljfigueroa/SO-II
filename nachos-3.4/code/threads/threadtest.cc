@@ -37,6 +37,7 @@ SimpleThread(void* name)
 
     #ifdef SEMAPHORE_TEST
     sem.P();
+    DEBUG('s', "Thread %s did P() on the semaphore\n", name);
     #endif
 
     // If the lines dealing with interrupts are commented,
@@ -54,6 +55,7 @@ SimpleThread(void* name)
 
     #ifdef SEMAPHORE_TEST
     sem.V();
+    DEBUG('s', "Thread %s did V() on the semaphore\n", name);
     #endif
 }
 
