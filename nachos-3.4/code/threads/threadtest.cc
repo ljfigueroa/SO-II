@@ -51,15 +51,20 @@ SimpleThread(void* name)
 //	SimpleThread ourselves.
 //----------------------------------------------------------------------
 
+#define THREAD_NUM 5
+
 void
 ThreadTest()
 {
     DEBUG('t', "Entering SimpleTest");
 
-    char *threadname = new char[128];
-    strcpy(threadname,"Hilo 1");
-    Thread* newThread = new Thread (threadname);
-    newThread->Fork (SimpleThread, (void*)threadname);
+    for (int i = 1; i < THREAD_NUM; ++i)
+    {
+        char *threadname = new char[128];
+        sprintf(threadname, "Hilo %d", i);
+        Thread* newThread = new Thread (threadname);
+        newThread->Fork (SimpleThread, (void*)threadname);
+    }
 
     SimpleThread( (void*)"Hilo 0");
 }
