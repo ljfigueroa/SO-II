@@ -84,3 +84,54 @@ Para detectar esto, revisa los bits de signo de los sumandos y el
 resultado. Por ejemplo, si se suman dos números positivos (y por lo
 tanto rs y rt tienen el mismo signo), el resultado deberá ser también
 positivo, y los signos de rs y sum deberán coincidir.
+
+8 - ¿Qué efecto tienen las distintas banderas de debug?
+
+Nachos utiliza varias banderas de depuración en su código; podemos ver
+su significado en el primer comentario del archivo utility.h. Estas son:
+
+	+ -- enciende todos los mensajes de depuración
+	t -- sistema de hilos
+	s -- semáforos, locks y condiciones
+	i -- emulación de interrupciones
+	m -- emulación de máquina (USER_PROGRAM)
+	d -- emulación de disco (FILESYS)
+	f -- sistema de archivos (FILESYS)
+	a -- espacio de direcciones (USER_PROGRAM)
+	n -- emulación de red (NETWORK)
+
+A su vez, podemos encontrar otras no documentadas, como por ejemplo
+
+	p -- scheduler preemptive
+	x -- mensajes de ticks bug
+
+El usuario puede habilitar los mensajes marcados con ciertas banderas
+pasando las banderas correspondientes a Nachos mediante el parámetro -d.
+Por ejemplo, para ver los mensajes de semáforos, podemos correr Nachos
+de la siguiente manera:
+
+	./nachos -d s
+
+A su vez, el programador puede definir nuevas banderas si así lo desea,
+simplemente utilizando un caracter distinto al escribir sus mensajes con
+DEBUG(...)
+
+10 - ¿Dónde están definidas las constantes USER_PROGRAM, FILESYS_NEEDED,
+     FILESYS_STUB y NETWORK?
+
+Podemos encontrar a las constantes definidas en los distintos Makefiles
+de Nachos. Estas constantes se utilizan para decidir si se necesita
+incluir un cierto módulo o no en el binario de Nachos.
+
+USER_PROGRAM y FILESYS_NEEDED se definen en:
+	filesys/Makefile
+	network/Makefile
+	userprog/Makefile
+	vm/Makefile
+
+FILESYS_STUB se define en:
+	userprog/Makefile
+	vm/Makefile
+
+NETWORK se define en:
+	network/Makefile
