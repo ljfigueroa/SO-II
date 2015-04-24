@@ -13,6 +13,10 @@ HFILES = $(THREAD_H)
 CFILES = $(THREAD_C)
 C_OFILES = $(THREAD_O)
 
+ifneq ($(SEMAPHORE_TEST),)
+  DEFINES += -DSEMAPHORE_TEST
+endif
+
 include ../Makefile.common
 include ../Makefile.dep
 -include Makefile.autodep

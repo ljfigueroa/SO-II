@@ -14,6 +14,11 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "synch.h"
+
+#ifdef SEMAPHORE_TEST
+static Semaphore sem("thread test", 3);
+#endif
 
 //----------------------------------------------------------------------
 // SimpleThread
@@ -30,6 +35,10 @@ SimpleThread(void* name)
     // Reinterpret arg "name" as a string
     char* threadName = (char*)name;
 
+    #ifdef SEMAPHORE_TEST
+    sem.P();
+    #endif
+
     // If the lines dealing with interrupts are commented,
     // the code will behave incorrectly, because
     // printf execution may cause race conditions.
@@ -42,6 +51,10 @@ SimpleThread(void* name)
     //IntStatus oldLevel = interrupt->SetLevel(IntOff);
     printf(">>> Thread %s has finished\n", threadName);
     //interrupt->SetLevel(oldLevel);
+
+    #ifdef SEMAPHORE_TEST
+    sem.V();
+    #endif
 }
 
 //----------------------------------------------------------------------
