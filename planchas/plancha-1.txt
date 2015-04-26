@@ -116,6 +116,11 @@ A su vez, el programador puede definir nuevas banderas si así lo desea,
 simplemente utilizando un caracter distinto al escribir sus mensajes con
 DEBUG(...)
 
+
+9 - DEBUG: imprime un mensaje de debug.
+   ASSERT: produce un dump core si la condición que se le pasa como argumento es falsa. Es útil para testear el código.
+
+
 10 - ¿Dónde están definidas las constantes USER_PROGRAM, FILESYS_NEEDED,
      FILESYS_STUB y NETWORK?
 
@@ -135,3 +140,27 @@ FILESYS_STUB se define en:
 
 NETWORK se define en:
 	network/Makefile
+
+
+11 - La diferencia entre synchlist y list es que la primera es thread safe, por lo que permite acceso y operaciones concurrentes de forma segura sobre la misma (solo un thread a la vez puede acceder a la estructura)
+
+
+12 - En los archivos:
+	threads/main.cc
+
+	bin/coff2noff.c
+	bin/main.c
+	bin/disasm.c
+	bin/coff2flat.c
+	bin/out.c
+
+	test/halt.c
+	test/shell.c
+	test/sort.c
+	test/matmult.c
+	test/filetest.c
+
+     La función main de nachos está definida en el archivo threads/main.cc
+
+
+13 - La flag -rs indica a nachos que de forma aleatoria, pare el thread actual y siga con la ejecución de otro.
