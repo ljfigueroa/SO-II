@@ -85,6 +85,51 @@ resultado. Por ejemplo, si se suman dos números positivos (y por lo
 tanto rs y rt tienen el mismo signo), el resultado deberá ser también
 positivo, y los signos de rs y sum deberán coincidir.
 
+6 - 
+
+El main de NACHOS utiliza métodos y funciones que se encuentran en distintos archivos fuentes,
+con la siguiente representación anidada mostramos donde se encuentra cada una y en que archivos
+encontrar las funciones llamadas en las mismas. Realizamos la búsqueda abarcando dos niveles de 
+profundidad exceptuando las funciones de las librerías estándar.
+
+* Debug:      /thread/utility.cc
+    DebugIsEnabled:    thread/utility.cc
+    va_start:          stdarg.h
+    vprintf:           stdio.h
+    va_end:            stdarg.h
+    fflush:            stdio.h
+* Initialize: /thread/system.cc
+    strcmp:            string.h
+    ASSERT:            thread/utility.h
+    RandomInit:        machine/sysdep.cc
+    atoi:              stdlib.h
+    DebugInit:         /thread/utility.cc
+    Timer:             timer.h
+    setStatus:         machine/interrupt.h
+    Enable:            machine/interrupt.cc
+    CallOnUserAbort:   machine/sysdep.h
+    SetUp:             thread/preemtive.h
+    Cleanup:           thread/system.cc
+* ThreadTest: thread/threadtest.cc
+    DEBUG:             thread/utility.cc
+    sprintf:           string.h
+    SimpleThread:      thread/threadtest.cc
+* strcmp:     string.h
+* printf:     stdio.h
+* Finish:     thread/thread.cc
+    SetLevel:           machine/interrupt.cc
+    ASSERT:            thread/utility.h
+    DEBUG:             thread/utility.h
+    Sleep:             thread/thread.cc
+
+7 - Se emula una cpu en vez de usar la existente porque NACHOS fue
+diseñado para fines educacionales donde el propósito principal es que 
+estudiantes modifiquen y estudien con facilidad un sistema operativo real.
+Emulando una cpu se logra que pueda ser depurado con facilidad, iniciar/reiniciar
+sean mucho mas rápido y que sea portable sobre otras arquitecturas capaces 
+de correr la maquina virtual removiendo detalles sobre el hardware necesario que
+solo agregan complejidad innecesaria. 
+
 8 - ¿Qué efecto tienen las distintas banderas de debug?
 
 Nachos utiliza varias banderas de depuración en su código; podemos ver
