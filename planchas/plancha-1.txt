@@ -85,50 +85,55 @@ resultado. Por ejemplo, si se suman dos números positivos (y por lo
 tanto rs y rt tienen el mismo signo), el resultado deberá ser también
 positivo, y los signos de rs y sum deberán coincidir.
 
-6 - 
+6 - ¿Qué funciones llama el main de Nachos al ejecutarlo en el
+    directorio threads?
 
-El main de NACHOS utiliza métodos y funciones que se encuentran en distintos archivos fuentes,
-con la siguiente representación anidada mostramos donde se encuentra cada una y en que archivos
-encontrar las funciones llamadas en las mismas. Realizamos la búsqueda abarcando dos niveles de 
-profundidad exceptuando las funciones de las librerías estándar.
+El main de NACHOS utiliza métodos y funciones que se encuentran en distintos
+archivos fuentes; con la siguiente representación anidada mostramos dónde
+se encuentra definida cada una. Realizamos la búsqueda abarcando dos niveles
+de profundidad, exceptuando las funciones de las librerías estándar.
 
-* Debug:      /thread/utility.cc
-    DebugIsEnabled:    thread/utility.cc
+* Debug:      threads/utility.cc
+    DebugIsEnabled:    threads/utility.cc
     va_start:          stdarg.h
     vprintf:           stdio.h
     va_end:            stdarg.h
     fflush:            stdio.h
-* Initialize: /thread/system.cc
+* Initialize: threads/system.cc
     strcmp:            string.h
     ASSERT:            thread/utility.h
     RandomInit:        machine/sysdep.cc
     atoi:              stdlib.h
-    DebugInit:         /thread/utility.cc
+    DebugInit:         threads/utility.cc
     Timer:             timer.h
     setStatus:         machine/interrupt.h
     Enable:            machine/interrupt.cc
     CallOnUserAbort:   machine/sysdep.h
-    SetUp:             thread/preemtive.h
-    Cleanup:           thread/system.cc
-* ThreadTest: thread/threadtest.cc
-    DEBUG:             thread/utility.cc
+    SetUp:             threads/preemtive.h
+    Cleanup:           threads/system.cc
+* ThreadTest: threads/threadtest.cc
+    DEBUG:             threads/utility.cc
     sprintf:           string.h
-    SimpleThread:      thread/threadtest.cc
+    SimpleThread:      threads/threadtest.cc
 * strcmp:     string.h
 * printf:     stdio.h
-* Finish:     thread/thread.cc
-    SetLevel:           machine/interrupt.cc
-    ASSERT:            thread/utility.h
-    DEBUG:             thread/utility.h
-    Sleep:             thread/thread.cc
+* Finish:     threads/thread.cc
+    SetLevel:          machine/interrupt.cc
+    ASSERT:            threads/utility.h
+    DEBUG:             threads/utility.h
+    Sleep:             threads/thread.cc
 
-7 - Se emula una cpu en vez de usar la existente porque NACHOS fue
-diseñado para fines educacionales donde el propósito principal es que 
+7 - ¿Por qué se prefiere emular una CPU en vez de utilizar directamente
+    la CPU existente?
+
+Se emula una CPU en vez de usar la existente porque NACHOS fue
+diseñado para fines educacionales, donde el propósito principal es que
 estudiantes modifiquen y estudien con facilidad un sistema operativo real.
-Emulando una cpu se logra que pueda ser depurado con facilidad, iniciar/reiniciar
-sean mucho mas rápido y que sea portable sobre otras arquitecturas capaces 
-de correr la maquina virtual removiendo detalles sobre el hardware necesario que
-solo agregan complejidad innecesaria. 
+Emulando una CPU se logra que pueda ser depurado con facilidad,
+que iniciar/reiniciar sean tareas mucho mas rápidas y que sea portable
+sobre otras arquitecturas capaces de correr la máquina virtual,
+removiendo detalles sobre el hardware físico que solo agregan
+complejidad innecesaria.
 
 8 - ¿Qué efecto tienen las distintas banderas de debug?
 
@@ -162,9 +167,11 @@ simplemente utilizando un caracter distinto al escribir sus mensajes con
 DEBUG(...)
 
 
-9 - DEBUG: imprime un mensaje de debug.
-   ASSERT: produce un dump core si la condición que se le pasa como argumento es falsa. Es útil para testear el código.
+9 - ¿Qué efecto hacen las macros ASSERT y DEBUG definidas en utility.h?
 
+DEBUG: imprime un mensaje de depuración, condicionándolo a una bandera
+ASSERT: produce un dump core si la condición que se le pasa como argumento
+es falsa. Es útil para testear el código.
 
 10 - ¿Dónde están definidas las constantes USER_PROGRAM, FILESYS_NEEDED,
      FILESYS_STUB y NETWORK?
@@ -186,11 +193,16 @@ FILESYS_STUB se define en:
 NETWORK se define en:
 	network/Makefile
 
+11 - ¿Cuál es la diferencia entre synchlist y list?
 
-11 - La diferencia entre synchlist y list es que la primera es thread safe, por lo que permite acceso y operaciones concurrentes de forma segura sobre la misma (solo un thread a la vez puede acceder a la estructura)
+La diferencia entre synchlist y list es que la primera es thread safe,
+por lo que permite acceso y operaciones concurrentes de forma segura sobre
+la misma (sólo un thread a la vez puede acceder a la estructura).
 
+12 - ¿En qué archivos está definida la función main? ¿Y la main del
+     ejecutable userprog/nachos?
 
-12 - En los archivos:
+Podemos encontrar a las funciones main en los archivos:
 	threads/main.cc
 
 	bin/coff2noff.c
@@ -205,7 +217,10 @@ NETWORK se define en:
 	test/matmult.c
 	test/filetest.c
 
-     La función main de nachos está definida en el archivo threads/main.cc
+En particular, la función main de nachos está definida en el archivo
+threads/main.cc
 
+13 - ¿Qué linea de comandos soporta Nachos? ¿Qué efecto tiene -rs?
 
-13 - La flag -rs indica a nachos que de forma aleatoria, pare el thread actual y siga con la ejecución de otro.
+La flag -rs indica a Nachos que de forma aleatoria, pare el thread
+actual y siga con la ejecución de otro.
