@@ -221,7 +221,9 @@ En particular, la función main de nachos está definida en el archivo
 threads/main.cc
 
 13 - ¿Qué linea de comandos soporta Nachos? ¿Qué efecto tiene -rs?
-	 Nachos tiene el siguiente formato para su uso desde línea de comandos:
+
+Nachos tiene el siguiente formato para su uso desde línea de comandos:
+
 	 nachos -d <debugflags> -rs <semilla aleatoria>
 		-s -x <archivo nachos> -c <input> <output>
 		-f -cp <archivo unix> <archivo nachos>
@@ -232,6 +234,7 @@ threads/main.cc
 
 		-d imprime algunos mensajes de debug
 		-z imprime un mensaje de copyright
-		-rs indica a nachos que de forma aleatoria (y repetible), pare el
-            thread actual y siga con la ejecución de otro. Utiliza un PRNG y
-            una semilla, lo que lo hace ideal para debug.
+		-rs indica a Nachos que de forma aleatoria (y repetible),
+		    pare el thread actual y siga con la ejecución de otro.
+		    Utiliza un PRNG y una semilla, lo que lo hace ideal
+		    para debug.
