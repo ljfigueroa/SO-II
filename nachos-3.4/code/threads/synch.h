@@ -88,6 +88,8 @@ class Lock {
   private:
     const char* name;				// para depuraci�n
     // a�adir aqu� otros campos que sean necesarios
+    Semaphore *sem;
+    Thread *locker;
 };
 
 //  La siguiente clase define una "variable condici�n". Una variable condici�n
