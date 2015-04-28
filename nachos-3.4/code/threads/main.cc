@@ -58,6 +58,7 @@
 
 void ThreadTest();
 void LockTest();
+void ConditionTest();
 void Copy(const char *unixFile, const char *nachosFile);
 void Print(const char *file);
 void PerformanceTest(void);
@@ -91,6 +92,7 @@ main(int argc, char **argv)
 #ifdef THREADS
     ThreadTest();
     LockTest();
+    ConditionTest();
 #endif
 
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
