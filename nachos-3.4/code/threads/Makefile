@@ -17,6 +17,10 @@ ifneq ($(SEMAPHORE_TEST),)
   DEFINES += -DSEMAPHORE_TEST
 endif
 
+ifneq ($(LOCK_TEST),)
+  DEFINES += -DLOCK_TEST
+endif
+
 include ../Makefile.common
 include ../Makefile.dep
 -include Makefile.autodep

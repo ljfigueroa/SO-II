@@ -20,6 +20,10 @@
 static Semaphore sem("thread test", 3);
 #endif
 
+#ifdef LOCK_TEST
+static Lock lock("lock test");
+#endif
+
 //----------------------------------------------------------------------
 // SimpleThread
 // 	Loop 10 times, yielding the CPU to another ready thread
@@ -40,6 +44,10 @@ SimpleThread(void* name)
     DEBUG('s', "Thread %s did P() on the semaphore\n", name);
     #endif
 
+    #ifdef LOCK_TEST
+    lock.Acquire();
+    #endif
+
     // If the lines dealing with interrupts are commented,
     // the code will behave incorrectly, because
     // printf execution may cause race conditions.
@@ -52,6 +60,10 @@ SimpleThread(void* name)
     //IntStatus oldLevel = interrupt->SetLevel(IntOff);
     printf(">>> Thread %s has finished\n", threadName);
     //interrupt->SetLevel(oldLevel);
+
+    #ifdef LOCK_TEST
+    lock.Release();
+    #endif
 
     #ifdef SEMAPHORE_TEST
     sem.V();
@@ -83,4 +95,3 @@ ThreadTest()
 
     SimpleThread( (void*)"Hilo 0");
 }
-
