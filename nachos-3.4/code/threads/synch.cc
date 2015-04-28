@@ -132,10 +132,64 @@ bool Lock::isHeldByCurrentThread()
 	return locker == currentThread;
 }
 
-Condition::Condition(const char* debugName, Lock* conditionLock) { }
-Condition::~Condition() { }
-void Condition::Wait() { ASSERT(false); }
-void Condition::Signal() { }
-void Condition::Broadcast() { }
+Condition::Condition(const char* debugName, Lock* conditionLock)
+{
+	name = debugName;
+	lock = conditionLock;
+}
 
+Condition::~Condition()
+{
+}
 
+void Condition::Wait()
+{
+	ASSERT(lock->isHeldByCurrentThread());
+
+	Semaphore *s = new Semaphore(name, 0);
+	sems.Prepend(s);
+	lock->Release();
+
+	DEBUG('s', "Condition %s waiting\n", name);
+	s->P();
+	DEBUG('s', "Condition %s fulfilled\n", name);
+
+	delete s;
+
+	lock->Acquire();
+}
+
+void Condition::Signal()
+{
+	ASSERT(lock->isHeldByCurrentThread());
+
+	lock->Release();
+
+	if (!sems.IsEmpty()) {
+		DEBUG('s', "Condition %s signaling\n", name);
+		Semaphore *s = sems.Remove();
+		s->V();
+	} else {
+		DEBUG('s', "Condition %s has nothing waiting, no signaling done\n", name);
+	}
+
+	lock->Acquire();
+}
+
+void Condition::Broadcast()
+{
+	ASSERT(lock->isHeldByCurrentThread());
+
+	lock->Release();
+
+	if (sems.IsEmpty())
+		DEBUG('s', "Condition %s has nothing waiting, no broadcasting done\n", name);
+
+	while (!sems.IsEmpty()) {
+		DEBUG('s', "Condition %s broadcasting\n", name);
+		Semaphore *s = sems.Remove();
+		s->V();
+	}
+
+	lock->Acquire();
+}

@@ -146,6 +146,8 @@ class Condition {
   private:
     const char* name;
     // aqu� se a�aden otros campos que sean necesarios
+    Lock *lock;
+    List<Semaphore *> sems;
 };
 
 /*
