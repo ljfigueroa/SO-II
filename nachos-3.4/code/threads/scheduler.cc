@@ -29,7 +29,8 @@
 
 Scheduler::Scheduler()
 {
-    readyList = new List<Thread*>;
+    for (int i = 0; i < MAX_PRIO; ++i)
+        readyList[i] = new List<Thread*>;
 }
 
 //----------------------------------------------------------------------
@@ -39,7 +40,8 @@ Scheduler::Scheduler()
 
 Scheduler::~Scheduler()
 {
-    delete readyList;
+    for (int i = 0; i < MAX_PRIO; ++i)
+        delete readyList[i];
 }
 
 //----------------------------------------------------------------------
@@ -56,7 +58,7 @@ Scheduler::ReadyToRun (Thread *thread)
     DEBUG('t', "Putting thread %s on ready list.\n", thread->getName());
 
     thread->setStatus(READY);
-    readyList->Append(thread);
+    readyList[thread->getPriority()]->Append(thread);
 }
 
 //----------------------------------------------------------------------
@@ -70,7 +72,11 @@ Scheduler::ReadyToRun (Thread *thread)
 Thread *
 Scheduler::FindNextToRun ()
 {
-    return readyList->Remove();
+    for (int i = MAX_PRIO - 1; i >= 0; --i)
+        if (!readyList[i]->IsEmpty())
+            return readyList[i]->Remove();
+
+    return NULL;
 }
 
 //----------------------------------------------------------------------
@@ -149,5 +155,8 @@ void
 Scheduler::Print()
 {
     printf("Ready list contents:\n");
-    readyList->Apply(ThreadPrint);
+    for (int i = 0; i < MAX_PRIO; ++i) {
+        printf("* priority %d:\n", i);
+        readyList[i]->Apply(ThreadPrint);
+    }
 }

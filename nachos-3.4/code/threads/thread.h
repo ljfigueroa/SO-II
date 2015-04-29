@@ -98,6 +98,8 @@ class Thread {
     void setStatus(ThreadStatus st) { status = st; }
     const char* getName() { return (name); }
     void Print() { printf("%s, ", name); }
+    int getPriority() { return (priority); }
+    void setPriority(int prio) { priority = prio; }
 
   private:
     // some of the private data for this class is listed above
@@ -107,6 +109,7 @@ class Thread {
 					// (If NULL, don't deallocate stack)
     ThreadStatus status;		// ready, running or blocked
     const char* name;
+    int priority;
 
     void StackAllocate(VoidFunctionPtr func, void* arg);
     					// Allocate a stack for thread.
