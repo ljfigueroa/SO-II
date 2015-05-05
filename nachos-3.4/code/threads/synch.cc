@@ -116,7 +116,6 @@ Lock::~Lock()
 void Lock::Acquire()
 {
 	ASSERT(!isHeldByCurrentThread());
-	IntStatus oldLevel = interrupt->SetLevel(IntOff);
 	if (locker) {
 		int theirs = locker->getPriority();
 		int ours = currentThread->getPriority();
@@ -124,7 +123,6 @@ void Lock::Acquire()
 			locker->boostPriority(ours);
 	}
 	sem->P();
-	interrupt->SetLevel(oldLevel);
 	locker = currentThread;
 }
 
