@@ -24,6 +24,7 @@ class Scheduler {
     Scheduler();			// Initialize list of ready threads
     ~Scheduler();			// De-allocate ready list
 
+    void boostPriority(Thread* thread);
     void ReadyToRun(Thread* thread);	// Thread can be dispatched.
     Thread* FindNextToRun();		// Dequeue first thread on the ready
 					// list, if any, and return thread.

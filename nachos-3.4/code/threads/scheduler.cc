@@ -79,6 +79,23 @@ Scheduler::FindNextToRun ()
     return NULL;
 }
 
+void
+Scheduler::boostPriority (Thread *thread)
+{
+    const char *name = thread->getName();
+    int oldprio = thread->getUserPriority();
+    int newprio = thread->getPriority();
+
+    if (readyList[thread->getUserPriority()]->RemoveItem(thread)) {
+        DEBUG('t', "Boosting thread %s from prio %d to prio %d\n",
+              name, oldprio, newprio);
+        readyList[newprio]->Append(thread);
+    } else {
+        DEBUG('t', "Boosting requested for thread %s from %d to %d, "
+              "but thread not ready!\n", name, oldprio, newprio);
+    }
+}
+
 //----------------------------------------------------------------------
 // Scheduler::Run
 // 	Dispatch the CPU to nextThread.  Save the state of the old thread,

@@ -35,7 +35,8 @@ const unsigned STACK_FENCEPOST = 0xdeadbeef;
 Thread::Thread(const char* threadName)
 {
     name = threadName;
-    priority = 0;
+    user_priority = 0;
+    effective_priority = 0;
     stackTop = NULL;
     stack = NULL;
     status = JUST_CREATED;
@@ -191,6 +192,15 @@ Thread::Yield ()
 	scheduler->Run(nextThread);
     }
     interrupt->SetLevel(oldLevel);
+}
+
+void
+Thread::boostPriority (int prio)
+{
+	ASSERT(this != currentThread);
+
+	effective_priority = prio;
+	scheduler->boostPriority(this);
 }
 
 //----------------------------------------------------------------------

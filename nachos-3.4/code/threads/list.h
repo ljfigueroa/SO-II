@@ -47,6 +47,7 @@ class List {
     void Prepend(Item item); 	// Put item at the beginning of the list
     void Append(Item item); 	// Put item at the end of the list
     Item Remove(); 	 	// Take item off the front of the list
+    bool RemoveItem(Item item);
 
     void Apply(void (*func)(Item));	// Apply "func" to all elements in list
 
@@ -288,5 +289,31 @@ List<Item>::SortedRemove(int *keyPtr)
     return thing;
 }
 
+template <class Item>
+bool
+List<Item>::RemoveItem(Item item)
+{
+    if (IsEmpty())
+        return false;
+
+    if (first->item == item) {
+        ListNode *del = first;
+        first = first->next;
+        delete del;
+        return true;
+    }
+
+    for (ListNode *element = first; element != NULL; element = element->next)
+    {
+        if (element->next && element->next->item == item) {
+            ListNode *del = element->next;
+            element->next = element->next->next;
+            delete del;
+            return true;
+        }
+    }
+
+    return false;
+}
 
 #endif // LIST_H

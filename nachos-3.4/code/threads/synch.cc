@@ -116,15 +116,26 @@ Lock::~Lock()
 void Lock::Acquire()
 {
 	ASSERT(!isHeldByCurrentThread());
+	IntStatus oldLevel = interrupt->SetLevel(IntOff);
+	if (locker) {
+		int theirs = locker->getPriority();
+		int ours = currentThread->getPriority();
+		if (theirs < ours)
+			locker->boostPriority(ours);
+	}
 	sem->P();
+	interrupt->SetLevel(oldLevel);
 	locker = currentThread;
 }
 
 void Lock::Release()
 {
 	ASSERT(isHeldByCurrentThread());
+	IntStatus oldLevel = interrupt->SetLevel(IntOff);
+	locker->restorePriority();
 	locker = NULL;
 	sem->V();
+	interrupt->SetLevel(oldLevel);
 }
 
 bool Lock::isHeldByCurrentThread()
