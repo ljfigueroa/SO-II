@@ -20,6 +20,10 @@
 //    -rs causes Yield to occur at random (but repeatable) spots
 //    -z prints the copyright message
 //
+//  THREADS
+//    -rt <t(thread)/l(ock)/i(nversion)/c(ondition)> runs the
+//        relevant thread test
+//
 //  USER_PROGRAM
 //    -s causes user programs to be executed in single-step mode
 //    -x runs a user program
@@ -90,17 +94,23 @@ main(int argc, char **argv)
     DEBUG('t', "Entering main");
     (void) Initialize(argc, argv);
 
-#ifdef THREADS
-    ThreadTest();
-    LockTest();
-    InversionTest();
-    ConditionTest();
-#endif
-
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
             printf ("%s",copyright);
+#ifdef THREADS
+        if (!strcmp(*argv, "-rt")) {
+            ASSERT(argc > 1);
+            switch (*(argv[1])) {
+                case 't': ThreadTest(); break;
+                case 'l': LockTest(); break;
+                case 'i': InversionTest(); break;
+                case 'c': ConditionTest(); break;
+                default: ASSERT(0);
+            }
+            argCount = 2;
+	}
+#endif
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);
