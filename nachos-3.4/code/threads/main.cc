@@ -64,6 +64,7 @@ void ThreadTest();
 void LockTest();
 void ConditionTest();
 void InversionTest();
+void PortTest();
 void Copy(const char *unixFile, const char *nachosFile);
 void Print(const char *file);
 void PerformanceTest(void);
@@ -106,6 +107,7 @@ main(int argc, char **argv)
                 case 'l': LockTest(); break;
                 case 'i': InversionTest(); break;
                 case 'c': ConditionTest(); break;
+                case 'p': PortTest(); break;
                 default: ASSERT(0);
             }
             argCount = 2;
