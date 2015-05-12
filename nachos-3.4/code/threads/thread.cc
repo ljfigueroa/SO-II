@@ -19,6 +19,7 @@
 #include "switch.h"
 #include "synch.h"
 #include "system.h"
+#include "port.h"
 
 // this is put at the top of the execution stack,
 // for detecting stack overflows
@@ -32,7 +33,7 @@ const unsigned STACK_FENCEPOST = 0xdeadbeef;
 //	"threadName" is an arbitrary string, useful for debugging.
 //----------------------------------------------------------------------
 
-Thread::Thread(const char* threadName)
+Thread::Thread(const char* threadName, int isJoinable)
 {
     name = threadName;
     user_priority = 0;
@@ -40,6 +41,12 @@ Thread::Thread(const char* threadName)
     stackTop = NULL;
     stack = NULL;
     status = JUST_CREATED;
+
+    if (isJoinable)
+        joinPort = new Port(threadName);
+    else
+        joinPort = NULL;
+
 #ifdef USER_PROGRAM
     space = NULL;
 #endif
@@ -106,6 +113,15 @@ Thread::Fork(VoidFunctionPtr func, void* arg)
     interrupt->SetLevel(oldLevel);
 }
 
+void
+Thread::Join()
+{
+    int n;
+
+    ASSERT(joinPort != NULL);
+    joinPort->Receive(&n);
+}
+
 //----------------------------------------------------------------------
 // Thread::CheckOverflow
 // 	Check a thread's stack to see if it has overrun the space
@@ -152,6 +168,9 @@ Thread::Finish ()
     ASSERT(this == currentThread);
 
     DEBUG('t', "Finishing thread \"%s\"\n", getName());
+
+    if (joinPort)
+        joinPort->Send(0);
 
     threadToBeDestroyed = currentThread;
     Sleep();					// invokes SWITCH

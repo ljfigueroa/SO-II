@@ -40,6 +40,10 @@
 #include "copyright.h"
 #include "utility.h"
 
+// We cannot #include "port.h" because that causes a circular dependency
+// So use a simple forward declaration for ports
+class Port;
+
 #ifdef USER_PROGRAM
 #include "machine.h"
 #include "addrspace.h"
@@ -78,7 +82,7 @@ class Thread {
     HostMemoryAddress machineState[MachineStateSize];	// all registers except for stackTop
 
   public:
-    Thread(const char* debugName);	// initialize a Thread
+    Thread(const char* debugName, int joinable = 0);	// initialize a Thread
     ~Thread(); 				// deallocate a Thread
 					// NOTE -- thread being deleted
 					// must not be running when delete
@@ -87,6 +91,7 @@ class Thread {
     // basic thread operations
 
     void Fork(VoidFunctionPtr func, void* arg);	// Make thread run (*func)(arg)
+    void Join();
     void Yield();  				// Relinquish the CPU if any
 						// other thread is runnable
     void Sleep();  				// Put the thread to sleep and
@@ -114,6 +119,7 @@ class Thread {
     const char* name;
     int effective_priority;
     int user_priority;
+    Port *joinPort;
 
     void StackAllocate(VoidFunctionPtr func, void* arg);
     					// Allocate a stack for thread.
