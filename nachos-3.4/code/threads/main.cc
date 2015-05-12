@@ -21,7 +21,7 @@
 //    -z prints the copyright message
 //
 //  THREADS
-//    -rt <t(thread)/l(ock)/i(nversion)/c(ondition)/p(ort)> runs the
+//    -rt <t(thread)/l(ock)/i(nversion)/c(ondition)/p(ort)/j(oin)> runs the
 //        relevant thread test
 //
 //  USER_PROGRAM
@@ -65,6 +65,7 @@ void LockTest();
 void ConditionTest();
 void InversionTest();
 void PortTest();
+void JoinTest();
 void Copy(const char *unixFile, const char *nachosFile);
 void Print(const char *file);
 void PerformanceTest(void);
@@ -108,6 +109,7 @@ main(int argc, char **argv)
                 case 'i': InversionTest(); break;
                 case 'c': ConditionTest(); break;
                 case 'p': PortTest(); break;
+                case 'j': JoinTest(); break;
                 default: ASSERT(0);
             }
             argCount = 2;
