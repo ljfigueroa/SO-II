@@ -1,0 +1,7 @@
+4 - No se puede modificar semaforos para implementar una solución al problema
+de inversión de prioridades, pues la herencia de prioridad como solución
+requiere saber a que thread subirle la prioridad para luego de ejecutarse 
+libere la región critica y vuelva a su prioridad original. En semaforos 
+puede pasar que el thread que realiza el P() no sea el mismo que hace el V(), 
+entonces no es distinguible cual de todos los threads que realizan un V() 
+es el que indica que la región critica está libre.
